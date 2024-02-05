@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect,useParams } from "react-router-dom";
 import { signUp } from "../../store/session";
 import './SignupForm.css';
 
 function SignupFormPage() {
   const dispatch = useDispatch();
+  const { condoId } = useParams();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
+  const [type,setType]=useState("")
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
@@ -18,7 +22,11 @@ function SignupFormPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
-        const data = await dispatch(signUp(username, email, password));
+      const first_name=firstName;
+      const last_name=lastName;
+      const condo_id=condoId;
+
+        const data = await dispatch(signUp(first_name,last_name,type,condo_id, email, password));
         if (data) {
           setErrors(data)
         }
@@ -44,14 +52,35 @@ function SignupFormPage() {
           />
         </label>
         <label>
-          Username
+          First Name
           <input
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
             required
           />
         </label>
+        <label>
+          Last Name
+          <input
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+      Type:
+      <select className="signup-form-input-select"
+          name="type"
+          id="type"
+          onChange={(e) => setType(e.target.value)}>
+        <option value="">--Please choose an option--</option>
+        <option value="tenant">Tenant</option>
+        <option value="property-management">Property management</option>
+
+      </select>
+    </label>
         <label>
           Password
           <input

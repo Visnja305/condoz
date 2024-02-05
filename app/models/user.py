@@ -14,7 +14,6 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(40), nullable=False)
     type=db.Column(db.String(40), nullable=False)
     condo_id=db.Column(db.Integer,nullable=False)
-    secret_key=db.Column(db.String,nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
