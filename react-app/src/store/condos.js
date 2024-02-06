@@ -2,16 +2,16 @@
 const GET_CONDOS = "condos/GET_CONDOS";
 
 
-const getCondos = (user) => ({
+const getCondos = (data) => ({
 	type: GET_CONDOS,
-	payload: user,
+	data
 });
 
 
 
 
-export const authenticate = () => async (dispatch) => {
-	const response = await fetch("/api/auth/", {
+export const getCondosThunk = () => async (dispatch) => {
+	const response = await fetch("/api/condos/", {
 		headers: {
 			"Content-Type": "application/json",
 		},
@@ -22,82 +22,21 @@ export const authenticate = () => async (dispatch) => {
 			return;
 		}
 
-		dispatch(setUser(data));
+		dispatch(getCondos(data));
 	}
 };
 
-export const login = (email, password) => async (dispatch) => {
-	const response = await fetch("/api/auth/login", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			email,
-			password,
-		}),
-	});
 
-	if (response.ok) {
-		const data = await response.json();
-		dispatch(setUser(data));
-		return null;
-	} else if (response.status < 500) {
-		const data = await response.json();
-		if (data.errors) {
-			return data.errors;
-		}
-	} else {
-		return ["An error occurred. Please try again."];
-	}
-};
-
-export const logout = () => async (dispatch) => {
-	const response = await fetch("/api/auth/logout", {
-		headers: {
-			"Content-Type": "application/json",
-		},
-	});
-
-	if (response.ok) {
-		dispatch(removeUser());
-	}
-};
-
-export const signUp = (username, email, password) => async (dispatch) => {
-	const response = await fetch("/api/auth/signup", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			username,
-			email,
-			password,
-		}),
-	});
-
-	if (response.ok) {
-		const data = await response.json();
-		dispatch(setUser(data));
-		return null;
-	} else if (response.status < 500) {
-		const data = await response.json();
-		if (data.errors) {
-			return data.errors;
-		}
-	} else {
-		return ["An error occurred. Please try again."];
-	}
-};
-
-export default function reducer(state = initialState, action) {
+const condos=(state = {}, action)=> {
+    let new_state={}
 	switch (action.type) {
-		case SET_USER:
-			return { user: action.payload };
-		case REMOVE_USER:
-			return { user: null };
+		case GET_CONDOS:
+			action.data.map((condo) => new_state[condo.id] = condo)
+            return new_state
+
 		default:
 			return state;
 	}
 }
+
+export default condos

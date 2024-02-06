@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from .condo import Condo
 
 
 class User(db.Model, UserMixin):
@@ -13,9 +14,11 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(40), nullable=False)
     last_name = db.Column(db.String(40), nullable=False)
     type=db.Column(db.String(40), nullable=False)
-    condo_id=db.Column(db.Integer,nullable=False)
+    condo_id=db.Column(db.Integer,db.ForeignKey("condos.id"))
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+
+    condo = db.relationship('Condo', back_populates='users')
 
     @property
     def password(self):

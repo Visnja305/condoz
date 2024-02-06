@@ -8,8 +8,10 @@ condos_routes = Blueprint('condos', __name__)
 @condos_routes.route('/')
 def get_condos():
 
-    users = Condo.query.all()
-    return {'condos': [condo.to_dict() for condo in condos]}
+    condos = Condo.query.all()
+    all_condos=[condo.to_dict() for condo in condos]
+
+    return jsonify(all_condos)
 
 
 # @user_routes.route('/<int:id>')

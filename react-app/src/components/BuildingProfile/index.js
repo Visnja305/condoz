@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import SignupFormPage from "./components/SignupFormPage";
-import LoginFormPage from "./components/LoginFormPage";
-import { authenticate } from "./store/session";
-import Navigation from "./components/Navigation";
-import HomePage from "./components/HomePage"
+import SignupFormPage from "../SignupFormPage";
+import LoginFormPage from "../LoginFormPage";
+import { authenticate } from "../../store/session";
+import Navigation from "../Navigation";
+
 
 function BuildingProfile(){
     const dispatch = useDispatch();
@@ -16,7 +16,7 @@ function BuildingProfile(){
 
     return (
       <>
-      <HomePage />
+      
         <Navigation isLoaded={isLoaded} />
         {isLoaded && (
           <Switch>

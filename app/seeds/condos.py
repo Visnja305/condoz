@@ -6,9 +6,9 @@ from sqlalchemy.sql import text
 def seed_condos():
     oasis = Condo(
         name='Oasis', main_image='https://asset.mansionglobal.com/editorial/new-launches-help-to-keep-the-miami-luxury-inventory-on-point/assets/GaRuehNMpd/shoreclub-private-collection-2279x1282.webp', amenities='pool,tennis,basketball',address='22 Coconut, Miami')
-    cloud = User(
+    cloud = Condo(
         name='Cloud', main_image='https://henrifrank.com/wp-content/uploads/2023/08/Alana-Bay-Harbor-Condo-Residences-The-high-end-brand-new-construction-condos-in-Miami-expected-for-2024.png', amenities='pool,cocktail-room,gym',address='333 Worth Ave, Miami')
-    one = User(
+    one = Condo(
         name='One', main_image='https://patch.com/img/cdn20/users/22924509/20210922/095652/styles/patch_image/public/image003___22094246955.jpg?width=1200', amenities='conference-room,tennis,gym',address='333 Worth Ave, Miami')
 
     db.session.add(oasis)

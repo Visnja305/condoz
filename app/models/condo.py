@@ -15,6 +15,8 @@ class Condo(db.Model):
     address=db.Column(db.String(40), nullable=False)
     amenities=db.Column(db.String(40), nullable=False)
 
+    users=db.relationship('User', back_populates='condo',cascade="all, delete-orphan")
+
 
 
     def to_dict(self):
