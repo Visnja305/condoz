@@ -3,6 +3,7 @@ import { useDispatch,useSelector } from "react-redux";
 import "./HomePage.css"
 import { getCondosThunk } from "../../store/condos";
 import { Link } from "react-router-dom";
+import logo from "../../logo/transparent.png"
 
 function HomePage(){
     const dispatch = useDispatch();
@@ -21,8 +22,8 @@ function HomePage(){
       };
     return (
       <>
-<h1 onMouseOver={handleMouseOver}
-          >Condos</h1>
+<img src={logo} id="website-logo" onMouseOver={handleMouseOver}
+          />
           {isHovering && (
           condos.map((condo) =>
 

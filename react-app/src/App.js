@@ -9,9 +9,12 @@ function App() {
 
   return (
     <>
-    <HomePage />
+
     <div>
       <Switch>
+      <Route exact path="/">
+<HomePage />
+          </Route>
       <Route path="/condos/:condoId(\d+)">
 <BuildingProfile />
           </Route>
