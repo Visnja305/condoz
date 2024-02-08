@@ -21,21 +21,23 @@ function HomePage(){
         setIsHovering(false);
       };
     return (
-      <>
+      <div className="home-page-container">
 <img src={logo} id="website-logo" onMouseOver={handleMouseOver}
           />
+          <div className="home-page-condos-container">
           {isHovering && (
           condos.map((condo) =>
 
           <div key={condo.id} >
-            <Link to={`/condos/${condo.id}`}> <img id="condo-image" src={condo.main_image}/></Link>
+            <Link to={`/condos/${condo.id}`}> <img id="condo-image" src={condo.main_image} style={{filter: "sepia(70%)"}}/></Link>
 
 
-            <hr></hr>
+            
           </div>
         )
         )}
-      </>
+        </div>
+      </div>
     );
 }
 

@@ -1,7 +1,23 @@
+.home-page-container{
+    padding-top: 10%;
+    display:grid;
+    place-items: center;
+
+}
+.home-page-condos-container{
+    display:flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+width: 100%;
+    justify-content: space-around;
+}
+
 #condo-image{
     width:250px;
     height:200px;
 }
 #website-logo{
-    width:40%;
+    width: 40%;
+
+
 }

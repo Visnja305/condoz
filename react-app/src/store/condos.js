@@ -27,6 +27,7 @@ export const getCondosThunk = () => async (dispatch) => {
 };
 
 
+
 const condos=(state = {}, action)=> {
     let new_state={}
 	switch (action.type) {
