@@ -31,8 +31,8 @@ function BuildingProfile(){
     return (
 <>
      {theCondo && ( <div className="enter-building-profile" >
-      
 
+<p>Let's see if this is working or not, Testing, testing CONDOZ</p>
         <Navigation isLoaded={isLoaded} />
         {isLoaded && (
           <Switch>

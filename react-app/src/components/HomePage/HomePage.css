@@ -12,9 +12,17 @@ width: 100%;
     justify-content: space-around;
 }
 
+
 #condo-image{
     width:250px;
     height:200px;
+    transition: transform .9s;
+}
+#condo-image:hover{
+    transform:scale(1.7);
+}
+#condo-image:active{
+    
 }
 #website-logo{
     width: 40%;

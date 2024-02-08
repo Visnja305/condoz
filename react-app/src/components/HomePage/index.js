@@ -20,6 +20,8 @@ function HomePage(){
       const handleMouseOut = () => {
         setIsHovering(false);
       };
+
+
     return (
       <div className="home-page-container">
 <img src={logo} id="website-logo" onMouseOver={handleMouseOver}
@@ -28,11 +30,11 @@ function HomePage(){
           {isHovering && (
           condos.map((condo) =>
 
-          <div key={condo.id} >
+          <div key={condo.id} className="imgLink">
             <Link to={`/condos/${condo.id}`}> <img id="condo-image" src={condo.main_image} style={{filter: "sepia(70%)"}}/></Link>
 
 
-            
+
           </div>
         )
         )}
