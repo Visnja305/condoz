@@ -12,6 +12,7 @@ body{
 .imgLink{
     animation: transitionIn 0.75s;
 }
+
 @keyframes transitionIn{
     from{
         opacity:0;
@@ -21,4 +22,5 @@ body{
         opacity:1;
         transform:translateY(0)
     }
+
 }

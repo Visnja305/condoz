@@ -24,15 +24,16 @@ function BuildingProfile(){
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-      dispatch(getCondosThunk())
-      dispatch(authenticate()).then(() => setIsLoaded(true));
+      dispatch(getCondosThunk()).then(dispatch(authenticate())).then(() => setIsLoaded(true));
     }, [dispatch]);
+
+
 
     return (
 <>
      {theCondo && ( <div className="enter-building-profile" >
 
-<p>Let's see if this is working or not, Testing, testing CONDOZ</p>
+
         <Navigation isLoaded={isLoaded} />
         {isLoaded && (
           <Switch>
