@@ -1,10 +1,10 @@
 /* TODO Add site wide styles */
 body{
     background-color: black;
-    color:black;
+    color:#dcc08c;
 
     font-family: "Della Respira", serif;
-    font-weight: lighter;
+    
     font-style: normal;
     animation: transitionIn 0.75s;
 

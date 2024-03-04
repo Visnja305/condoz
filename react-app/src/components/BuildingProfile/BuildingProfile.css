@@ -1,4 +1,82 @@
+.building-profile-base{
+    position:relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
+.building-profile-base::before{
+    position:absolute;
+    content: "";
+    top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+   background-image: url(/Users/milanvracaric/Desktop/capstone-project/condoz/react-app/src/logo/icon-transparent.png);
+   background-size: contain;
+
+   background-repeat: no-repeat;
+   background-position: center center;
+   opacity: 0.09;
+
+
+height: 100vh;
+
+}
 .enter-building-profile{
-   
+    display:flex;
+    flex-direction:column;
+    z-index: 1000 !important;
+
+}
+
+.enter-building-profile-form{
+    display: flex;
+    flex-direction: column;
+}
+.login-form-container{
+    display:flex;
+    flex-direction: column;
+    position:relative;
+    padding: 20px 20px 20px 0px;
+}
+.login-form-container input{
+    width:300px;
+    border:none;
+    border-bottom:3px solid;
+
+    background: transparent;
+    color:#dcc08c;
+    padding:5px 5px 5px 5px;
+
+}
+.login-form-container input:focus{
+    outline:none;
+    box-shadow: 0 1px 6px 0 rgba(227, 188, 188, 0.5);
+    color:#dcc08c80;
+
+}
+.login-form-container label{
+    position:absolute;
+    pointer-events: none;
+    transition:1s ease all;
+}
+input:focus ~ label, input:valid ~ label {
+    top: -5px;
+    font-size:14px;
+
+  }
+#login-button{
+    background-color: red;
+    width:20%;
+}
+#login-button[disabled]{
+    background-color: #cccccc;
+
+}
+#signup-button-login-page{
+    width:20%;
+
 
 }

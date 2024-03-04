@@ -7,6 +7,7 @@ import './SignupForm.css';
 function SignupFormPage() {
   const dispatch = useDispatch();
   const { condoId } = useParams();
+  console.log(condoId)
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -22,6 +23,7 @@ function SignupFormPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
+      console.log(firstName)
       const first_name=firstName;
       const last_name=lastName;
       const condo_id=condoId;
@@ -38,7 +40,7 @@ function SignupFormPage() {
   return (
     <>
       <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="signup-form">
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
@@ -51,6 +53,8 @@ function SignupFormPage() {
             required
           />
         </label>
+
+
         <label>
           First Name
           <input
@@ -60,6 +64,8 @@ function SignupFormPage() {
             required
           />
         </label>
+
+
         <label>
           Last Name
           <input
@@ -69,6 +75,8 @@ function SignupFormPage() {
             required
           />
         </label>
+
+
         <label>
       Type:
       <select className="signup-form-input-select"
@@ -81,6 +89,8 @@ function SignupFormPage() {
 
       </select>
     </label>
+
+
         <label>
           Password
           <input
@@ -90,6 +100,8 @@ function SignupFormPage() {
             required
           />
         </label>
+
+
         <label>
           Confirm Password
           <input
@@ -99,6 +111,7 @@ function SignupFormPage() {
             required
           />
         </label>
+
         <button type="submit">Sign Up</button>
       </form>
     </>
