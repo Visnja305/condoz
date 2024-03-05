@@ -24,7 +24,7 @@ def upgrade():
     op.create_table('condos',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=40), nullable=False),
-    sa.Column('main_image', sa.String(length=40), nullable=False),
+    sa.Column('main_image', sa.String(length=200), nullable=False),
     sa.Column('address', sa.String(length=40), nullable=False),
     sa.Column('amenities', sa.String(length=40), nullable=False),
     sa.PrimaryKeyConstraint('id')
@@ -45,7 +45,7 @@ def upgrade():
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE condos SET SCHEMA {SCHEMA};")
-        
+
 
 
 def downgrade():

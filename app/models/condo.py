@@ -11,7 +11,7 @@ class Condo(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40), nullable=False)
-    main_image = db.Column(db.String(40), nullable=False)
+    main_image = db.Column(db.String(200), nullable=False)
     address=db.Column(db.String(40), nullable=False)
     amenities=db.Column(db.String(40), nullable=False)
 
