@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     type=db.Column(db.String(40), nullable=False)
     condo_id=db.Column(db.Integer,db.ForeignKey(add_prefix_for_prod("condos.id")))
     email = db.Column(db.String(255), nullable=False, unique=True)
+    has_profile=db.Column(db.String(40), nullable=False)
     hashed_password = db.Column(db.String(255), nullable=False)
 
     condo = db.relationship('Condo', back_populates='users')

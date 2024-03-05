@@ -20,6 +20,7 @@ function HomePage(){
 
     }, [dispatch]);
     const condos = Object.values(useSelector((state) => state.condos));
+    
     const handleMouseOver = () => {
         setIsHovering(true);
       };

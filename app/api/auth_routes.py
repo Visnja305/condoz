@@ -54,22 +54,24 @@ def logout():
     return {'message': 'User logged out'}
 
 
-@auth_routes.route('/signup', methods=['POST'])
-def sign_up():
+@auth_routes.route('/<int:condo_id>/signup', methods=['POST'])
+def sign_up(condo_id):
     """
     Creates a new user and logs them in
     """
+    print("**********************************",condo_id)
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         user = User(
-            username=form.data['username'],
+
             email=form.data['email'],
             password=form.data['password'],
             first_name=form.data["first_name"],
             last_name=form.data["last_name"],
             type=form.data["type"],
-            condo_id=form.data["condo_id"]
+            condo_id=condo_id,
+            has_profile="no"
         )
         db.session.add(user)
         db.session.commit()

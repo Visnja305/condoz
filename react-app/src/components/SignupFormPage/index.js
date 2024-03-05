@@ -18,12 +18,13 @@ function SignupFormPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  if (sessionUser) return <Redirect to="/" />;
+  if (sessionUser) { return <Redirect to="/profile" />;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
-      console.log(firstName)
+
       const first_name=firstName;
       const last_name=lastName;
       const condo_id=condoId;

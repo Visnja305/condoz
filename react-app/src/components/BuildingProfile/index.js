@@ -10,6 +10,7 @@ import "./BuildingProfile.css"
 import { login } from "../../store/session";
 import validator from "validator";
 import { useHistory } from "react-router-dom";
+import UserProfilePage from "../UserProfilePage";
 
 
 function BuildingProfile(){
@@ -38,7 +39,8 @@ function BuildingProfile(){
 
       dispatch(getCondosThunk()).then(dispatch(authenticate())).then(() => setIsLoaded(true));
     }, [dispatch]);
-    if (sessionUser) return <Redirect to="/" />;
+    if (sessionUser) {return <Redirect to="/profile" />}
+
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -111,3 +113,5 @@ function BuildingProfile(){
 export default BuildingProfile;
 
 //  <div className="enter-building-profile" style={{backgroundImage:`url(${theCondo.main_image})`}}></div>
+
+// if (sessionUser) {return <Redirect to={`/profile/${sessionUser.id}`} />}
