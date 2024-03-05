@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(40), nullable=False)
     last_name = db.Column(db.String(40), nullable=False)
     type=db.Column(db.String(40), nullable=False)
-    condo_id=db.Column(db.Integer,db.ForeignKey("condos.id"))
+    condo_id=db.Column(db.Integer,db.ForeignKey(add_prefix_for_prod("condos.id")))
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
