@@ -6,7 +6,8 @@ import { getCondosThunk } from "../../store/condos";
 import { Link } from "react-router-dom";
 import logo from "../../logo/transparent.png"
 
-import {AnimatePresence, motion} from "framer-motion/dist/framer-motion"
+// import {AnimatePresence, motion} from "framer-motion/dist/framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 function HomePage(){
     const dispatch = useDispatch();
 

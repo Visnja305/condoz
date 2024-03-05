@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch, useLocation} from "react-router-dom";
 import HomePage from "./components/HomePage"
 import BuildingProfile from "./components/BuildingProfile";
-import AnimatePresence from "framer-motion/dist/framer-motion"
+
 import SignupFormPage from "./components/SignupFormPage";
 
 
