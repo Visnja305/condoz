@@ -24,7 +24,7 @@ def upgrade():
     op.create_table('condos',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=40), nullable=False),
-    sa.Column('main_image', sa.String(length=200), nullable=False),
+    sa.Column('main_image', sa.Text, nullable=False),
     sa.Column('address', sa.String(length=40), nullable=False),
     sa.Column('amenities', sa.String(length=40), nullable=False),
     sa.PrimaryKeyConstraint('id')
