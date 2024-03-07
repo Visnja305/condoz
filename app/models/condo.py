@@ -16,6 +16,7 @@ class Condo(db.Model):
     amenities=db.Column(db.String(40), nullable=False)
 
     users=db.relationship('User', back_populates='condo',cascade="all, delete-orphan")
+    profiles=db.relationship('Profile', back_populates='condo',cascade="all, delete-orphan")
 
 
 

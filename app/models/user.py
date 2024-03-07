@@ -20,6 +20,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     condo = db.relationship('Condo', back_populates='users')
+    profiles=db.relationship('Profile', back_populates='user',cascade="all, delete-orphan")
 
     @property
     def password(self):
