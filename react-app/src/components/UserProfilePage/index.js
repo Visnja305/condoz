@@ -18,7 +18,11 @@ const UserProfilePage =()=>{
                     modalComponent={<CreateUserProfileModal  />}
                   />
 
-    }</div>  }</>)
+    }{sessionUser.has_profile==="yes" && <div>
+<Link></Link>
+
+
+    </div>}</div>  }</>)
 }
 
 export default UserProfilePage;

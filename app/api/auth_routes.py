@@ -86,3 +86,14 @@ def unauthorized():
     Returns unauthorized JSON when flask-login authentication fails
     """
     return {'errors': ['Unauthorized']}, 401
+
+@auth_routes.route('/has-profile-yes', methods=['PUT'])
+def change_has_profile():
+    if current_user:
+        user_id=current_user.id
+        print("*******************************", user_id)
+        user = User.query.get(user_id)
+        user.has_profile="yes"
+        db.session.commit()
+        return user.to_dict()
+    return {"message":"there has been an error with processing your request"}

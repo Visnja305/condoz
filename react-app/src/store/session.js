@@ -1,6 +1,7 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
+const EDIT_USER="session/EDIT_USERS_HAS_PROFILE";
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -10,6 +11,8 @@ const setUser = (user) => ({
 const removeUser = () => ({
 	type: REMOVE_USER,
 });
+
+
 
 const initialState = { user: null };
 
@@ -67,6 +70,7 @@ export const logout = () => async (dispatch) => {
 	}
 };
 
+
 export const signUp = (first_name,last_name,type,condo_id, email, password) => async (dispatch) => {
 	console.log(condo_id)
 
@@ -99,6 +103,28 @@ export const signUp = (first_name,last_name,type,condo_id, email, password) => a
 		return ["An error occurred. Please try again."];
 	}
 };
+
+export const editUsersHasProfileThunk=()=>async(dispatch)=>{
+
+	const res =await fetch(`/api/auth/has-profile-yes`, {
+	  method: "PUT",
+
+
+  })
+  if (res.ok) {
+	const user = await res.json();
+	dispatch(setUser(user));
+	return user
+}
+const errorData = res.json();
+
+return errorData
+
+  }
+
+
+
+
 
 export default function reducer(state = initialState, action) {
 	switch (action.type) {

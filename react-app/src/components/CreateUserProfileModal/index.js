@@ -10,6 +10,7 @@ import workLogo from ".././logos/work-logo-black.png";
 import homeIcon from ".././logos/home-icon.png"
 import activityLogo from ".././logos/activity-logo.png"
 import {createUserProfileThunk} from "../../store/userProfiles"
+import {editUsersHasProfileThunk} from "../../store/session"
 
 
 
@@ -104,7 +105,7 @@ const handleSubmit = (e) => {
 
 
 
-    dispatch(createUserProfileThunk(formData)).then(res=>closeModal()).catch(
+    dispatch(createUserProfileThunk(formData)).then(editUsersHasProfileThunk()).then(res=>closeModal()).catch(
         async (res) => {
 
          console.log(res)
@@ -201,7 +202,7 @@ const handleChangeTennis= () => {
         <input type="date" id="age" name="age" value={dateOfBirth} min="1920-01-01" max="2024-01-01" onChange={(e)=>setDateOfBirth(e.target.value)} required/>
       </label>
       <p>Age : {usersAge}</p>
-      <label>
+      <label >
       <img src={workLogo} id="create-user-profile-logos"/>
         Work
         <input id="work-create-user-profile"
