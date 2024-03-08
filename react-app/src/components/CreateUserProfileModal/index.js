@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
 import "./CreateUserProfileModal.css";
@@ -9,12 +9,14 @@ import ageIcon from ".././logos/age-icon.png";
 import workLogo from ".././logos/work-logo-black.png";
 import homeIcon from ".././logos/home-icon.png"
 import activityLogo from ".././logos/activity-logo.png"
+import {createUserProfileThunk} from "../../store/userProfiles"
 
 
 
 function CreateUserProfileModal() {
 const sessionUser = useSelector((state) => state.session.user);
-
+const { closeModal } = useModal();
+const dispatch = useDispatch();
 const [profileImage, setProfileImage]=useState("");
 const [dateOfBirth,setDateOfBirth]=useState("2024-01-01");
 const [usersAge,setUsersAge]=useState("");
@@ -102,14 +104,18 @@ const handleSubmit = (e) => {
 
 
 
-    dispatch(postCommentThunk(formData, trackId)).then(res => {
-      if (typeof res === "string") {
+    dispatch(createUserProfileThunk(formData)).then(res=>closeModal()).catch(
+        async (res) => {
 
-        errors.content = res
-        setErrors(errors)
-      }
+          const myData = await res.json();
 
-    })
+
+          if (myData && myData.errors) {
+              setErrors(myData.errors);
+return errors
+           };
+
+  })
 
 
 

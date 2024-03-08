@@ -3,14 +3,14 @@ from flask import Blueprint, jsonify,request
 from flask_login import login_required
 from flask_login import current_user
 from app.models.db import db
-from app.models.profile import Profile
+from app.models.profile import UserProfile
 from app.forms.user_profile_form import UserProfileForm
-from app.models import Profile
+
 
 profiles_routes = Blueprint('profiles', __name__)
 
 
-@profiles_routes.route('/<int:user_id>',methods=['POST'])
+@profiles_routes.route('/',methods=['POST'])
 def create_user_profile(user_id):
 
     form=UserProfileForm()
@@ -29,7 +29,7 @@ def create_user_profile(user_id):
           education=form.data.get("education")
           hometown=form.data.get("hometown")
           tennis=form.data.get("tennis")
-          padle=form.data.get("padle")
+          padel=form.data.get("padel")
           pickleball=form.data.get("pickleball")
           golf=form.data.get("golf")
           gym=form.data.get("gym")
@@ -52,28 +52,54 @@ def create_user_profile(user_id):
 
 
 
-          new_profile=Profile(user_id=user_id,condo_id=condo_id,=comment)
+          new_profile=UserProfile(user_id=user_id,condo_id=condo_id,profile_img=profile_img,age=age,work=work,education=education,hometown=hometown,tennis=tennis,padel=padel,pickleball=pickleball,golf=golf,gym=gym,boating=boating,jogging=jogging,dogs=dogs,kids_activities=kids_activities,soccer=soccer,cocktail_hour=cocktail_hour,philanthropy=philanthropy,basketball=basketball,art=art,spa=spa,fine_dining=fine_dining,polo=polo,scuba_diving=scuba_diving,horseback_riding=horseback_riding,yoga=yoga,boxing=boxing)
 
-          db.session.add(new_comment)
+          db.session.add(new_profile)
           db.session.commit()
 
 
 
-          res_comment={
-            "id":new_comment.id,
-            "content":comment,
-            "user_id":current_user.id,
-            "author":current_user.username
+          res_profile={
+            "id":new_profile.id,
+            "user_id":user_id,
+            "condo_id":condo_id,
+            "profile_img":profile_img,
+            "age":age,
+            "work":work,
+            "education":education,
+            "hometown":hometown,
+            "tennis":tennis,
+            "padel":padel,
+            "pickleball":pickleball,
+            "golf":golf,
+            "gym":gym,
+            "boating":boating,
+            "jogging":jogging,
+            "dogs":dogs,
+            "kids_activities":kids_activities,
+            "soccer":soccer,
+            "cocktail_hour":cocktail_hour,
+            "philanthropy":philanthropy,
+            "basketball":basketball,
+            "art":art,
+            "spa":spa,
+            "fine_dining":fine_dining,
+            "polo":polo,
+            "scuba_diving":scuba_diving,
+            "horseback_riding":horseback_riding,
+            "yoga":yoga,
+            "boxing":boxing
+
 
           }
 
 
-          return jsonify(res_comment)
+          return jsonify(res_profile)
 
 
       if form.errors:
           return jsonify(form.errors)
-  return jsonify("Login please")
+    return jsonify("Login please")
 
 
 
