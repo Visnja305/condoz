@@ -76,44 +76,38 @@ const handleSubmit = (e) => {
     formData.append("user_id",sessionUser.id);
     formData.append("condo_id",sessionUser.condo_id);
     formData.append("profile_img", profileImage);
-    formData.append("age", profileImage);
-    formData.append("work", profileImage);
-    formData.append("education", profileImage);
-    formData.append("hometown", profileImage);
-    formData.append("tennis", profileImage);
-    formData.append("padle", profileImage);
-    formData.append("pickleball", profileImage);
-    formData.append("golf", profileImage);
-    formData.append("gym", profileImage);
-    formData.append("boating", profileImage);
-    formData.append("jogging", profileImage);
-    formData.append("dogs", profileImage);
-    formData.append("kids_activities", profileImage);
-    formData.append("soccer", profileImage);
-    formData.append("cocktail_hour", profileImage);
-    formData.append("philanthropy", profileImage);
-    formData.append("basketball", profileImage);
-    formData.append("art", profileImage);
-    formData.append("spa", profileImage);
-    formData.append("fine_dining", profileImage);
-    formData.append("polo", profileImage);
-    formData.append("scuba_diving", profileImage);
-    formData.append("horseback_riding", profileImage);
-    formData.append("yoga", profileImage);
-    formData.append("boxing", profileImage);
+    formData.append("age", usersAge);
+    formData.append("work", work);
+    formData.append("education", education);
+    formData.append("hometown", hometown);
+    formData.append("tennis", checkedTennis);
+    formData.append("padle", checkedPadel);
+    formData.append("pickleball", checkedPickleball);
+    formData.append("golf", checkedGolf);
+    formData.append("gym", checkedGym);
+    formData.append("boating", checkedBoating);
+    formData.append("jogging", checkedJogging);
+    formData.append("dogs", checkedDogs);
+    formData.append("kids_activities", checkedKidsActivities);
+    formData.append("soccer", checkedSoccer);
+    formData.append("cocktail_hour", checkedCocktailHour);
+    formData.append("philanthropy", checkedPhilanthropy);
+    formData.append("basketball", checkedBasketball);
+    formData.append("art", checkedArt);
+    formData.append("spa", checkedSpa);
+    formData.append("fine_dining", checkedFineDining);
+    formData.append("polo", checkedPolo);
+    formData.append("scuba_diving", checkedScubaDiving);
+    formData.append("horseback_riding", checkedHorsebackRiding);
+    formData.append("yoga", checkedYoga);
+    formData.append("boxing", checkedBoxing);
 
 
 
     dispatch(createUserProfileThunk(formData)).then(res=>closeModal()).catch(
         async (res) => {
 
-          const myData = await res.json();
-
-
-          if (myData && myData.errors) {
-              setErrors(myData.errors);
-return errors
-           };
+         console.log(res)
 
   })
 
@@ -196,7 +190,7 @@ const handleChangeTennis= () => {
         <input
           type="file"
           accept="image/*"
-          onChange={(e) => setProfileImage(e.target.files[0])}
+          onChange={(e) => setProfileImage(e.target.value)}
         />
 
       </label>
@@ -325,7 +319,7 @@ const handleChangeTennis= () => {
         Boxing
       <input value = {checkedBoxing} type = "checkbox" onChange = {handleChangeBoxing} />
       </label>
-
+      <button id="submit-for-create-user-profile" type="submit" >Create profile</button>
       </form>
 
 
@@ -339,3 +333,16 @@ const handleChangeTennis= () => {
 export default CreateUserProfileModal;
 
 // const str_op = now.getFullYear() + '-' +(now.getMonth()+1) + '-' + now.getDate();
+
+// dispatch(createUserProfileThunk(formData)).then(res=>closeModal()).catch(
+//     async (res) => {
+
+//       const myData = await res.json();
+
+
+//       if (myData && myData.errors) {
+//           setErrors(myData.errors);
+// return errors
+//        };
+
+// })

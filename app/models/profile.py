@@ -3,7 +3,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
 
-class UserProfile(db.Model):
+class Profile(db.Model):
     __tablename__ = 'profiles'
 
     if environment == "production":

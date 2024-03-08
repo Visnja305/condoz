@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify,request
 from flask_login import login_required
 from flask_login import current_user
 from app.models.db import db
-from app.models.profile import UserProfile
+from app.models.profile import Profile
 from app.forms.user_profile_form import UserProfileForm
 
 
@@ -11,9 +11,10 @@ profiles_routes = Blueprint('profiles', __name__)
 
 
 @profiles_routes.route('/',methods=['POST'])
-def create_user_profile(user_id):
+def create_user_profile():
 
     form=UserProfileForm()
+   
     form['csrf_token'].data = request.cookies['csrf_token']
     if current_user:
 
@@ -52,7 +53,7 @@ def create_user_profile(user_id):
 
 
 
-          new_profile=UserProfile(user_id=user_id,condo_id=condo_id,profile_img=profile_img,age=age,work=work,education=education,hometown=hometown,tennis=tennis,padel=padel,pickleball=pickleball,golf=golf,gym=gym,boating=boating,jogging=jogging,dogs=dogs,kids_activities=kids_activities,soccer=soccer,cocktail_hour=cocktail_hour,philanthropy=philanthropy,basketball=basketball,art=art,spa=spa,fine_dining=fine_dining,polo=polo,scuba_diving=scuba_diving,horseback_riding=horseback_riding,yoga=yoga,boxing=boxing)
+          new_profile=Profile(user_id=user_id,condo_id=condo_id,profile_img=profile_img,age=age,work=work,education=education,hometown=hometown,tennis=tennis,padel=padel,pickleball=pickleball,golf=golf,gym=gym,boating=boating,jogging=jogging,dogs=dogs,kids_activities=kids_activities,soccer=soccer,cocktail_hour=cocktail_hour,philanthropy=philanthropy,basketball=basketball,art=art,spa=spa,fine_dining=fine_dining,polo=polo,scuba_diving=scuba_diving,horseback_riding=horseback_riding,yoga=yoga,boxing=boxing)
 
           db.session.add(new_profile)
           db.session.commit()

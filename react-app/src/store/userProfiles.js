@@ -11,7 +11,7 @@ const createProfile = (data) => ({
 
 
 export const createUserProfileThunk = (formData) => async (dispatch) => {
-	const response = await fetch("/api/profiles", {
+	const response = await fetch("/api/profiles/", {
         method: "POST",
 
         body: formData,
