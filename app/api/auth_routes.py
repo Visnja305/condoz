@@ -59,8 +59,9 @@ def sign_up(condo_id):
     """
     Creates a new user and logs them in
     """
-    print("**********************************",condo_id)
+
     form = SignUpForm()
+
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         user = User(
@@ -71,7 +72,8 @@ def sign_up(condo_id):
             last_name=form.data["last_name"],
             type=form.data["type"],
             condo_id=condo_id,
-            has_profile="no"
+            has_profile="no",
+            profile_id=0
         )
         db.session.add(user)
         db.session.commit()
@@ -87,13 +89,17 @@ def unauthorized():
     """
     return {'errors': ['Unauthorized']}, 401
 
-@auth_routes.route('/has-profile-yes', methods=['PUT'])
-def change_has_profile():
+@auth_routes.route('/has-profile-yes/<int:profile_id>', methods=['PUT'])
+def change_has_profile(profile_id):
+    print("*******************************************",profile_id)
     if current_user:
+        print(current_user.id)
         user_id=current_user.id
-        print("*******************************", user_id)
+
         user = User.query.get(user_id)
         user.has_profile="yes"
+        user.profile_id=profile_id
+
         db.session.commit()
         return user.to_dict()
     return {"message":"there has been an error with processing your request"}

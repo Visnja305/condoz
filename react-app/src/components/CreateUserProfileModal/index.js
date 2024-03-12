@@ -68,7 +68,7 @@ setUsersAge(uAge)
 }, [dateOfBirth]
 )
 
-const handleSubmit = (e) => {
+const handleSubmit =async(e) => {
     e.preventDefault();
 
 
@@ -103,16 +103,17 @@ const handleSubmit = (e) => {
     formData.append("yoga", checkedYoga);
     formData.append("boxing", checkedBoxing);
 
+const arr=[]
 
-
-    dispatch(createUserProfileThunk(formData)).then(editUsersHasProfileThunk()).then(res=>closeModal()).catch(
+    await dispatch(createUserProfileThunk(formData)).then(res=>arr.push(res)).then(res=>closeModal()).catch(
         async (res) => {
 
          console.log(res)
 
   })
-
-
+if (arr.length){
+    await dispatch(editUsersHasProfileThunk(arr[0]))
+}
 
   }
 
@@ -345,5 +346,13 @@ export default CreateUserProfileModal;
 //           setErrors(myData.errors);
 // return errors
 //        };
+
+// })
+
+
+// dispatch(createUserProfileThunk(formData)).then(res=>editUsersHasProfileThunk(res.id)).then(res=>closeModal()).catch(
+//     async (res) => {
+
+//      console.log(res)
 
 // })

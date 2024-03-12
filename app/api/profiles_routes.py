@@ -14,7 +14,7 @@ profiles_routes = Blueprint('profiles', __name__)
 def create_user_profile():
 
     form=UserProfileForm()
-   
+
     form['csrf_token'].data = request.cookies['csrf_token']
     if current_user:
 
@@ -103,7 +103,13 @@ def create_user_profile():
     return jsonify("Login please")
 
 
-
+@profiles_routes.route('/<int:id>')
+def get_user_profile(id):
+    profile=Profile.query.filter_by(user_id=id).first()
+    print("************",profile)
+    if(profile):
+        return profile.to_dict()
+    return jsonify("Profile can't be found")
 
 # @user_routes.route('/<int:id>')
 # @login_required

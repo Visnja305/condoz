@@ -1,7 +1,7 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
-const EDIT_USER="session/EDIT_USERS_HAS_PROFILE";
+
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -72,7 +72,7 @@ export const logout = () => async (dispatch) => {
 
 
 export const signUp = (first_name,last_name,type,condo_id, email, password) => async (dispatch) => {
-	console.log(condo_id)
+
 
 	const response = await fetch(`/api/auth/${condo_id}/signup`, {
 		method: "POST",
@@ -86,7 +86,8 @@ export const signUp = (first_name,last_name,type,condo_id, email, password) => a
 			first_name,
 			last_name,
 			type,
-			condo_id
+			condo_id,
+
 		}),
 	});
 
@@ -104,9 +105,9 @@ export const signUp = (first_name,last_name,type,condo_id, email, password) => a
 	}
 };
 
-export const editUsersHasProfileThunk=()=>async(dispatch)=>{
-
-	const res =await fetch(`/api/auth/has-profile-yes`, {
+export const editUsersHasProfileThunk=(profile)=>async(dispatch)=>{
+const profileId=profile.id;
+	const res =await fetch(`/api/auth/has-profile-yes/${profileId}`, {
 	  method: "PUT",
 
 

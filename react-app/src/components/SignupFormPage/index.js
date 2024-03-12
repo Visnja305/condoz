@@ -7,7 +7,7 @@ import './SignupForm.css';
 function SignupFormPage() {
   const dispatch = useDispatch();
   const { condoId } = useParams();
-  console.log(condoId)
+ 
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -28,6 +28,7 @@ function SignupFormPage() {
       const first_name=firstName;
       const last_name=lastName;
       const condo_id=condoId;
+
 
         const data = await dispatch(signUp(first_name,last_name,type,condo_id, email, password));
         if (data) {

@@ -4,7 +4,7 @@ import HomePage from "./components/HomePage"
 import BuildingProfile from "./components/BuildingProfile";
 import UserProfilePage from "./components/UserProfilePage";
 import SignupFormPage from "./components/SignupFormPage";
-
+import UserProfileDetailPage from "./components/UserProfileDetailPage"
 
 function App() {
 
@@ -20,7 +20,10 @@ function App() {
       <Route exact path="/">
 <HomePage />
           </Route>
+          <Route exact path="/my-profile/:id(\d+)" >
+<UserProfileDetailPage />
 
+          </Route>
       <Route exact path="/condos/:condoId(\d+)">
 <BuildingProfile />
           </Route>
@@ -28,6 +31,7 @@ function App() {
 <UserProfilePage />
 
           </Route>
+
           <Route exact path="/:condoId(\d+)/signup">
             <SignupFormPage />
             </Route>
