@@ -123,7 +123,23 @@ return errorData
 
   }
 
+  export const editUsersHasNoProfileThunk=()=>async(dispatch)=>{
 
+		const res =await fetch(`/api/auth/has-profile-no`, {
+		  method: "PUT",
+
+
+	  })
+	  if (res.ok) {
+		const user = await res.json();
+		dispatch(setUser(user));
+		return user
+	}
+	const errorData = res.json();
+
+	return errorData
+
+	  }
 
 
 

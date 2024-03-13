@@ -103,3 +103,18 @@ def change_has_profile(profile_id):
         db.session.commit()
         return user.to_dict()
     return {"message":"there has been an error with processing your request"}
+
+@auth_routes.route('/has-profile-no', methods=['PUT'])
+def change_has_no_profile():
+
+    if current_user:
+        print(current_user.id)
+        user_id=current_user.id
+
+        user = User.query.get(user_id)
+        user.has_profile="no"
+        user.profile_id=0
+
+        db.session.commit()
+        return user.to_dict()
+    return {"message":"there has been an error with processing your request"}
