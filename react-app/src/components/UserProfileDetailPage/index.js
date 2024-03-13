@@ -42,7 +42,20 @@ const [userProfile,setUserProfile]=useState({});
 
 
 
-    return(<>{sessionUser && sessionUser.has_profile==="yes" && <div><img src={userProfile.profile_img} />
+    return(<>{sessionUser && sessionUser.has_profile==="yes" && <div>
+        <img src={userProfile.profile_img} />
+        <p>{sessionUser.first_name} {sessionUser.last_name}</p>
+        <p>Age: {userProfile.age}</p>
+        <p>Education: {userProfile.education}</p>
+        <p>Work: {userProfile.work}</p>
+        <p>Hometown: {userProfile.hometown}</p>
+        <p>Interests: <ul>{Object.keys(userProfile).map((a)=>{
+return userProfile[a]===true && <li></li>
+
+})}
+        </ul>
+        </p>
+
 
 
     </div>  }{sessionUser && sessionUser.has_profile==="no" && <div><p>I still dont have a profile</p></div>}{!sessionUser && <div><p>I'm not logged in</p></div>}</>)
