@@ -1,12 +1,12 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import DataRequired
-from wtforms import StringField,BooleanField,IntegerField
+from wtforms import StringField,BooleanField,IntegerField,FileField
 
 
 class UserProfileForm(FlaskForm):
     user_id=IntegerField('user_id',validators=[DataRequired()])
     condo_id=IntegerField('condo_id',validators=[DataRequired()])
-    profile_img=StringField('profile_img',validators=[DataRequired()])
+    profile_img=FileField('profile_img',validators=[DataRequired()])
     age = IntegerField('age', validators=[DataRequired()])
     work=StringField('work',validators=[DataRequired()])
     education=StringField('education',validators=[DataRequired()])

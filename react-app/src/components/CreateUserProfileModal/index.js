@@ -111,6 +111,7 @@ const arr=[]
          console.log(res)
 
   })
+  console.log(arr)
 if (arr.length){
     await dispatch(editUsersHasProfileThunk(arr[0]))
 }
@@ -183,6 +184,24 @@ const handleChangeTennis= () => {
   const handleChangeBoxing = () => {
     setCheckedBoxing(!checkedBoxing);
   };
+  function previewFile(e) {
+    let preview = document.getElementById("preview-image-create-profile");
+console.log(e.target.files[0])
+    let file    = e.target.files[0]
+    let reader  = new FileReader();
+
+    reader.onloadend = function () {
+      preview.src = reader.result;
+      const theImage=preview.src
+      setProfileImage(theImage)
+    }
+console.log(file)
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      preview.src = "";
+    }
+  }
 	return (
 		<div>
             <h1>Create your profile!</h1>
@@ -190,12 +209,14 @@ const handleChangeTennis= () => {
     <label>
         Set profile image
         <input
+        id="user-profile-image"
           type="file"
           accept="image/*"
-          onChange={(e) => setProfileImage(e.target.value)}
+          onChange={(e)=>{previewFile(e)}}
         />
 
       </label>
+      <img id="preview-image-create-profile" src="" height="100px" width="100px" alt="Image preview..."></img>
 
       <label>
       <img src={ageIcon} id="create-user-profile-logos"/>
@@ -356,3 +377,6 @@ export default CreateUserProfileModal;
 //      console.log(res)
 
 // })
+
+
+// onChange={(e) => setProfileImage(e.target.files[0])}

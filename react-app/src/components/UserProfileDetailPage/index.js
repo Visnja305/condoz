@@ -29,7 +29,6 @@ const [userProfile,setUserProfile]=useState({});
 
         }, [dispatch]);
 
-console.log(userProfile)
 
 
 
@@ -42,7 +41,8 @@ console.log(userProfile)
 
 
 
-    return(<>{sessionUser && sessionUser.has_profile==="yes" && <div><p>I'm online!!!!!!and i have a profile</p>
+
+    return(<>{sessionUser && sessionUser.has_profile==="yes" && <div><img src={userProfile.profile_img} />
 
 
     </div>  }{sessionUser && sessionUser.has_profile==="no" && <div><p>I still dont have a profile</p></div>}{!sessionUser && <div><p>I'm not logged in</p></div>}</>)
@@ -58,3 +58,14 @@ console.log(userProfile)
 }
 
 export default UserProfileDetailPage;
+
+/* <ul>
+    {
+      Object.keys(userProfile).map((oneKey,i)=>{
+        return (
+            <li key={i}>{oneKey}:{userProfile[oneKey]}</li>
+          )
+      })
+    }
+
+  </ul> */
