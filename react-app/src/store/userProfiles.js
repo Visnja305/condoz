@@ -96,6 +96,7 @@ const userProfiles=(state = {}, action)=> {
 
             return {...state,[action.data.user_id]:action.data}
         case GET_PROFILE:
+            console.log(state,action.data)
             return {...state,[action.data.user_id]:action.data}
         case DELETE_PROFILE:
                 const newState = { ...state };

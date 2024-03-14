@@ -17,11 +17,16 @@ import activityLogo from "../logos/activity-logo.png"
 
 function EditUserProfileModal(props) {
     const { closeModal } = useModal();
-    const history=useHistory()
+    const profileId=props.props.profileId;
+    const userId=props.props.userId;
+    
+
+    const history=useHistory();
     const dispatch=useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
 
-    const profileId=props.props
+
+
 
 
     const [profileImage, setProfileImage]=useState("");

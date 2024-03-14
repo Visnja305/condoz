@@ -11,51 +11,62 @@ import EditUserProfileModal from "../EditUserProfileModal";
 import "./UserProfileDetailPage.css"
 
 const UserProfileDetailPage =()=>{
-const theUserId=useParams()
-const id=theUserId.id;
+const {id}=useParams()
+
  console.log(id)
 const dispatch=useDispatch()
-const [userProfile,setUserProfile]=useState({});
-    const sessionUser = useSelector((state) => state.session.user);
+const sessionUser = useSelector((state) => state.session.user);
+const userProfile=useSelector((state)=>state.userProfiles[id])
+// const [userProfile,setUserProfile]=useState({});
+const [isLoaded,setIsLoaded]=useState(false)
+
 
     useEffect(() => {
 
-       const currentProfile= dispatch(getProfileThunk(id)).then(res=>setUserProfile(res)).catch(
-        async (res) => {
+        const getData=async()=>{
+            await dispatch(getProfileThunk(id));
+            setIsLoaded(true);
 
-         console.log(res)
-
-  })
-
-
-
-
-        }, [dispatch]);
+        }
+        getData();
 
 
 
 
 
 
+    },[isLoaded])
 
 
 
 
 
 
+if(sessionUser===null && !isLoaded ){
+  return  <h1>Loading...</h1>
+}
+else{
 
 
-    return(<>{sessionUser && sessionUser.has_profile==="yes" && <div className="container-user-profile-detail-page">
+    const payload={
+        profileId:userProfile?.id,
+        userId:userProfile?.user_id,
+    }
+
+ return(
+ <>
+
+  <div className="container-user-profile-detail-page">
         <div className="user-profile-detail-information"><img id="profile-image-on-profile-detail-page"src={userProfile.profile_img} />
-        <p>{sessionUser.first_name} {sessionUser.last_name}</p>
-        <p>Age: {userProfile.age}</p>
-        <p>Education: {userProfile.education}</p>
-        <p>Work: {userProfile.work}</p>
-        <p>Hometown: {userProfile.hometown}</p>
-        <p>Interests: <ul>{Object.keys(userProfile).map((a)=>{
-return userProfile[a]===true && <li key={a}>{a}</li>
+        <p>{sessionUser?.first_name} {sessionUser?.last_name}</p>
+        <p>Age: {userProfile?.age}</p>
+        <p>Education: {userProfile?.education}</p>
+        <p>Work: {userProfile?.work}</p>
+        <p>Hometown: {userProfile?.hometown}</p>
+        <p>Interests: <ul>{Object.keys(userProfile).map((a)=>(
+ userProfile[a]===true && <li key={a}>{a}</li>
 
-})}
+))}
         </ul>
         </p>
 
@@ -66,11 +77,13 @@ return userProfile[a]===true && <li key={a}>{a}</li>
                     modalComponent={<DeleteUserProfileModal props={userProfile.id} />}
                   />
 <OpenModalButton buttonText="Edit profile"
-                    modalComponent={<EditUserProfileModal props={userProfile.id} />}
+                    modalComponent={<EditUserProfileModal props={
+                        payload
+                    }/>}
                   />
-    </div>  }{sessionUser && sessionUser.has_profile==="no" && <div><p>I still dont have a profile</p></div>}{!sessionUser && <div><p>I'm not logged in</p></div>}</>)
+    </div>  </>)
 
-
+        }
 
 
 
@@ -82,7 +95,7 @@ return userProfile[a]===true && <li key={a}>{a}</li>
 
 export default UserProfileDetailPage;
 
-/* <ul>
+/* /* <ul>
     {
       Object.keys(userProfile).map((oneKey,i)=>{
         return (
