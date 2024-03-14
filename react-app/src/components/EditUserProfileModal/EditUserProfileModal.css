@@ -1,0 +1,8 @@
+.edit-user-profile-form{
+    display:flex;
+    flex-direction:column;
+}
+#edit-user-profile-logos{
+    width:15px;
+    height:15px;
+}

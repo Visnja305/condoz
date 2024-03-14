@@ -134,7 +134,7 @@ const handleChangeTennis= () => {
     setCheckedGolf(!checkedGolf);
   };
   const handleChangeGym = () => {
-    setCheckedGolf(!checkedGym);
+    setCheckedGym(!checkedGym);
   };
   const handleChangeBoating = () => {
     setCheckedBoating(!checkedBoating);
@@ -155,7 +155,7 @@ const handleChangeTennis= () => {
     setCheckedCocktailHour(!checkedCocktailHour);
   };
   const handleChangePhilanthropy = () => {
-    setCheckedPhilanthropy(!checkedCocktailHour);
+    setCheckedPhilanthropy(!checkedPhilanthropy);
   };
   const handleChangeBasketball = () => {
     setCheckedBasketball(!checkedBasketball);

@@ -127,6 +127,7 @@ def delete_user_profile(id):
 
 @profiles_routes.route('/edit/<int:id>',methods=['PUT'])
 def edit_user_profile(id):
+   
 
     form=UserProfileForm()
 
