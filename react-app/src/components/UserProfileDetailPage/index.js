@@ -57,7 +57,7 @@ else{
  <>
 
   <div className="container-user-profile-detail-page">
-        <div className="user-profile-detail-information"><img id="profile-image-on-profile-detail-page"src={userProfile.profile_img} />
+        <div className="user-profile-detail-information"><img id="profile-image-on-profile-detail-page"src={userProfile?.profile_img} />
         <p>{sessionUser?.first_name} {sessionUser?.last_name}</p>
         <p>Age: {userProfile?.age}</p>
         <p>Education: {userProfile?.education}</p>

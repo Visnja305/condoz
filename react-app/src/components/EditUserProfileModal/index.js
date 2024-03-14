@@ -21,19 +21,21 @@ function EditUserProfileModal(props) {
     const { closeModal } = useModal();
     const profileId=props.props.profileId;
     const userId=props.props.userId;
-console.log(profileId)
-console.log(userId)
+// console.log(profileId)
+// console.log(userId)
 const sessionUser = useSelector((state) => state.session.user);
 const userProfile=useSelector((state)=>state.userProfiles[userId]);
     const history=useHistory();
     const dispatch=useDispatch();
 
-    console.log(sessionUser)
-    console.log(userProfile)
+    // console.log(sessionUser)
+    //  console.log(userProfile.age)
+
+
 
 const [profileImage, setProfileImage]=useState("");
-const [dateOfBirth,setDateOfBirth]=useState("");
-const [usersAge,setUsersAge]=useState(`${userProfile.age}`);
+
+const [usersAge,setUsersAge]=useState(userProfile.age);
 const [work,setWork]=useState(userProfile.work);
 const [education,setEducation]=useState(userProfile.education);
 const [hometown,setHometown]=useState(userProfile.hometown);
@@ -59,28 +61,8 @@ const [checkedHorsebackRiding, setCheckedHorsebackRiding] = useState(userProfile
 const [checkedYoga, setCheckedYoga] = useState(userProfile.yoga);
 const [checkedBoxing, setCheckedBoxing] = useState(userProfile.boxing);
 const [errors, setErrors] = useState({});
-const [isLoaded,setIsLoaded]=useState(false)
-function calculateAge(dateOfBirth)
-{
-  const now = new Date();
+const [isLoaded,setIsLoaded]=useState(false);
 
-  const usrDate=new Date(dateOfBirth)
-
-  const diff = Math.abs(now - usrDate);
-
-  const age = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
-
-  return age
-}
-
-useEffect(()=>{
-
-const uAge=calculateAge(dateOfBirth)
-
-setUsersAge(uAge)
-
-}, [dateOfBirth]
-)
 
 
 
@@ -106,13 +88,17 @@ const handleSubmit =async(e) => {
     const formData = new FormData();
     formData.append("user_id",sessionUser.id);
     formData.append("condo_id",sessionUser.condo_id);
-    formData.append("profile_img", profileImage);
+    if(profileImage===""){
+    formData.append("profile_img", userProfile.profile_img);}
+    if(profileImage!==""){
+        formData.append("profile_img", profileImage);
+    }
     formData.append("age", usersAge);
     formData.append("work", work);
     formData.append("education", education);
     formData.append("hometown", hometown);
     formData.append("tennis", checkedTennis);
-    formData.append("padle", checkedPadel);
+    formData.append("padel", checkedPadel);
     formData.append("pickleball", checkedPickleball);
     formData.append("golf", checkedGolf);
     formData.append("gym", checkedGym);
@@ -239,22 +225,29 @@ console.log(file)
         id="user-profile-image-edit-page"
           type="file"
           accept="image/*"
+
           onChange={(e)=>{previewFile(e)}}
         />
 
       </label>
       <img id="preview-image-edit-profile" src={`${userProfile.profile_img}`} height="100px" width="100px" alt="Image preview..."></img>
 
+
       <label>
       <img src={ageIcon} id="edit-user-profile-logos"/>
-        Date of birth:
-        <input type="date" id="age" name="age" value={dateOfBirth} min="1920-01-01" max="2024-01-01" onChange={(e)=>setDateOfBirth(e.target.value)} required/>
-      </label>
-      <p>Age : {usersAge}</p>
+
+      Age:
+      <input id="age-edit-user-profile"
+                  type="text"
+                  value={usersAge}
+                  onChange={(e) => setUsersAge(e.target.value)}
+                  required
+                />
+    </label>
       <label >
       <img src={workLogo} id="edit-user-profile-logos"/>
         Work
-        <input id="work-edite-user-profile"
+        <input id="work-edit-user-profile"
                   type="text"
                   value={work}
                   onChange={(e) => setWork(e.target.value)}

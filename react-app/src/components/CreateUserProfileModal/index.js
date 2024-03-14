@@ -82,7 +82,7 @@ const handleSubmit =async(e) => {
     formData.append("education", education);
     formData.append("hometown", hometown);
     formData.append("tennis", checkedTennis);
-    formData.append("padle", checkedPadel);
+    formData.append("padel", checkedPadel);
     formData.append("pickleball", checkedPickleball);
     formData.append("golf", checkedGolf);
     formData.append("gym", checkedGym);
