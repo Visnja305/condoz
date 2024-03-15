@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { authenticate } from "../../store/session";
 import {getCondosThunk} from "../../store/condos"
+import {createEventThunk} from "../../store/events"
 
 
 
@@ -49,7 +50,9 @@ const [checkedScubaDiving, setCheckedScubaDiving] = useState(false);
 const [checkedHorsebackRiding, setCheckedHorsebackRiding] = useState(false);
 const [checkedYoga, setCheckedYoga] = useState(false);
 const [checkedBoxing, setCheckedBoxing] = useState(false);
+const [checkedOther, setCheckedOther]=useState(false);
 const [isLoaded,setIsLoaded]=useState(false);
+const [errors, setErrors] = useState({});
 
 
   const currentDateTime =new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0,-8);
@@ -88,12 +91,12 @@ const handleSubmit =async(e) => {
     if(!checkedOtherLocation){
     formData.append("location",sessionUser.condo_id);
     }
-    formData.append("details",details);
+    formData.append("details",description);
     formData.append("time",dateTime);
     formData.append("time_created",currentDateTime);
     if(notApplicable){
-    formData.append("need_people_total",null);
-    formData.append("left_room_for",null)
+    formData.append("need_people_total","");
+    formData.append("left_room_for","")
 }
     if(!notApplicable){
     formData.append("need_people_total",peopleNeeded);
@@ -120,7 +123,10 @@ const handleSubmit =async(e) => {
     formData.append("horseback_riding", checkedHorsebackRiding);
     formData.append("yoga", checkedYoga);
     formData.append("boxing", checkedBoxing);
-
+    formData.append("other",checkedOther);
+    for (const key of formData.values()) {
+        console.log(key);
+      }
 
 
     await dispatch(createEventThunk(formData)).catch(
@@ -210,6 +216,9 @@ setCheckedOtherLocation(checkedUsersCondo);
   const handleChangeBoxing = () => {
     setCheckedBoxing(!checkedBoxing);
   };
+  const handleChangeOther=()=>{
+    setCheckedOther(!checkedOther);
+  }
 if(!isLoaded){
     return <h1>is loading...</h1>
 }
@@ -281,6 +290,7 @@ if(!isLoaded){
             value={peopleNeeded}
             onChange={(e) => setPeopleNeeded(e.target.value)}
              disabled={notApplicable}
+             required={!notApplicable}
             />
             </label>
             <label>
@@ -377,7 +387,12 @@ if(!isLoaded){
         Boxing
       <input value = {checkedBoxing} type = "checkbox" onChange = {handleChangeBoxing} />
       </label>
-      <button id="submit-for-create-user-profile" type="submit" >Create event</button>
+      <label>
+        Other
+      <input value = {checkedOther} type = "checkbox" onChange = {handleChangeOther} />
+      </label>
+
+      <button id="submit-for-create-event" type="submit" >Create event</button>
       </form>
 
 

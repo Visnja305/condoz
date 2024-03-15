@@ -39,6 +39,7 @@ class Event(db.Model):
     horseback_riding=db.Column(db.Boolean)
     yoga=db.Column(db.Boolean)
     boxing=db.Column(db.Boolean)
+    other=db.Column(db.Boolean)
 
 
     user = db.relationship('User', back_populates='events')
@@ -77,7 +78,8 @@ class Event(db.Model):
             'scuba_diving':self.scuba_diving,
             'horseback_riding':self.horseback_riding,
             'yoga':self.yoga,
-            'boxing':self.boxing
+            'boxing':self.boxing,
+            'other':self.other
 
 
 

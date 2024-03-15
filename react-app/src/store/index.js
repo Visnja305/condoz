@@ -3,11 +3,14 @@ import thunk from 'redux-thunk';
 import session from './session'
 import condos from './condos'
 import userProfiles from './userProfiles'
+import events from './events'
 
 const rootReducer = combineReducers({
   session,
   condos,
-  userProfiles
+  userProfiles,
+  events
+
 });
 
 

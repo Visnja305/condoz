@@ -20,8 +20,6 @@ def create_user_profile():
 
       if form.validate_on_submit():
 
-
-
           user_id=form.data.get("user_id")
           condo_id=form.data.get("condo_id")
           profile_img=form.data.get("profile_img")
@@ -51,9 +49,8 @@ def create_user_profile():
           yoga=form.data.get("yoga")
           boxing=form.data.get("boxing")
 
-
-
           new_profile=Profile(user_id=user_id,condo_id=condo_id,profile_img=profile_img,age=age,work=work,education=education,hometown=hometown,tennis=tennis,padel=padel,pickleball=pickleball,golf=golf,gym=gym,boating=boating,jogging=jogging,dogs=dogs,kids_activities=kids_activities,soccer=soccer,cocktail_hour=cocktail_hour,philanthropy=philanthropy,basketball=basketball,art=art,spa=spa,fine_dining=fine_dining,polo=polo,scuba_diving=scuba_diving,horseback_riding=horseback_riding,yoga=yoga,boxing=boxing)
+
 
           db.session.add(new_profile)
           db.session.commit()
@@ -127,7 +124,7 @@ def delete_user_profile(id):
 
 @profiles_routes.route('/edit/<int:id>',methods=['PUT'])
 def edit_user_profile(id):
-   
+
 
     form=UserProfileForm()
 

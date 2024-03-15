@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import DataRequired
-from wtforms import StringField,BooleanField,IntegerField,FileField,DateTimeField
+from wtforms import StringField,BooleanField,IntegerField,DateTimeField,validators
 
 
 class EventForm(FlaskForm):
@@ -8,10 +8,10 @@ class EventForm(FlaskForm):
     organizer_profile_id=IntegerField('organizer_profile_id',validators=[DataRequired()])
     location = StringField('location', validators=[DataRequired()])
     details=StringField('details',validators=[DataRequired()])
-    time=DateTimeField('time',validators=[DataRequired()])
-    time_created=DateTimeField('time_created',validators=[DataRequired()])
-    need_people_total=IntegerField('need_people_total')
-    left_room_for=IntegerField('left_room_for')
+    time=DateTimeField('time',format="%Y-%m-%dT%H:%M",validators=[DataRequired()])
+    time_created=DateTimeField('time_created',format="%Y-%m-%dT%H:%M",validators=[DataRequired()])
+    need_people_total=IntegerField('need_people_total',[validators.Optional()])
+    left_room_for=IntegerField('left_room_for',[validators.Optional()])
     tennis=BooleanField('tennis')
     padel=BooleanField('padel')
     pickleball=BooleanField('pickleball')
@@ -33,3 +33,4 @@ class EventForm(FlaskForm):
     horseback_riding=BooleanField('horseback_riding')
     yoga=BooleanField('yoga')
     boxing=BooleanField('boxing')
+    other=BooleanField('other')

@@ -103,6 +103,7 @@ const handleSubmit =async(e) => {
     formData.append("yoga", checkedYoga);
     formData.append("boxing", checkedBoxing);
 
+    
 const arr=[]
 
     await dispatch(createUserProfileThunk(formData)).then(res=>arr.push(res)).then(res=>closeModal()).catch(
