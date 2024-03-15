@@ -17,7 +17,7 @@ class Event(db.Model):
     time = db.Column(db.DateTime, nullable=False)
     time_created=db.Column(db.DateTime,nullable=False)
     need_people_total=db.Column(db.Integer)
-    left_room_for=db.Column(db.String(40))
+    left_room_for=db.Column(db.Integer)
     tennis=db.Column(db.Boolean)
     padel=db.Column(db.Boolean)
     pickleball=db.Column(db.Boolean)

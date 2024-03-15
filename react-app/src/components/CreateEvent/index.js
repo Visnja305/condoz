@@ -88,11 +88,38 @@ const handleSubmit =async(e) => {
     if(!checkedOtherLocation){
     formData.append("location",sessionUser.condo_id);
     }
-    formData.append("",);
-    formData.append("",);
-    formData.append("",);
-    formData.append("",);
-
+    formData.append("details",details);
+    formData.append("time",dateTime);
+    formData.append("time_created",currentDateTime);
+    if(notApplicable){
+    formData.append("need_people_total",null);
+    formData.append("left_room_for",null)
+}
+    if(!notApplicable){
+    formData.append("need_people_total",peopleNeeded);
+    formData.append("left_room_for",peopleNeeded);
+    }
+    formData.append("tennis", checkedTennis);
+    formData.append("padel", checkedPadel);
+    formData.append("pickleball", checkedPickleball);
+    formData.append("golf", checkedGolf);
+    formData.append("gym", checkedGym);
+    formData.append("boating", checkedBoating);
+    formData.append("jogging", checkedJogging);
+    formData.append("dogs", checkedDogs);
+    formData.append("kids_activities", checkedKidsActivities);
+    formData.append("soccer", checkedSoccer);
+    formData.append("cocktail_hour", checkedCocktailHour);
+    formData.append("philanthropy", checkedPhilanthropy);
+    formData.append("basketball", checkedBasketball);
+    formData.append("art", checkedArt);
+    formData.append("spa", checkedSpa);
+    formData.append("fine_dining", checkedFineDining);
+    formData.append("polo", checkedPolo);
+    formData.append("scuba_diving", checkedScubaDiving);
+    formData.append("horseback_riding", checkedHorsebackRiding);
+    formData.append("yoga", checkedYoga);
+    formData.append("boxing", checkedBoxing);
 
 
 
