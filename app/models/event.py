@@ -3,20 +3,21 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
 
-class Profile(db.Model):
-    __tablename__ = 'profiles'
+class Event(db.Model):
+    __tablename__ = 'events'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id=db.Column(db.Integer,db.ForeignKey(add_prefix_for_prod("users.id")))
-    condo_id=db.Column(db.Integer,db.ForeignKey(add_prefix_for_prod("condos.id")))
-    profile_img=db.Column(db.UnicodeText, nullable=False)
-    age = db.Column(db.String(40), nullable=False)
-    work = db.Column(db.Text, nullable=False)
-    education=db.Column(db.String(40), nullable=False)
-    hometown=db.Column(db.String(40), nullable=False)
+    organizer_id=db.Column(db.Integer,db.ForeignKey(add_prefix_for_prod("users.id")))
+    organizer_profile_id=db.Column(db.Integer,db.ForeignKey(add_prefix_for_prod("profiles.id")))
+    location=db.Column(db.String(40), nullable=False)
+    details = db.Column(db.Text, nullable=False)
+    time = db.Column(db.DateTime, nullable=False)
+    time_created=db.Column(db.DateTime,nullable=False)
+    need_people_total=db.Column(db.Integer)
+    left_room_for=db.Column(db.String(40))
     tennis=db.Column(db.Boolean)
     padel=db.Column(db.Boolean)
     pickleball=db.Column(db.Boolean)
@@ -40,21 +41,22 @@ class Profile(db.Model):
     boxing=db.Column(db.Boolean)
 
 
-    user = db.relationship('User', back_populates='profiles')
-    condo=db.relationship('Condo', back_populates='profiles')
-    events=db.relationship('Event',back_populates='profile',cascade="all, delete-orphan")
+    user = db.relationship('User', back_populates='events')
+    profile=db.relationship('Profile', back_populates='events')
 
 
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'user_id': self.user_id,
-            'profile_img':self.profile_img,
-            'age':self.age,
-            'work':self.work,
-            'education':self.education,
-            'hometown':self.hometown,
+            'id':self.id,
+            'organizer_id':self.organizer_id,
+            'organizer_profile_id':self.organizer_profile_id,
+            'location':self.location,
+            'details':self.details,
+            'time':self.time,
+            'time_created':self.time_created,
+            'need_people_total':self.need_people_total,
+            'left_room_for':self.left_room_for,
             'tennis':self.tennis,
             'padel':self.padel,
             'pickleball':self.pickleball,

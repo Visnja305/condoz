@@ -1,0 +1,35 @@
+from flask_wtf import FlaskForm
+from flask_wtf.file import DataRequired
+from wtforms import StringField,BooleanField,IntegerField,FileField,DateTimeField
+
+
+class EventForm(FlaskForm):
+    organizer_id=IntegerField('organizer_id',validators=[DataRequired()])
+    organizer_profile_id=IntegerField('organizer_profile_id',validators=[DataRequired()])
+    location = StringField('location', validators=[DataRequired()])
+    details=StringField('details',validators=[DataRequired()])
+    time=DateTimeField('time',validators=[DataRequired()])
+    time_created=DateTimeField('time_created',validators=[DataRequired()])
+    need_people_total=IntegerField('need_people_total')
+    left_room_for=IntegerField('left_room_for')
+    tennis=BooleanField('tennis')
+    padel=BooleanField('padel')
+    pickleball=BooleanField('pickleball')
+    golf=BooleanField('golf')
+    gym=BooleanField('gym')
+    boating=BooleanField('boating')
+    jogging=BooleanField('jogging')
+    dogs=BooleanField('dogs')
+    kids_activities=BooleanField('kids_activities')
+    soccer=BooleanField('soccer')
+    cocktail_hour=BooleanField('cocktail_hour')
+    philanthropy=BooleanField('philanthropy')
+    basketball=BooleanField('basketball')
+    art=BooleanField('art')
+    spa=BooleanField('spa')
+    fine_dining=BooleanField('fine-dining')
+    polo=BooleanField('polo')
+    scuba_diving=BooleanField('scuba_diving')
+    horseback_riding=BooleanField('horseback_riding')
+    yoga=BooleanField('yoga')
+    boxing=BooleanField('boxing')

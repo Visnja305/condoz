@@ -5,6 +5,7 @@ import BuildingProfile from "./components/BuildingProfile";
 import UserProfilePage from "./components/UserProfilePage";
 import SignupFormPage from "./components/SignupFormPage";
 import UserProfileDetailPage from "./components/UserProfileDetailPage"
+import CreateEvent from "./components/CreateEvent"
 
 function App() {
 
@@ -19,6 +20,9 @@ function App() {
       <Switch >
       <Route exact path="/">
 <HomePage />
+          </Route>
+          <Route exact path="/my-profile/create-event">
+            <CreateEvent />
           </Route>
           <Route exact path="/my-profile/:id(\d+)" >
 <UserProfileDetailPage />
