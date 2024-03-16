@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { authenticate } from "../../store/session";
-import {getCondosThunk} from "../../store/condos"
-import {createEventThunk} from "../../store/events"
+import {getCondosThunk} from "../../store/condos";
+import {createEventThunk} from "../../store/events";
+import { useHistory } from "react-router-dom";
 
 
 
 import activityLogo from ".././logos/activity-logo.png"
 import "./CreateEvent.css";
-// import { disabled } from "express/lib/application";
+
 
 
 
 
 function CreateEvent() {
 const dispatch = useDispatch();
+const history=useHistory();
 const sessionUser = useSelector((state) => state.session.user);
 const condos=useSelector((state)=>state.condos);
 console.log(sessionUser)
@@ -124,12 +126,12 @@ const handleSubmit =async(e) => {
     formData.append("yoga", checkedYoga);
     formData.append("boxing", checkedBoxing);
     formData.append("other",checkedOther);
-    for (const key of formData.values()) {
-        console.log(key);
-      }
+    // for (const key of formData.values()) {
+    //     console.log(key);
+    //   }
 
 
-    await dispatch(createEventThunk(formData)).catch(
+    await dispatch(createEventThunk(formData)).then(history.push("/profile")).catch(
         async (res) => {
 
          console.log(res)
