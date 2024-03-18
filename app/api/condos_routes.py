@@ -10,7 +10,7 @@ def get_condos():
 
     condos = Condo.query.all()
     all_condos=[condo.to_dict() for condo in condos]
-
+    print(all_condos)
     return jsonify(all_condos)
 
 

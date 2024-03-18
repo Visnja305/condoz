@@ -4,12 +4,14 @@ import session from './session'
 import condos from './condos'
 import userProfiles from './userProfiles'
 import events from './events'
+import users from './users'
 
 const rootReducer = combineReducers({
   session,
   condos,
   userProfiles,
-  events
+  events,
+  
 
 });
 

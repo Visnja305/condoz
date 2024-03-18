@@ -19,14 +19,16 @@ const dispatch = useDispatch();
 const history=useHistory();
 const sessionUser = useSelector((state) => state.session.user);
 const condos=useSelector((state)=>state.condos);
-console.log(sessionUser)
+
+
 const usersCondoId=sessionUser?.condo_id;
 const usersCondo=condos[usersCondoId];
-console.log(usersCondoId)
+
 console.log(usersCondo)
 const [checkedUsersCondo,setCheckedUsersCondo]=useState(true);
 const [checkedOtherLocation,setCheckedOtherLocation]=useState(false);
 const [location,setLocation]=useState("");
+
 const [dateTime,setDateTime]=useState("");
 const [description,setDescription]=useState("");
 const [peopleNeeded,setPeopleNeeded]=useState("");
@@ -89,9 +91,11 @@ const handleSubmit =async(e) => {
     formData.append("organizer_profile_id",sessionUser.profile_id);
     if(checkedOtherLocation){
     formData.append("location",location);
+    formData.append("location_name",location)
     }
     if(!checkedOtherLocation){
     formData.append("location",sessionUser.condo_id);
+    formData.append("location_name",usersCondo.name);
     }
     formData.append("details",description);
     formData.append("time",dateTime);

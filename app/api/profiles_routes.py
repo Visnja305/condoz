@@ -174,7 +174,14 @@ def edit_user_profile(id):
           return jsonify(form.errors)
     return jsonify("Login please")
 
+@profiles_routes.route('/all')
+def get_profiles():
 
+    profiles = Profile.query.all()
+    all_profiles=[profile.to_dict() for profile in profiles]
+    print(all_profiles)
+
+    return jsonify(all_profiles)
 
 
 

@@ -13,6 +13,7 @@ class Event(db.Model):
     organizer_id=db.Column(db.Integer,db.ForeignKey(add_prefix_for_prod("users.id")))
     organizer_profile_id=db.Column(db.Integer,db.ForeignKey(add_prefix_for_prod("profiles.id")))
     location=db.Column(db.String(40), nullable=False)
+    location_name=db.Column(db.String(40), nullable=False)
     details = db.Column(db.Text, nullable=False)
     time = db.Column(db.DateTime, nullable=False)
     time_created=db.Column(db.DateTime,nullable=False)
@@ -53,6 +54,7 @@ class Event(db.Model):
             'organizer_id':self.organizer_id,
             'organizer_profile_id':self.organizer_profile_id,
             'location':self.location,
+            'location_name':self.location_name,
             'details':self.details,
             'time':self.time,
             'time_created':self.time_created,

@@ -7,6 +7,7 @@ class EventForm(FlaskForm):
     organizer_id=IntegerField('organizer_id',validators=[DataRequired()])
     organizer_profile_id=IntegerField('organizer_profile_id',validators=[DataRequired()])
     location = StringField('location', validators=[DataRequired()])
+    location_name=StringField('location_name', validators=[DataRequired()])
     details=StringField('details',validators=[DataRequired()])
     time=DateTimeField('time',format="%Y-%m-%dT%H:%M",validators=[DataRequired()])
     time_created=DateTimeField('time_created',format="%Y-%m-%dT%H:%M",validators=[DataRequired()])

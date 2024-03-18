@@ -6,11 +6,15 @@ import "./UserProfilePage.css"
 import OpenModalButton from "../OpenModalButton";
 import CreateUserProfileModal from "../CreateUserProfileModal";
 import { getCondosThunk } from "../../store/condos";
+import ShowEvents from "../ShowEvents"
 const UserProfilePage =()=>{
     const dispatch=useDispatch();
     const [isLoaded,setIsLoaded]=useState(false);
     const [checkedLocation,setCheckedLocation]=useState("");
     const [checkedInterest,setCheckedInterest]=useState("");
+    const [sendLocation,setSendLocation]=useState("");
+    const [sendInterest,setSendInterest]=useState("");
+
     const [isReset,setIsReset]=useState(false)
     const sessionUser = useSelector((state) => state.session.user);
     const condos=useSelector((state)=>state.condos)
@@ -39,6 +43,7 @@ const handleChangeLocation=(e)=>{
 
 }
 const handleChangeInterest=(e)=>{
+
     setCheckedInterest(e.target.value);
     setIsReset(false);
 }
@@ -48,8 +53,16 @@ const resetFilters=(e)=>{
     setCheckedInterest("");
     setIsReset(true);
 }
+let props
 
+const handleSubmit=async (e)=>{
+    e.preventDefault();
 
+setSendLocation(checkedLocation);
+setSendInterest(checkedInterest);
+props={location:sendLocation,interest:sendInterest}
+
+}
 
     return(<>{sessionUser && <div>{sessionUser.has_profile==="no" &&<div>
         <p>Join the community</p>
@@ -68,7 +81,7 @@ const resetFilters=(e)=>{
             className="create-event-link"
             exact to={`/my-profile/create-event`}
              >Create event</NavLink>
-             <form className="user-profile-filter-events-form"  >
+             <form className="user-profile-filter-events-form" onSubmit={handleSubmit} >
              <p>Filter events by:</p>
              <ul>
 
@@ -94,36 +107,37 @@ const resetFilters=(e)=>{
               </li>
               <li>
                 Interests:
-                <select name="languages" id="lang">
+                <select name="languages" id="lang" onChange= {(e)=>{handleChangeInterest(e)}}>
                 <option selected={isReset}></option>
-                <option value="tennis" onChange = {(e)=>{handleChangeInterest(e)}}>tennis</option>
-                <option value="padel" onChange = {(e)=>{handleChangeInterest(e)}}>padel</option>
-                <option value="pickleball" onChange = {(e)=>{handleChangeInterest(e)}}>pickleball</option>
-                <option value="golf" onChange = {(e)=>{handleChangeInterest(e)}} >golf</option>
-                <option value="gym" onChange = {(e)=>{handleChangeInterest(e)}}>gym</option>
-                <option value="boating" onChange = {(e)=>{handleChangeInterest(e)}}>boating</option>
-                <option value="jogging" onChange = {(e)=>{handleChangeInterest(e)}}>jogging</option>
-                <option value="dogs" onChange = {(e)=>{handleChangeInterest(e)}}>dogs</option>
-                <option value="kids_activities" onChange = {(e)=>{handleChangeInterest(e)}}>kids activities</option>
-                <option value="soccer" onChange = {(e)=>{handleChangeInterest(e)}}>soccer</option>
-                <option value="cocktail_hour" onChange = {(e)=>{handleChangeInterest(e)}}>cocktail hour</option>
-                <option value="philanthropy" onChange = {(e)=>{handleChangeInterest(e)}}>philanthropy</option>
-                <option value="basketball" onChange = {(e)=>{handleChangeInterest(e)}}>basketball</option>
-                <option value="art" onChange = {(e)=>{handleChangeInterest(e)}}>art</option>
-                <option value="spa" onChange = {(e)=>{handleChangeInterest(e)}}>spa</option>
-                <option value="fine_dining" onChange = {(e)=>{handleChangeInterest(e)}}>fine dining</option>
-                <option value="polo" onChange = {(e)=>{handleChangeInterest(e)}}>polo</option>
-                <option value="scuba_diving" onChange = {(e)=>{handleChangeInterest(e)}}>scuba diving</option>
-                <option value="horseback_riding" onChange = {(e)=>{handleChangeInterest(e)}}>horseback riding</option>
-                <option value="yoga" onChange = {(e)=>{handleChangeInterest(e)}}>yoga</option>
-                <option value="boxing" onChange = {(e)=>{handleChangeInterest(e)}}>boxing</option>
-                <option value="other" onChange = {(e)=>{handleChangeInterest(e)}}>other</option>
+                <option value="tennis">tennis</option>
+                <option value="padel">padel</option>
+                <option value="pickleball">pickleball</option>
+                <option value="golf" >golf</option>
+                <option value="gym">gym</option>
+                <option value="boating" >boating</option>
+                <option value="jogging" >jogging</option>
+                <option value="dogs" >dogs</option>
+                <option value="kids_activities">kids activities</option>
+                <option value="soccer">soccer</option>
+                <option value="cocktail_hour" >cocktail hour</option>
+                <option value="philanthropy" >philanthropy</option>
+                <option value="basketball" >basketball</option>
+                <option value="art" >art</option>
+                <option value="spa" >spa</option>
+                <option value="fine_dining">fine dining</option>
+                <option value="polo" >polo</option>
+                <option value="scuba_diving" >scuba diving</option>
+                <option value="horseback_riding" >horseback riding</option>
+                <option value="yoga" >yoga</option>
+                <option value="boxing" >boxing</option>
+                <option value="other">other</option>
                 </select>
               </li>
              </ul>
              <button onClick={(e)=>{resetFilters(e)}}>Reset</button>
-             <button onClick={}>Search</button>
+             <button type="submit">Search</button>
              </form>
+             <ShowEvents props />
 
 
 

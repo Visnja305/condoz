@@ -22,6 +22,7 @@ def create_event():
           organizer_id=form.data.get("organizer_id")
           organizer_profile_id=form.data.get("organizer_profile_id")
           location=form.data.get("location")
+          location_name=form.data.get("location_name")
           details=form.data.get("details")
           time=form.data.get("time")
           time_created=form.data.get("time_created")
@@ -50,7 +51,7 @@ def create_event():
           boxing=form.data.get("boxing")
           other=form.data.get("other")
 
-          new_event=Event(organizer_id=organizer_id,organizer_profile_id=organizer_profile_id,location=location,details=details,time=time,time_created=time_created,need_people_total=need_people_total,left_room_for=left_room_for,tennis=tennis,padel=padel,pickleball=pickleball,golf=golf,gym=gym,boating=boating,jogging=jogging,dogs=dogs,kids_activities=kids_activities,soccer=soccer,cocktail_hour=cocktail_hour,philanthropy=philanthropy,basketball=basketball,art=art,spa=spa,fine_dining=fine_dining,polo=polo,scuba_diving=scuba_diving,horseback_riding=horseback_riding,yoga=yoga,boxing=boxing,other=other)
+          new_event=Event(organizer_id=organizer_id,organizer_profile_id=organizer_profile_id,location=location,location_name=location_name,details=details,time=time,time_created=time_created,need_people_total=need_people_total,left_room_for=left_room_for,tennis=tennis,padel=padel,pickleball=pickleball,golf=golf,gym=gym,boating=boating,jogging=jogging,dogs=dogs,kids_activities=kids_activities,soccer=soccer,cocktail_hour=cocktail_hour,philanthropy=philanthropy,basketball=basketball,art=art,spa=spa,fine_dining=fine_dining,polo=polo,scuba_diving=scuba_diving,horseback_riding=horseback_riding,yoga=yoga,boxing=boxing,other=other)
 
 
           db.session.add(new_event)
@@ -62,6 +63,14 @@ def create_event():
       if form.errors:
           return jsonify(form.errors)
     return jsonify("Login please")
+
+@events_routes.route('/all')
+def get_events():
+    events = Event.query.all()
+    all_events=[event.to_dict() for event in events]
+
+    return jsonify(all_events)
+
 
 
 
