@@ -6,6 +6,7 @@ import UserProfilePage from "./components/UserProfilePage";
 import SignupFormPage from "./components/SignupFormPage";
 import UserProfileDetailPage from "./components/UserProfileDetailPage"
 import CreateEvent from "./components/CreateEvent"
+import ManageEvents from "./components/ManageEvents"
 
 function App() {
 
@@ -39,6 +40,10 @@ function App() {
           <Route exact path="/:condoId(\d+)/signup">
             <SignupFormPage />
             </Route>
+            <Route exact path="/user-profile/manage-events">
+            <ManageEvents />
+            </Route>
+
 
       </Switch>
 

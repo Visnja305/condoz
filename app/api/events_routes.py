@@ -71,6 +71,18 @@ def get_events():
 
     return jsonify(all_events)
 
+@events_routes.route('/delete/<int:id>',methods=['DELETE'])
+def delete_event(id):
+    try:
+        event=Event.query.filter_by(id=id).first()
+        event_id=event.id
+        db.session.delete(event)
+        db.session.commit()
+        return jsonify(event_id)
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': 'An error occurred during deletion'}), 500
+
 
 
 

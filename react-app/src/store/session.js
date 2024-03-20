@@ -24,6 +24,7 @@ export const authenticate = () => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
+		console.log(data)
 		if (data.errors) {
 			return data.errors;
 		}
@@ -150,7 +151,7 @@ export default function reducer(state = initialState, action) {
 			return { user: action.payload };
 		case REMOVE_USER:
 			return { user: null };
-		
+
 		default:
 			return state;
 	}

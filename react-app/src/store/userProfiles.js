@@ -66,7 +66,7 @@ export const deleteUserProfileThunk=(profileId)=>async(dispatch)=>{
       const id = await response.json();
 
       dispatch(deleteProfile(id));
-      return "Comment removed";
+      return "Profile removed";
     }
     return response
 

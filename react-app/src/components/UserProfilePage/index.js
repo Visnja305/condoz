@@ -81,6 +81,10 @@ props={location:sendLocation,interest:sendInterest}
             className="create-event-link"
             exact to={`/my-profile/create-event`}
              >Create event</NavLink>
+<NavLink activeClassName="user-profile-link-active"
+            className=",manage-events-link"
+            exact to={`/user-profile/manage-events`}
+             >Manage events</NavLink>
              <form className="user-profile-filter-events-form" onSubmit={handleSubmit} >
              <p>Filter events by:</p>
              <ul>

@@ -12,7 +12,10 @@ import { motion, AnimatePresence } from "framer-motion"
 function ShowEvents(props){
     const dispatch = useDispatch();
     const [isLoaded,setIsLoaded]=useState(false)
+
     const events=Object.values(useSelector((state)=>state.events))
+
+
     console.log(events)
 
 
@@ -44,9 +47,16 @@ function ShowEvents(props){
    <div className="show-events-event"> <p>{event.location_name},{event.time.slice(0,22)}</p>
    <p>{event.details}</p>
    <p>{event.need_people_total ? <span>{`Available room for ${event.left_room_for}/out of ${event.need_people_total}`}</span> : "Everyone is invited!"}</p>
+   <p>Interests: <ul>{Object.keys(event).map((a)=>(
+ event[a]===true && <li key={a}>{a}</li>
+
+))}
+        </ul>
+        </p>
    <p>Organized by: </p>
 
    <UserProfileSmall userId={event.organizer_id} />
+   <p>Created on:{event.time_created.slice(0,22)}</p>
    </div>
 ))}
 
