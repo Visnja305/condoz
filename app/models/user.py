@@ -23,6 +23,7 @@ class User(db.Model, UserMixin):
     condo = db.relationship('Condo', back_populates='users')
     profiles=db.relationship('Profile', back_populates='user',cascade="all, delete-orphan")
     events=db.relationship('Event',back_populates='user',cascade="all, delete-orphan")
+    comments=db.relationship('Comment',back_populates='user',cascade="all, delete-orphan")
 
     @property
     def password(self):

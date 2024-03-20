@@ -11,8 +11,8 @@ import ageIcon from "../logos/age-icon.png";
 import workLogo from "../logos/work-logo-black.png";
 import homeIcon from "../logos/home-icon.png"
 import activityLogo from "../logos/activity-logo.png"
-import { authenticate } from "../../store/session";
-import { getProfileThunk } from "../../store/userProfiles";
+import { editEventThunk } from "../../store/events";
+
 
 
 
@@ -26,6 +26,7 @@ function EditEventModal({props}) {
     const dispatch=useDispatch();
     const event=useSelector((state)=>state.events[eventId]);
     const condos=useSelector((state)=>state.condos);
+    const sessionUser=useSelector((state)=>state.session.user)
     const usersCondo=condos[condoId];
 const eventTime=event.time.slice(0,22);
 const monthToTransform=eventTime.slice(8,11)
@@ -81,7 +82,8 @@ const transformedDate=`${eventTime.slice(12,16)}-${month}-${eventTime.slice(5,7)
 
 const [checkedUsersCondo,setCheckedUsersCondo]=useState(String(condoId)===event.location);
 const [checkedOtherLocation,setCheckedOtherLocation]=useState(String(condoId)!==event.location);
-const [location,setLocation]=useState("");
+
+const [location,setLocation]=useState(checkedOtherLocation ? event.location_name : "");
 
 const [dateTime,setDateTime]=useState(transformedDate);
 const [description,setDescription]=useState(event.details);
@@ -112,6 +114,7 @@ const [checkedOther, setCheckedOther]=useState(event.other);
 const [isLoaded,setIsLoaded]=useState(false);
 const [errors, setErrors] = useState({})
 
+
 const currentDateTime =new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0,-8);
 console.log(currentDateTime)
 
@@ -120,84 +123,68 @@ console.log(currentDateTime)
 
 
 
-    // useEffect(() => {
 
-    //     const getUser=async()=>{
-    //         await dispatch(authenticate());
-    //         await dispatch(getCondosThunk())
-    //         setIsLoaded(true);
-
-    //     }
-    //     if(!isLoaded){
-    //     getUser();}
+const handleSubmit =async(e) => {
+    e.preventDefault();
 
 
-
-    // },[dispatch,isLoaded])
-
-// const handleSubmit =async(e) => {
-//     e.preventDefault();
-
-
-//     setErrors({});
-//     const formData = new FormData();
-//     formData.append("organizer_id",sessionUser.id);
-//     formData.append("organizer_profile_id",sessionUser.profile_id);
-//     if(checkedOtherLocation){
-//     formData.append("location",location);
-//     formData.append("location_name",location)
-//     }
-//     if(!checkedOtherLocation){
-//     formData.append("location",sessionUser.condo_id);
-//     formData.append("location_name",usersCondo.name);
-//     }
-//     formData.append("details",description);
-//     formData.append("time",dateTime);
-//     formData.append("time_created",currentDateTime);
-//     if(notApplicable){
-//     formData.append("need_people_total","");
-//     formData.append("left_room_for","")
-// }
-//     if(!notApplicable){
-//     formData.append("need_people_total",peopleNeeded);
-//     formData.append("left_room_for",peopleNeeded);
-//     }
-//     formData.append("tennis", checkedTennis);
-//     formData.append("padel", checkedPadel);
-//     formData.append("pickleball", checkedPickleball);
-//     formData.append("golf", checkedGolf);
-//     formData.append("gym", checkedGym);
-//     formData.append("boating", checkedBoating);
-//     formData.append("jogging", checkedJogging);
-//     formData.append("dogs", checkedDogs);
-//     formData.append("kids_activities", checkedKidsActivities);
-//     formData.append("soccer", checkedSoccer);
-//     formData.append("cocktail_hour", checkedCocktailHour);
-//     formData.append("philanthropy", checkedPhilanthropy);
-//     formData.append("basketball", checkedBasketball);
-//     formData.append("art", checkedArt);
-//     formData.append("spa", checkedSpa);
-//     formData.append("fine_dining", checkedFineDining);
-//     formData.append("polo", checkedPolo);
-//     formData.append("scuba_diving", checkedScubaDiving);
-//     formData.append("horseback_riding", checkedHorsebackRiding);
-//     formData.append("yoga", checkedYoga);
-//     formData.append("boxing", checkedBoxing);
-//     formData.append("other",checkedOther);
-//     // for (const key of formData.values()) {
-//     //     console.log(key);
-//     //   }
+    setErrors({});
+    const formData = new FormData();
+    formData.append("organizer_id",sessionUser.id);
+    formData.append("organizer_profile_id",sessionUser.profile_id);
+    if(checkedOtherLocation){
+    formData.append("location",location);
+    formData.append("location_name",location)
+    }
+    if(!checkedOtherLocation){
+    formData.append("location",sessionUser.condo_id);
+    formData.append("location_name",usersCondo.name);
+    }
+    formData.append("details",description);
+    formData.append("time",dateTime);
+    formData.append("time_created",currentDateTime);
+    if(notApplicable){
+    formData.append("need_people_total","");
+    formData.append("left_room_for","")
+}
+    if(!notApplicable){
+    formData.append("need_people_total",peopleNeeded);
+    formData.append("left_room_for",peopleNeeded);
+    }
+    formData.append("tennis", checkedTennis);
+    formData.append("padel", checkedPadel);
+    formData.append("pickleball", checkedPickleball);
+    formData.append("golf", checkedGolf);
+    formData.append("gym", checkedGym);
+    formData.append("boating", checkedBoating);
+    formData.append("jogging", checkedJogging);
+    formData.append("dogs", checkedDogs);
+    formData.append("kids_activities", checkedKidsActivities);
+    formData.append("soccer", checkedSoccer);
+    formData.append("cocktail_hour", checkedCocktailHour);
+    formData.append("philanthropy", checkedPhilanthropy);
+    formData.append("basketball", checkedBasketball);
+    formData.append("art", checkedArt);
+    formData.append("spa", checkedSpa);
+    formData.append("fine_dining", checkedFineDining);
+    formData.append("polo", checkedPolo);
+    formData.append("scuba_diving", checkedScubaDiving);
+    formData.append("horseback_riding", checkedHorsebackRiding);
+    formData.append("yoga", checkedYoga);
+    formData.append("boxing", checkedBoxing);
+    formData.append("other",checkedOther);
 
 
-//     await dispatch(createEventThunk(formData)).then(history.push("/profile")).catch(
-//         async (res) => {
 
-//          console.log(res)
+    await dispatch(editEventThunk(formData,eventId)).then(closeModal()).catch(
+        async (res) => {
 
-//   })
+         console.log(res)
+
+  })
 
 
-//   }
+  }
 
   const handleChangeLocationUsersCondo=()=>{
 setCheckedUsersCondo(!checkedUsersCondo);
@@ -292,7 +279,7 @@ setCheckedOtherLocation(checkedUsersCondo);
 
     return(<>
         <p>Update information</p>
-        <form className="edit-event-form" >
+        <form className="edit-event-form" onSubmit={handleSubmit}>
 
 <div className="radio">
     <p>Location</p>
@@ -359,7 +346,7 @@ setCheckedOtherLocation(checkedUsersCondo);
             </label>
             <label>
         N/A
-      <input value = {notApplicable} type = "checkbox" onChange = {handleNotApplicable} />
+      <input value = {notApplicable} type = "checkbox" onChange = {handleNotApplicable} checked={notApplicable} />
       </label>
 
 
@@ -456,7 +443,7 @@ setCheckedOtherLocation(checkedUsersCondo);
       <input value = {checkedOther} type = "checkbox" onChange = {handleChangeOther} checked={checkedOther} />
       </label>
 
-      <button id="submit-for-create-event" type="submit" >Create event</button>
+      <button id="submit-for-create-event" type="submit" >Edit event</button>
       </form>
 
 

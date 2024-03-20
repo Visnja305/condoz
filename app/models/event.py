@@ -45,6 +45,7 @@ class Event(db.Model):
 
     user = db.relationship('User', back_populates='events')
     profile=db.relationship('Profile', back_populates='events')
+    comments=db.relationship('Comment',back_populates='event',cascade="all, delete-orphan")
 
 
 

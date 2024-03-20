@@ -84,7 +84,62 @@ def delete_event(id):
         return jsonify({'error': 'An error occurred during deletion'}), 500
 
 
+@events_routes.route('/edit/<int:id>',methods=['PUT'])
+def edit_event(id):
+    print("????????????????????????",id)
 
+
+    form=EventForm()
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if current_user:
+
+      if form.validate_on_submit():
+
+          event = Event.query.get(id)
+
+          event.organizer_id=form.data.get("organizer_id")
+          event.organizer_profile_id=form.data.get("organizer_profile_id")
+          event.location=form.data.get("location")
+          event.location_name=form.data.get("location_name")
+          event.details=form.data.get("details")
+          event.time=form.data.get("time")
+          event.time_created=form.data.get("time_created")
+          event.need_people_total=form.data.get("need_people_total")
+          event.left_room_for=form.data.get("left_room_for")
+          event.tennis=form.data.get("tennis")
+          event.padel=form.data.get("padel")
+          event.pickleball=form.data.get("pickleball")
+          event.golf=form.data.get("golf")
+          event.gym=form.data.get("gym")
+          event.boating=form.data.get("boating")
+          event.jogging=form.data.get("jogging")
+          event.dogs=form.data.get("dogs")
+          event.kids_activities=form.data.get("kids_activities")
+          event.soccer=form.data.get("soccer")
+          event.cocktail_hour=form.data.get("cocktail_hour")
+          event.philanthropy=form.data.get("philanthropy")
+          event.basketball=form.data.get("basketball")
+          event.art=form.data.get("art")
+          event.spa=form.data.get("spa")
+          event.fine_dining=form.data.get("fine_dining")
+          event.polo=form.data.get("polo")
+          event.scuba_diving=form.data.get("scuba_diving")
+          event.horseback_riding=form.data.get("horseback_riding")
+          event.yoga=form.data.get("yoga")
+          event.boxing=form.data.get("boxing")
+          event.other=form.data.get("other")
+
+
+          db.session.commit()
+
+
+          return event.to_dict()
+
+
+      if form.errors:
+          return jsonify(form.errors)
+    return jsonify("Login please")
 
 
 

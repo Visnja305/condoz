@@ -43,6 +43,7 @@ class Profile(db.Model):
     user = db.relationship('User', back_populates='profiles')
     condo=db.relationship('Condo', back_populates='profiles')
     events=db.relationship('Event',back_populates='profile',cascade="all, delete-orphan")
+    comments=db.relationship('Comment',back_populates='profile',cascade="all, delete-orphan")
 
 
 

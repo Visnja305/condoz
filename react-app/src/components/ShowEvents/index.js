@@ -56,7 +56,7 @@ function ShowEvents(props){
    <p>Organized by: </p>
 
    <UserProfileSmall userId={event.organizer_id} />
-   <p>Created on:{event.time_created.slice(0,22)}</p>
+   <p>Created/last updated:{event.time_created.slice(0,22)}</p>
    </div>
 ))}
 

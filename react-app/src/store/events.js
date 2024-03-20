@@ -1,7 +1,8 @@
 // constants
 const CREATE_EVENT = "events/CREATE_EVENT";
 const GET_EVENTS="events/GET_EVENTS";
-const DELETE_EVENT="events/DELETE_EVENT"
+const DELETE_EVENT="events/DELETE_EVENT";
+const EDIT_EVENT="events/EDIT_EVENT"
 
 const createEvent = (data) => ({
 	type: CREATE_EVENT,
@@ -15,6 +16,10 @@ const deleteEvent=(id)=>({
     type:DELETE_EVENT,
     id
 
+})
+const editEvent=(data)=>({
+    type:EDIT_EVENT,
+    data
 })
 
 export const createEventThunk = (formData) => async (dispatch) => {
@@ -62,6 +67,24 @@ export const deleteEventThunk=(eventId)=>async(dispatch)=>{
     return response
 }
 
+export const editEventThunk = (formData,eventId) => async (dispatch) => {
+    console.log(eventId)
+    const response = await fetch(`/api/events/edit/${eventId}`, {
+        method: "PUT",
+
+        body: formData,
+    });
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(editEvent(data));
+        return data
+    }
+    const errorData = response.json();
+
+    return errorData
+
+};
+
 
 
 
@@ -80,6 +103,8 @@ const events=(state = {}, action)=> {
             const newState = { ...state };
             delete newState[action.id];
             return newState;
+        case EDIT_EVENT:
+            return {...state,[action.data.id]:action.data}
 
 
 
