@@ -55,7 +55,7 @@ const currentUserEvents=events.filter(event=>event.organizer_id===user.id)
                     modalComponent={<DeleteEventModal props={event.id} />}
                   />
 <OpenModalButton buttonText="Edit event"
-                    modalComponent={<EditEventModal />}
+                    modalComponent={<EditEventModal props={{eventId:event.id,condoId:user.condo_id}} />}
                   />
                   </div>
 
