@@ -51,7 +51,7 @@ console.log(user)
 
 
 
-    return (<div><Link to=""><img id="user-profile-small-user-image" src={userProfile?.profile_img}/></Link>
+    return (<div><Link to={`/user-profile/${user?.id}`}><img id="user-profile-small-user-image" src={userProfile?.profile_img}/></Link>
 <p>{user?.first_name} {user?.last_name}</p>
 
     </div>

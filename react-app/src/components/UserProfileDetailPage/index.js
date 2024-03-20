@@ -13,13 +13,14 @@ import "./UserProfileDetailPage.css"
 const UserProfileDetailPage =()=>{
 const {id}=useParams()
 
- console.log(id)
+
 const dispatch=useDispatch()
 const sessionUser = useSelector((state) => state.session.user);
-const userProfile=useSelector((state)=>state.userProfiles[id])
+const userProfile=useSelector((state)=>state.userProfiles[id]);
 // const [userProfile,setUserProfile]=useState({});
 const [isLoaded,setIsLoaded]=useState(false)
-
+console.log(id)
+console.log(sessionUser.id)
 
     useEffect(() => {
 
@@ -54,7 +55,7 @@ else{
     }
 
  return(
- <>
+ <>{isLoaded &&
 
   <div className="container-user-profile-detail-page">
         <div className="user-profile-detail-information"><img id="profile-image-on-profile-detail-page"src={userProfile?.profile_img} />
@@ -72,7 +73,7 @@ else{
 
 
 </div>
-<div className="user-profile-detail-page-delete-and-edit"></div>
+{Number(id)===sessionUser.id && <div className="user-profile-detail-page-delete-and-edit">
 <OpenModalButton buttonText="Delete profile"
                     modalComponent={<DeleteUserProfileModal props={userProfile.id} />}
                   />
@@ -81,7 +82,8 @@ else{
                         payload
                     }/>}
                   />
-    </div>  </>)
+                  </div>}
+    </div>  }</>)
 
         }
 

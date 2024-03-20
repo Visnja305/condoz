@@ -75,7 +75,7 @@ props={location:sendLocation,interest:sendInterest}
     }{sessionUser.has_profile==="yes" &&<div>
 <NavLink activeClassName="user-profile-link-active"
             className="user-profile-link"
-            exact to={`/my-profile/${sessionUser.id}`}
+            exact to={`/user-profile/${sessionUser.id}`}
              >Profile</NavLink>
 <NavLink activeClassName="user-profile-link-active"
             className="create-event-link"

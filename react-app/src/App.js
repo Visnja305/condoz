@@ -24,7 +24,7 @@ function App() {
           <Route exact path="/my-profile/create-event">
             <CreateEvent />
           </Route>
-          <Route exact path="/my-profile/:id(\d+)" >
+          <Route exact path="/user-profile/:id(\d+)" >
 <UserProfileDetailPage />
 
           </Route>
