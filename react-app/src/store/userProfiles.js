@@ -55,6 +55,8 @@ console.log(data)
 	}
 return response
 }
+
+
 export const deleteUserProfileThunk=(profileId)=>async(dispatch)=>{
     const response=await fetch(`/api/profiles/delete/${profileId}`, {
         method: "DELETE",

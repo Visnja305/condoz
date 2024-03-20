@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch, useParams, Redirect } from "react-router-dom";
-import {getProfileThunk} from "../../store/userProfiles"
+import { Route, Switch, useParams, Redirect,Link } from "react-router-dom";
+import {getProfileThunk} from "../../store/userProfiles";
+import {getUsersThunk} from "../../store/users";
+import "./UserProfileSmall.css"
 
 
 
-function UserProfileSmall(){
-    const {userProfileId}=useParams();
-    console.log(userProfileId)
+
+function UserProfileSmall({userId}){
 
 
     const dispatch = useDispatch();
     const [isLoaded,setIsLoaded]=useState(false);
-    const userProfile=useSelector((state)=>state.userProfiles[userProfileId])
+    const userProfile=useSelector((state)=>state.userProfiles[userId])
+    const user=useSelector((state)=>state.users[userId])
 
+console.log(user)
 
 
 
@@ -22,7 +25,8 @@ function UserProfileSmall(){
     useEffect(() => {
 
         const getUsers=async()=>{
-            await dispatch(getProfileThunk(userProfileId));
+            await dispatch(getUsersThunk())
+            await dispatch(getProfileThunk(userId))
             setIsLoaded(true);
 
         }
@@ -47,7 +51,10 @@ function UserProfileSmall(){
 
 
 
-    return (<div>pikilii</div>
+    return (<div><Link to=""><img id="user-profile-small-user-image" src={userProfile?.profile_img}/></Link>
+<p>{user?.first_name} {user?.last_name}</p>
+
+    </div>
 
     )
 }

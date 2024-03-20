@@ -11,7 +11,8 @@ const rootReducer = combineReducers({
   condos,
   userProfiles,
   events,
-  
+  users
+
 
 });
 

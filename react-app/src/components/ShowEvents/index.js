@@ -46,7 +46,7 @@ function ShowEvents(props){
    <p></p>
    <p>Organized by: </p>
 
-   <UserProfileSmall props={event.organizer_profile_id}/>
+   <UserProfileSmall userId={event.organizer_id} />
    </div>
 ))}
 

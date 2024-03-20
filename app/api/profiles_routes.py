@@ -102,6 +102,7 @@ def create_user_profile():
 
 @profiles_routes.route('/<int:id>')
 def get_user_profile(id):
+    print("!!!!!!!!!!!!!!!!!",id)
     profile=Profile.query.filter_by(user_id=id).first()
     print("************",profile)
     if(profile):
