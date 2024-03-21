@@ -1,6 +1,6 @@
 .comment-form{
     display:flex;
-    
+
 
 
 }
@@ -35,12 +35,9 @@ border: none;
     display:flex;
 
 }
-.comments-container{
 
-
-
-}
 .view-all-comments-for-event{
     overflow-y: auto;
     max-height: 400px;
 }
+

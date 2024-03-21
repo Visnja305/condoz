@@ -6,9 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from 'react-router-dom';
 import "./CommentsSection.css"
 import commentIcon from ".././logos/send-comment.png";
+import editIcon from ".././logos/edit.png";
+import deleteIcon from ".././logos/delete.png";
 import { getCommentsThunk } from "../../store/comments";
 import {getProfilesThunk} from "../../store/userProfiles";
 import { postCommentThunk } from "../../store/comments";
+import OpenModalButton from "../OpenModalButton";
+import DeleteCommentModal from "../DeleteCommentModal";
+import EditCommentModal from "../EditCommentModal";
 
 
 function CommentsSection({eventId}) {
@@ -99,6 +104,16 @@ function CommentsSection({eventId}) {
             <div>
             <p id="comment-author-name">{comment.author_first_name} {comment.author_last_name}</p>
             <p>{comment.content}</p>
+            {comment.author_id=== sessionUser.id && (
+                <span>
+                  <OpenModalButton buttonText={<img alt="" id="logo2" src={editIcon} style={{ width: "20px", height: "20px", backgroundColor:"black",}} />}
+                    modalComponent={<EditCommentModal props={comment} />}
+                  />
+                  <OpenModalButton  buttonText={<img alt="" id="logo2" src={deleteIcon} style={{ width: "20px", height: "20px" }} />}
+                    modalComponent={<DeleteCommentModal props={comment.id } />}
+                  />
+
+                </span>)}
             </div>
 
             </div>
