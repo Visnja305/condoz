@@ -19,7 +19,7 @@ function CommentsSection({eventId}) {
   const profiles=useSelector((state)=>state.userProfiles);
   const sessionUser=useSelector((state)=>state.session.user);
   const eventComments=comments.filter(comment=>comment.event_id==eventId)
-  console.log()
+  const fromMostRecentEventComments=eventComments.reverse();
   const [comment, setComment] = useState("");
 
   const [isLoaded,setIsLoaded]=useState(false)
@@ -54,6 +54,7 @@ function CommentsSection({eventId}) {
     formData.append("event_id",eventId);
 
     await dispatch(postCommentThunk(formData))
+    setComment("")
 
 
 
@@ -89,7 +90,7 @@ function CommentsSection({eventId}) {
 
           </form>
           <div className="view-all-comments-for-event">
-          {eventComments.map(comment=>(
+          {fromMostRecentEventComments.map(comment=>(
             <div id="comment">
 
 
