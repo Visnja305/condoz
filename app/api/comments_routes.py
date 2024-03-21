@@ -41,13 +41,19 @@ def post_comment():
           db.session.add(new_comment)
           db.session.commit()
 
-          user = User.query.get(author_id)
-          new_comment['author_first_name'] = user.first_name
-          new_comment['author_last_name']=user.last_name
+          res_comment={
+            "id":new_comment.id,
+            "author_id":new_comment.author_id,
+            "author_profile_id":new_comment.author_profile_id,
+            "event_id":new_comment.event_id,
+            "content":new_comment.content,
+            "author_first_name":current_user.first_name,
+            "author_last_name":current_user.last_name
+
+          }
 
 
-
-          return new_comment.to_dict()
+          return jsonify(res_comment)
 
 
       if form.errors:
