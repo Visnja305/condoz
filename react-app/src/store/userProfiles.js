@@ -1,6 +1,7 @@
 // constants
 const CREATE_USER_PROFILE = "userProfile/CREATE_PROFILE";
 const GET_PROFILE="userProfile/GET_PROFILE"
+const GET_ALL_PROFILES="userProfile/GET_ALL_PROFILES"
 const DELETE_PROFILE="userProfile/DELETE_PROFILE"
 const EDIT_PROFILE="editProfile/EDIT_PROFILE"
 
@@ -10,6 +11,11 @@ const createProfile = (data) => ({
 });
 const getProfile=(data)=>({
     type:GET_PROFILE,
+    data
+})
+
+const getProfiles=(data)=>({
+    type:GET_ALL_PROFILES,
     data
 })
 
@@ -55,6 +61,21 @@ console.log(data)
 	}
 return response
 }
+export const getProfilesThunk=()=>async (dispatch)=>{
+    const response = await fetch(`/api/profiles/all`, {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
+	if (response.ok) {
+		const data = await response.json();
+console.log(data)
+
+		dispatch(getProfiles(data));
+        return data
+	}
+return response
+}
 
 
 export const deleteUserProfileThunk=(profileId)=>async(dispatch)=>{
@@ -92,6 +113,7 @@ export const deleteUserProfileThunk=(profileId)=>async(dispatch)=>{
 
 
 const userProfiles=(state = {}, action)=> {
+    let new_state={}
 
 	switch (action.type) {
 		case CREATE_USER_PROFILE:
@@ -100,6 +122,10 @@ const userProfiles=(state = {}, action)=> {
         case GET_PROFILE:
             console.log(state,action.data)
             return {...state,[action.data.user_id]:action.data}
+        case GET_ALL_PROFILES:
+                action.data.map((profile) => new_state[profile.user_id] = profile)
+                return new_state
+
         case DELETE_PROFILE:
                 const newState = { ...state };
                 delete newState[action.id];

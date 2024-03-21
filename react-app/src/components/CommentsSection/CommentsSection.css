@@ -1,0 +1,23 @@
+.comment-form{
+    display:flex;
+}
+#submit-for-post-a-comment{
+border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+}
+#input-comment{
+    width:300px;
+    border:none;
+    border-bottom:3px solid;
+
+    background: transparent;
+    color:#dcc08c;
+    padding:5px 5px 5px 5px;
+}
+#input-comment:focus{
+    outline:none;
+    box-shadow: 0 1px 6px 0 rgba(227, 188, 188, 0.5);
+    color:#dcc08c80;
+}

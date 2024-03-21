@@ -19,7 +19,7 @@ class Comment(db.Model):
 
     user = db.relationship('User', back_populates='comments')
     profile=db.relationship('Profile', back_populates='comments')
-    event=db.relationship('Events', back_populates='comments')
+    event=db.relationship('Event', back_populates='comments')
 
 
 

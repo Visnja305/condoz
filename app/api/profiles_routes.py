@@ -109,6 +109,8 @@ def get_user_profile(id):
         return profile.to_dict()
     return jsonify("Profile can't be found")
 
+
+
 @profiles_routes.route('/delete/<int:id>',methods=['DELETE'])
 def delete_user_profile(id):
     try:
@@ -176,7 +178,7 @@ def edit_user_profile(id):
     return jsonify("Login please")
 
 @profiles_routes.route('/all')
-def get_profiles():
+def get_all_profiles():
 
     profiles = Profile.query.all()
     all_profiles=[profile.to_dict() for profile in profiles]

@@ -1,3 +1,13 @@
 .show-events-event{
     border:solid;
+    display:flex;
+
+}
+.show-event{
+    border:solid;
+    width:70%;
+}
+.show-event-comment{
+    border:solid;
+    width:30%;
 }
