@@ -19,7 +19,7 @@ function CommentsSection({eventId}) {
   const profiles=useSelector((state)=>state.userProfiles);
   const sessionUser=useSelector((state)=>state.session.user);
   const eventComments=comments.filter(comment=>comment.event_id==eventId)
-  console.log(comments)
+  console.log()
   const [comment, setComment] = useState("");
 
   const [isLoaded,setIsLoaded]=useState(false)
@@ -88,14 +88,15 @@ function CommentsSection({eventId}) {
               </div>
 
           </form>
-          <div>
+          <div className="view-all-comments-for-event">
           {eventComments.map(comment=>(
             <div id="comment">
 
-            {console.log()}
-            <div></div>
+
+            <div><img src={profiles[comment.author_id]?.profile_img} id="profile-img-from-comment-author"/></div>
+
             <div>
-            <p>{comment.author_first_name} {comment.author_last_name}</p>
+            <p id="comment-author-name">{comment.author_first_name} {comment.author_last_name}</p>
             <p>{comment.content}</p>
             </div>
 

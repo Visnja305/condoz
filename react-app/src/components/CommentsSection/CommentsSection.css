@@ -1,5 +1,9 @@
 .comment-form{
     display:flex;
+    /* position:fixed;
+    z-index:2; */
+
+
 }
 #submit-for-post-a-comment{
 border: none;
@@ -20,4 +24,24 @@ border: none;
     outline:none;
     box-shadow: 0 1px 6px 0 rgba(227, 188, 188, 0.5);
     color:#dcc08c80;
+}
+#comment-author-name{
+    color:#dcc08c80;
+}
+#profile-img-from-comment-author{
+    width:50px;
+    height:50px;
+}
+#comment{
+    display:flex;
+
+}
+.comments-container{
+
+
+
+}
+.view-all-comments-for-event{
+    overflow-y: auto;
+    max-height: 400px;
 }
