@@ -20,7 +20,7 @@ function HomePage(){
 
     }, [dispatch]);
     const condos = Object.values(useSelector((state) => state.condos));
-    
+
     const handleMouseOver = () => {
         setIsHovering(true);
       };
@@ -34,7 +34,7 @@ const onClick=()=>{
 
 }
 const location=useLocation()
-console.log(location)
+
 
     return (
 

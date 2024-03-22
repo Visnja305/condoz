@@ -9,14 +9,19 @@ import UserProfileSmall from "../UserProfileSmall";
 import CommentsSection from "../CommentsSection";
 
 
-function ShowEvents(props){
+function ShowEvents({props}){
+    const locationFilter= props.location;
+    const interestFilter=props.interest;
+console.log(locationFilter)
+console.log(interestFilter)
     const dispatch = useDispatch();
-    const [isLoaded,setIsLoaded]=useState(false)
+    const [isLoaded,setIsLoaded]=useState(false);
+
 
     const events=Object.values(useSelector((state)=>state.events))
+console.log(events)
 
 
-    console.log(events)
 
 
     useEffect(() => {
@@ -35,7 +40,21 @@ function ShowEvents(props){
 
     },[isLoaded])
 
+function filterFunction(event){
+    if(locationFilter!=="" && interestFilter===""){
+        return event.location===locationFilter
+    }
+    if(locationFilter==="" && interestFilter!==""){
 
+        return event[interestFilter]===true
+    }
+    if(locationFilter!=="" && interestFilter!==""){
+
+        return event.location===props.location &&
+        event[interestFilter]===true
+
+    }
+}
 
 
 
@@ -43,7 +62,8 @@ function ShowEvents(props){
     return (
 <><h1>Events</h1>
 
-{events.map(event=>(
+{props.location==="" && props.interest==="" &&
+<div>{events.map(event=>(
    <div className="show-events-event">
     <div className="show-event">
    <p>{event.location_name},{event.time.slice(0,22)}</p>
@@ -66,7 +86,39 @@ function ShowEvents(props){
 
    </div>
    </div>
+))
+}</div>
+}
+{((locationFilter!=="" && interestFilter==="") || (locationFilter==="" && interestFilter!=="") || (locationFilter!=="" && interestFilter!=="") ) &&  <div>
+    {events.filter(filterFunction).map(event=>(
+   <div className="show-events-event">
+    <div className="show-event">
+   <p>{event.location_name},{event.time.slice(0,22)}</p>
+   <p>{event.details}</p>
+   <p>{event.need_people_total ? <span>{`Available room for ${event.left_room_for}/out of ${event.need_people_total}`}</span> : "Everyone is invited!"}</p>
+   <p>Interests: <ul>{Object.keys(event).map((a)=>(
+ event[a]===true && <li key={a}>{a}</li>
+
 ))}
+        </ul>
+        </p>
+   <p>Organized by: </p>
+
+   <UserProfileSmall userId={event.organizer_id} />
+   <p>Created/last updated:{event.time_created.slice(0,22)}</p>
+   </div>
+   <div className="show-event-comments">
+
+<CommentsSection eventId={event.id}/>
+
+   </div>
+   </div>
+))
+
+
+    }
+
+    </div>}
 
 </>
     )

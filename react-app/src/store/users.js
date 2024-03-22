@@ -11,7 +11,7 @@ const getUsers = (users) => ({
 
 
 export const getUsersThunk = () => async (dispatch) => {
-    console.log("stigao")
+
 	const response = await fetch("/api/users/", {
 		headers: {
 			"Content-Type": "application/json",
@@ -32,7 +32,7 @@ const users=(state = {}, action)=> {
     let new_state={}
 	switch (action.type) {
 		case GET_USERS:
-            console.log(users)
+            
 			action.users.map((user) => new_state[user.id] = user)
             return new_state
 

@@ -54,7 +54,7 @@ export const getProfileThunk=(id)=>async (dispatch)=>{
 	});
 	if (response.ok) {
 		const data = await response.json();
-console.log(data)
+
 
 		dispatch(getProfile(data));
         return data
@@ -69,7 +69,7 @@ export const getProfilesThunk=()=>async (dispatch)=>{
 	});
 	if (response.ok) {
 		const data = await response.json();
-console.log(data)
+
 
 		dispatch(getProfiles(data));
         return data
@@ -120,7 +120,7 @@ const userProfiles=(state = {}, action)=> {
 
             return {...state,[action.data.user_id]:action.data}
         case GET_PROFILE:
-            console.log(state,action.data)
+            
             return {...state,[action.data.user_id]:action.data}
         case GET_ALL_PROFILES:
                 action.data.map((profile) => new_state[profile.user_id] = profile)

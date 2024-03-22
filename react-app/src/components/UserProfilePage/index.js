@@ -51,6 +51,9 @@ const resetFilters=(e)=>{
     e.preventDefault();
     setCheckedLocation("");
     setCheckedInterest("");
+    setSendLocation("")
+    setSendInterest("")
+
     setIsReset(true);
 }
 let props
@@ -141,7 +144,7 @@ props={location:sendLocation,interest:sendInterest}
              <button onClick={(e)=>{resetFilters(e)}}>Reset</button>
              <button type="submit">Search</button>
              </form>
-             <ShowEvents props />
+             <ShowEvents props={{location:sendLocation,interest:sendInterest}} />
 
 
 

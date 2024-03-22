@@ -16,7 +16,7 @@ function UserProfileSmall({userId}){
     const userProfile=useSelector((state)=>state.userProfiles[userId])
     const user=useSelector((state)=>state.users[userId])
 
-console.log(user)
+
 
 
 
