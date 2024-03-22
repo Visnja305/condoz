@@ -6,6 +6,7 @@ from app.models.db import db
 from app.models.comment import Comment
 from app.models.user import User
 from app.forms.comment_form import CommentForm
+from app.forms.edit_comment_form import EditCommentForm
 
 
 comments_routes = Blueprint('comments', __name__)
@@ -59,3 +60,49 @@ def post_comment():
       if form.errors:
           return jsonify(form.errors)
   return jsonify("Login please")
+
+@comments_routes.route('/<int:comment_id>', methods=['PUT'])
+def edit_comment(comment_id):
+  form=EditCommentForm()
+
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if current_user:
+
+      if form.validate_on_submit():
+          new_comment_content=form.data.get("content")
+          comment = Comment.query.get(comment_id)
+          comment.content =new_comment_content
+          db.session.commit()
+
+          res_comment={
+            "id":comment.id,
+            "author_id":comment.author_id,
+            "author_profile_id":comment.author_profile_id,
+            "content":comment.content,
+            "event_id":comment.event_id,
+            "author_first_name":current_user.first_name,
+            "author_last_name":current_user.last_name
+
+          }
+
+
+          return jsonify(res_comment)
+
+
+      if form.errors:
+          return jsonify(form.errors)
+  return jsonify("Login please")
+
+@comments_routes.route("/<int:comment_id>",methods=["DELETE"])
+def delete_comment(comment_id):
+  try:
+
+    comment= Comment.query.filter_by(id=comment_id).first()
+    db.session.delete(comment)
+    db.session.commit()
+
+
+    return jsonify(comment.id), 200
+  except Exception as e:
+    db.session.rollback()
+    return jsonify({'error': 'An error occurred during deletion'}), 500

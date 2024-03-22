@@ -4,16 +4,14 @@ import { useModal } from "../../context/Modal";
 
 import { useHistory } from "react-router-dom";
 import commentIcon from ".././logos/send-comment.png";
+import { editCommentThunk } from "../../store/comments";
 import "./EditCommentModal.css";
-
-
-
-
 
 
 
 function EditCommentModal({props}) {
     const { closeModal } = useModal();
+    const dispatch=useDispatch();
     const comment=props;
     const [content,setContent]=useState(comment.content);
 
@@ -23,18 +21,18 @@ const handleSubmit =async(e) => {
 
 
 
-    // const formData = new FormData();
-    // formData.append("organizer_id",sessionUser.id);
+    const formData = new FormData();
+    formData.append("content",content);
 
 
 
 
-//     await dispatch(editEventThunk(formData,eventId)).then(closeModal()).catch(
-//         async (res) => {
+    await dispatch(editCommentThunk(formData,comment.id)).then(closeModal()).catch(
+        async (res) => {
 
-//          console.log(res)
+         console.log(res)
 
-//   })
+  })
 
 
   }
