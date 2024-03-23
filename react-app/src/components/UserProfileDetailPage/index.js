@@ -19,8 +19,7 @@ const sessionUser = useSelector((state) => state.session.user);
 const userProfile=useSelector((state)=>state.userProfiles[id]);
 // const [userProfile,setUserProfile]=useState({});
 const [isLoaded,setIsLoaded]=useState(false)
-console.log(id)
-console.log(sessionUser.id)
+
 
     useEffect(() => {
 

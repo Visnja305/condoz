@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Switch, useLocation} from "react-router-dom";
+import { useDispatch,useSelector } from "react-redux";
 import HomePage from "./components/HomePage"
 import BuildingProfile from "./components/BuildingProfile";
 import UserProfilePage from "./components/UserProfilePage";
@@ -7,8 +8,18 @@ import SignupFormPage from "./components/SignupFormPage";
 import UserProfileDetailPage from "./components/UserProfileDetailPage"
 import CreateEvent from "./components/CreateEvent"
 import ManageEvents from "./components/ManageEvents"
+import NavBar from "./components/NavBar"
+import { authenticate } from "./store/session";
+
+
 
 function App() {
+  const dispatch = useDispatch();
+  const [isLoaded, setIsLoaded] = useState(false);
+  const sessionUser = useSelector((state) => state.session.user);
+  useEffect(() => {
+    dispatch(authenticate()).then(() => setIsLoaded(true));
+  }, [dispatch]);
 
 
 
@@ -16,7 +27,7 @@ function App() {
 
 
 <>
-
+      <NavBar isLoaded={isLoaded} />
 
       <Switch >
       <Route exact path="/">
