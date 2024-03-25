@@ -7,7 +7,9 @@ import OpenModalButton from "../OpenModalButton";
 import CreateUserProfileModal from "../CreateUserProfileModal";
 import { getCondosThunk } from "../../store/condos";
 import {getUsersThunk} from "../../store/users";
-import ShowEvents from "../ShowEvents"
+import ShowEvents from "../ShowEvents";
+import onlineUser from "../logos/online.png"
+import offlineUser from "../logos/offline.png"
 const UserProfilePage =()=>{
     const dispatch=useDispatch();
     const [isLoaded,setIsLoaded]=useState(false);
@@ -20,6 +22,10 @@ const UserProfilePage =()=>{
     const sessionUser = useSelector((state) => state.session.user);
     const users=useSelector((state)=>state.users)
     const condos=useSelector((state)=>state.condos);
+    const allUsers=Object.values(users).filter(user=>user.id!==sessionUser.id)
+
+    const onlineUsers=allUsers.filter(user=>user.is_online==true)
+    const offlineUsers=allUsers.filter(user=>user.is_online==false)
 
 
 
@@ -154,6 +160,19 @@ props={location:sendLocation,interest:sendInterest}
              </div>
              <div className="users-on-user-profile-page">
                 <p>Users</p>
+                <ul>{onlineUsers.map(user=>(
+                    <li>{user.first_name} {user.last_name} <img src={onlineUser} id="online-offline-user-circle" /> </li>
+
+))}
+
+                </ul>
+                <ul>{offlineUsers.map(user=>(
+                    <li>{user.first_name} {user.last_name} <img src={offlineUser} id="online-offline-user-circle" /> </li>
+
+))}
+
+                </ul>
+
 
 
 
