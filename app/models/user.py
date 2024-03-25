@@ -11,6 +11,7 @@ class User(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
+    is_online=db.Column(db.Boolean)
     first_name = db.Column(db.String(40), nullable=False)
     last_name = db.Column(db.String(40), nullable=False)
     type=db.Column(db.String(40), nullable=False)
@@ -39,6 +40,7 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             'id': self.id,
+            'is_online':self.is_online,
             'first_name': self.first_name,
             'last_name':self.last_name,
             'type':self.type,

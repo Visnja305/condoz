@@ -1,0 +1,12 @@
+#logout-navbar-button{
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+    color:#dcc08c;
+}
+.navbar-ul{
+    list-style-type: none;
+    display:flex;
+    justify-content:flex-end;
+}

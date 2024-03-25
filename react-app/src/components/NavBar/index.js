@@ -14,13 +14,13 @@ const handleLogOut=async (e)=>{
 }
 	return (<>
         {sessionUser &&
-		<ul>
+		<ul className="navbar-ul">
 			<li>
 				<NavLink exact to="/profile">Home</NavLink>
 			</li>
 			{isLoaded && (
 				<li>
-					<button onClick={(e)=>{handleLogOut(e)}}>Logout</button>
+					<button id="logout-navbar-button" onClick={(e)=>{handleLogOut(e)}}>Logout</button>
 				</li>
 			)}
 		</ul>

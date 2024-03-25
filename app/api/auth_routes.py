@@ -41,6 +41,9 @@ def login():
     if form.validate_on_submit():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
+        user.is_online=True
+        db.session.commit()
+
         login_user(user)
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
@@ -51,6 +54,13 @@ def logout():
     """
     Logs a user out
     """
+    user_id=current_user.id
+
+    user = User.query.get(user_id)
+    user.is_online=False
+    db.session.commit()
+
+
     logout_user()
     return {'message': 'User logged out'}
 
@@ -60,6 +70,7 @@ def sign_up(condo_id):
     """
     Creates a new user and logs them in
     """
+
 
     form = SignUpForm()
 
@@ -74,8 +85,10 @@ def sign_up(condo_id):
             type=form.data["type"],
             condo_id=condo_id,
             has_profile="no",
-            profile_id=0
+            profile_id=0,
+            is_online=True
         )
+        print("$$$$$$$$$$$$$$$$$$$$$$$$$$",user)
         db.session.add(user)
         db.session.commit()
         login_user(user)

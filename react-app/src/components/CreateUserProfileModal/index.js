@@ -210,10 +210,11 @@ console.log(file)
     <label>
         Set profile image
         <input
-        id="user-profile-image"
+          id="user-profile-image"
           type="file"
           accept="image/*"
           onChange={(e)=>{previewFile(e)}}
+          required
         />
 
       </label>
