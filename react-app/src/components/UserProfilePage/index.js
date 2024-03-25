@@ -6,6 +6,7 @@ import "./UserProfilePage.css"
 import OpenModalButton from "../OpenModalButton";
 import CreateUserProfileModal from "../CreateUserProfileModal";
 import { getCondosThunk } from "../../store/condos";
+import {getUsersThunk} from "../../store/users";
 import ShowEvents from "../ShowEvents"
 const UserProfilePage =()=>{
     const dispatch=useDispatch();
@@ -17,7 +18,9 @@ const UserProfilePage =()=>{
 
     const [isReset,setIsReset]=useState(false)
     const sessionUser = useSelector((state) => state.session.user);
-    const condos=useSelector((state)=>state.condos)
+    const users=useSelector((state)=>state.users)
+    const condos=useSelector((state)=>state.condos);
+
 
 
 
@@ -28,6 +31,7 @@ const UserProfilePage =()=>{
         const getData=async()=>{
 
             await dispatch(getCondosThunk())
+            await dispatch(getUsersThunk())
             setIsLoaded(true);
 
         }
@@ -88,6 +92,8 @@ props={location:sendLocation,interest:sendInterest}
             className=",manage-events-link"
             exact to={`/user-profile/manage-events`}
              >Manage events</NavLink>
+             <div className="events-and-users-user-profile-page">
+                <div className="events-user-profile-page">
              <form className="user-profile-filter-events-form" onSubmit={handleSubmit} >
              <p>Filter events by:</p>
              <ul>
@@ -145,6 +151,14 @@ props={location:sendLocation,interest:sendInterest}
              <button type="submit">Search</button>
              </form>
              <ShowEvents props={{location:sendLocation,interest:sendInterest}} />
+             </div>
+             <div className="users-on-user-profile-page">
+                <p>Users</p>
+
+
+
+             </div>
+             </div>
 
 
 
