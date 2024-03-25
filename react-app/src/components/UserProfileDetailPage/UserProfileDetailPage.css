@@ -5,3 +5,7 @@
 .user-profile-detail-information{
     border:solid chocolate;
 }
+#online-offline-user-icon{
+    width:12px;
+    height:12px;
+}

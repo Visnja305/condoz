@@ -4,9 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, Redirect, useLocation, useHistory,NavLink} from "react-router-dom";
 import { getProfileThunk } from "../../store/userProfiles";
 import { authenticate } from "../../store/session";
+import { getUserThunk } from "../../store/users";
 import OpenModalButton from "../OpenModalButton";
 import DeleteUserProfileModal from "../DeleteUserProfileModal";
 import EditUserProfileModal from "../EditUserProfileModal";
+import onlineUser from "../logos/online.png"
+import offlineUser from "../logos/offline.png"
 
 import "./UserProfileDetailPage.css"
 
@@ -16,6 +19,7 @@ const {id}=useParams()
 
 const dispatch=useDispatch()
 const sessionUser = useSelector((state) => state.session.user);
+const user=useSelector((state) => state.users[id]);
 const userProfile=useSelector((state)=>state.userProfiles[id]);
 // const [userProfile,setUserProfile]=useState({});
 const [isLoaded,setIsLoaded]=useState(false)
@@ -25,6 +29,7 @@ const [isLoaded,setIsLoaded]=useState(false)
 
         const getData=async()=>{
             await dispatch(getProfileThunk(id));
+            await dispatch(getUserThunk(id))
             setIsLoaded(true);
 
         }
@@ -58,7 +63,7 @@ else{
 
   <div className="container-user-profile-detail-page">
         <div className="user-profile-detail-information"><img id="profile-image-on-profile-detail-page"src={userProfile?.profile_img} />
-        <p>{sessionUser?.first_name} {sessionUser?.last_name}</p>
+        <p>{user?.first_name} {user?.last_name} {user.is_online ? <img src={onlineUser} id="online-offline-user-icon" /> : <span><img src={offlineUser} id="online-offline-user-icon"/>offline</span>}</p>
         <p>Age: {userProfile?.age}</p>
         <p>Education: {userProfile?.education}</p>
         <p>Work: {userProfile?.work}</p>
