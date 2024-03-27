@@ -49,7 +49,7 @@ def create_user_profile():
           yoga=form.data.get("yoga")
           boxing=form.data.get("boxing")
 
-          new_profile=Profile(user_id=user_id,condo_id=condo_id,profile_img=profile_img,age=age,work=work,education=education,hometown=hometown,tennis=tennis,padel=padel,pickleball=pickleball,golf=golf,gym=gym,boating=boating,jogging=jogging,dogs=dogs,kids_activities=kids_activities,soccer=soccer,cocktail_hour=cocktail_hour,philanthropy=philanthropy,basketball=basketball,art=art,spa=spa,fine_dining=fine_dining,polo=polo,scuba_diving=scuba_diving,horseback_riding=horseback_riding,yoga=yoga,boxing=boxing)
+          new_profile=Profile(user_id=user_id,condo_id=condo_id,profile_img=profile_img,age=age,work=work,education=education,hometown=hometown,tennis=tennis,padel=padel,pickleball=pickleball,golf=golf,gym=gym,boating=boating,jogging=jogging,dogs=dogs,kids_activities=kids_activities,soccer=soccer,cocktail_hour=cocktail_hour,philanthropy=philanthropy,basketball=basketball,art=art,spa=spa,fine_dining=fine_dining,polo=polo,scuba_diving=scuba_diving,horseback_riding=horseback_riding,yoga=yoga,boxing=boxing,has_chat_notification="no")
 
 
           db.session.add(new_profile)
@@ -86,7 +86,8 @@ def create_user_profile():
             "scuba_diving":scuba_diving,
             "horseback_riding":horseback_riding,
             "yoga":yoga,
-            "boxing":boxing
+            "boxing":boxing,
+            "has_chat_notification":new_profile.has_chat_notification
 
 
           }

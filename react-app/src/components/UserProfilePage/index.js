@@ -10,6 +10,8 @@ import {getUsersThunk} from "../../store/users";
 import ShowEvents from "../ShowEvents";
 import onlineUser from "../logos/online.png"
 import offlineUser from "../logos/offline.png"
+import LiveChat from "../LiveChat"
+
 const UserProfilePage =()=>{
     const dispatch=useDispatch();
     const [isLoaded,setIsLoaded]=useState(false);
@@ -17,6 +19,7 @@ const UserProfilePage =()=>{
     const [checkedInterest,setCheckedInterest]=useState("");
     const [sendLocation,setSendLocation]=useState("");
     const [sendInterest,setSendInterest]=useState("");
+    const [liveChats,setLiveChats]=useState([]);
 
     const [isReset,setIsReset]=useState(false)
     const sessionUser = useSelector((state) => state.session.user);
@@ -26,6 +29,8 @@ const UserProfilePage =()=>{
 
     const onlineUsers=allUsers.filter(user=>user.is_online==true)
     const offlineUsers=allUsers.filter(user=>user.is_online==false)
+
+
 
 
 
@@ -76,7 +81,16 @@ setSendInterest(checkedInterest);
 props={location:sendLocation,interest:sendInterest}
 
 }
+// const handleGoToChat=async(e,id)=>{
+//     e.preventDefault();
+//     setLiveChats(prev=>[...prev,id])
 
+
+
+
+
+
+// }
     return(<>{sessionUser && <div>{sessionUser.has_profile==="no" &&<div>
         <p>Join the community</p>
 <OpenModalButton buttonText="Create a profile"
@@ -161,17 +175,23 @@ props={location:sendLocation,interest:sendInterest}
              <div className="users-on-user-profile-page">
                 <p>Users</p>
                 <ul>{onlineUsers.map(user=>(
-                    <li>{user.first_name} {user.last_name} <img src={onlineUser} id="online-offline-user-circle" /> </li>
+                    <li>{user.first_name} {user.last_name} <img src={onlineUser} id="online-offline-user-circle" /> <NavLink exact to={`/live-chat`}>Live chat</NavLink> </li>
 
 ))}
 
                 </ul>
                 <ul>{offlineUsers.map(user=>(
-                    <li>{user.first_name} {user.last_name} <img src={offlineUser} id="online-offline-user-circle" /> </li>
+                    <li>{user.first_name} {user.last_name}<img src={offlineUser} id="online-offline-user-circle" /> </li>
 
 ))}
 
                 </ul>
+                {/* {liveChats.length!==0 && liveChats.map(chat=>
+                     <div className="live-chat-on-user-profile">
+                        <LiveChat props={chat}/>
+                     </div>
+                    )} */}
+
 
 
 
@@ -192,3 +212,8 @@ export default UserProfilePage;
             className="user-profile-link"
             exact to="/my-profile"
              >Profile</NavLink> */}
+
+
+            //  <NavLink exact to={`/live-chat/${sessionUser.id}/${user.id}`}>Live chat</NavLink>
+            // <NavLink exact to={`/live-chat/${sessionUser.id}/${user.id}`} onClick={(e)=>handleGoToChat(e,user.id)}>Live chat</NavLink>
+{/* <button onClick={(e)=>handleGoToChat(e,user.id)}>Live chat</button>  */}

@@ -18,7 +18,7 @@ function ShowEvents({props}){
 
 
     const events=Object.values(useSelector((state)=>state.events))
-console.log(events)
+
 
 
 

@@ -38,6 +38,8 @@ class Profile(db.Model):
     horseback_riding=db.Column(db.Boolean)
     yoga=db.Column(db.Boolean)
     boxing=db.Column(db.Boolean)
+    has_chat_notification=db.Column(db.String(40), nullable=False)
+
 
 
     user = db.relationship('User', back_populates='profiles')

@@ -109,6 +109,22 @@ export const deleteUserProfileThunk=(profileId)=>async(dispatch)=>{
         return errorData
 
     };
+    // export const editChatNotificationThunk = (formData,profileId) => async (dispatch) => {
+    //     const response = await fetch(`/api/profiles/edit/${profileId}`, {
+    //         method: "PUT",
+
+    //         body: formData,
+    //     });
+    //     if (response.ok) {
+    //         const data = await response.json();
+    //         dispatch(editProfile(data));
+    //         return data
+    //     }
+    //     const errorData = response.json();
+
+    //     return errorData
+
+    // };
 
 
 
@@ -120,7 +136,7 @@ const userProfiles=(state = {}, action)=> {
 
             return {...state,[action.data.user_id]:action.data}
         case GET_PROFILE:
-            
+
             return {...state,[action.data.user_id]:action.data}
         case GET_ALL_PROFILES:
                 action.data.map((profile) => new_state[profile.user_id] = profile)

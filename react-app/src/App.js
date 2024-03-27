@@ -55,7 +55,7 @@ function App() {
             <Route exact path="/user-profile/manage-events">
             <ManageEvents />
             </Route>
-            <Route exact path="/splash">
+            <Route exact path="/live-chat">
 <LiveChat />
               </Route>
 

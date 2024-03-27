@@ -7,7 +7,8 @@ import { io } from "socket.io-client"
 
 let socket;
 
-function LiveChat(){
+function LiveChat({props}){
+    console.log(props)
 const user=useSelector((state)=>state.session.user)
 const [connected,setConnected]=useState(false)
 const [newMsg,setNewMsg]=useState('');
