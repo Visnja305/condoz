@@ -61,6 +61,22 @@ export const getProfileThunk=(id)=>async (dispatch)=>{
 	}
 return response
 }
+export const getCurrentUsersProfileThunk=()=>async (dispatch)=>{
+    const response = await fetch("/api/profiles/current-user", {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
+	if (response.ok) {
+		const data = await response.json();
+
+
+		dispatch(getProfile(data));
+        return data
+	}
+return response
+}
+
 export const getProfilesThunk=()=>async (dispatch)=>{
     const response = await fetch(`/api/profiles/all`, {
 		headers: {
@@ -109,22 +125,7 @@ export const deleteUserProfileThunk=(profileId)=>async(dispatch)=>{
         return errorData
 
     };
-    // export const editChatNotificationThunk = (formData,profileId) => async (dispatch) => {
-    //     const response = await fetch(`/api/profiles/edit/${profileId}`, {
-    //         method: "PUT",
-
-    //         body: formData,
-    //     });
-    //     if (response.ok) {
-    //         const data = await response.json();
-    //         dispatch(editProfile(data));
-    //         return data
-    //     }
-    //     const errorData = response.json();
-
-    //     return errorData
-
-    // };
+    
 
 
 

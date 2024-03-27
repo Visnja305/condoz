@@ -4,6 +4,7 @@ from flask_login import login_required
 from flask_login import current_user
 from app.models.db import db
 from app.models.profile import Profile
+
 from app.forms.user_profile_form import UserProfileForm
 
 
@@ -49,11 +50,13 @@ def create_user_profile():
           yoga=form.data.get("yoga")
           boxing=form.data.get("boxing")
 
-          new_profile=Profile(user_id=user_id,condo_id=condo_id,profile_img=profile_img,age=age,work=work,education=education,hometown=hometown,tennis=tennis,padel=padel,pickleball=pickleball,golf=golf,gym=gym,boating=boating,jogging=jogging,dogs=dogs,kids_activities=kids_activities,soccer=soccer,cocktail_hour=cocktail_hour,philanthropy=philanthropy,basketball=basketball,art=art,spa=spa,fine_dining=fine_dining,polo=polo,scuba_diving=scuba_diving,horseback_riding=horseback_riding,yoga=yoga,boxing=boxing,has_chat_notification="no")
+          new_profile=Profile(user_id=user_id,condo_id=condo_id,profile_img=profile_img,age=age,work=work,education=education,hometown=hometown,tennis=tennis,padel=padel,pickleball=pickleball,golf=golf,gym=gym,boating=boating,jogging=jogging,dogs=dogs,kids_activities=kids_activities,soccer=soccer,cocktail_hour=cocktail_hour,philanthropy=philanthropy,basketball=basketball,art=art,spa=spa,fine_dining=fine_dining,polo=polo,scuba_diving=scuba_diving,horseback_riding=horseback_riding,yoga=yoga,boxing=boxing)
 
 
           db.session.add(new_profile)
           db.session.commit()
+
+
 
 
 
@@ -87,7 +90,7 @@ def create_user_profile():
             "horseback_riding":horseback_riding,
             "yoga":yoga,
             "boxing":boxing,
-            "has_chat_notification":new_profile.has_chat_notification
+
 
 
           }
@@ -100,7 +103,7 @@ def create_user_profile():
           return jsonify(form.errors)
     return jsonify("Login please")
 
-
+#get profile for other users
 @profiles_routes.route('/<int:id>')
 def get_user_profile(id):
     print("!!!!!!!!!!!!!!!!!",id)
@@ -109,8 +112,16 @@ def get_user_profile(id):
     if(profile):
         return profile.to_dict()
     return jsonify("Profile can't be found")
+#get profile for current user
 
+@profiles_routes.route('/current-user')
+def get_current_user_profile():
 
+    profile=Profile.query.filter_by(user_id=current_user.id).first()
+
+    if(profile):
+        return profile.to_dict()
+    return jsonify("Profile can't be found")
 
 @profiles_routes.route('/delete/<int:id>',methods=['DELETE'])
 def delete_user_profile(id):
@@ -177,6 +188,31 @@ def edit_user_profile(id):
       if form.errors:
           return jsonify(form.errors)
     return jsonify("Login please")
+
+
+
+@profiles_routes.route('/edit/add-chat-notification/<int:room>/<int:id>',methods=['PUT'])
+def add_chat_notification(room,id):
+          print("!!!!!!!!!!!!!!!!!!!!",id)
+
+          user_profile = Profile.query.get(id)
+          print("********************HEEEEEEEEEYYYYYYIGOTITT",user_profile.has_chat_notification)
+          if user_profile.has_chat_notification=="no":
+              user_profile.has_chat_notification=(str(room))
+          if user_profile.has_chat_notification!="no":
+              the_attribute=user_profile.has_chat_notification
+              the_list=the_attribute.split(",")
+              the_list.append(str(room))
+              the_string=','.join(map(str, the_list))
+              user_profile.has_chat_notification=the_string
+          db.session.commit()
+          print("*********IOVOOOOOOOOOOOOO",user_profile.has_chat_notification)
+
+          return user_profile.to_dict()
+
+
+
+
 
 @profiles_routes.route('/all')
 def get_all_profiles():

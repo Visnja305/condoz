@@ -1,4 +1,5 @@
-.message-box{
-    overflow-y: auto;
-    max-height: 400px;
+
+.chats-and-users-container{
+    display:flex;
+
 }

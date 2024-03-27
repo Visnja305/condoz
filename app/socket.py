@@ -15,6 +15,7 @@ def handle_my_chat(data):
         "user":user,
         "msg":msg
     }
+    print("!!!!!!!!!!!!!!!!!!!!!",room)
     emit("chat",new_data,broadcast=True,to=room)
 
 @socket.on("leave")
