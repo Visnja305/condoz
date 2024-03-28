@@ -38,6 +38,7 @@ app.register_blueprint(condos_routes, url_prefix='/api/condos')
 app.register_blueprint(profiles_routes, url_prefix='/api/profiles')
 app.register_blueprint(events_routes, url_prefix='/api/events')
 app.register_blueprint(comments_routes, url_prefix='/api/comments')
+
 db.init_app(app)
 Migrate(app, db)
 socket.init_app(app)

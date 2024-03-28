@@ -49,7 +49,7 @@ def create_user_profile():
           yoga=form.data.get("yoga")
           boxing=form.data.get("boxing")
 
-          new_profile=Profile(user_id=user_id,condo_id=condo_id,profile_img=profile_img,age=age,work=work,education=education,hometown=hometown,tennis=tennis,padel=padel,pickleball=pickleball,golf=golf,gym=gym,boating=boating,jogging=jogging,dogs=dogs,kids_activities=kids_activities,soccer=soccer,cocktail_hour=cocktail_hour,philanthropy=philanthropy,basketball=basketball,art=art,spa=spa,fine_dining=fine_dining,polo=polo,scuba_diving=scuba_diving,horseback_riding=horseback_riding,yoga=yoga,boxing=boxing,has_chat_notification="no")
+          new_profile=Profile(user_id=user_id,condo_id=condo_id,profile_img=profile_img,age=age,work=work,education=education,hometown=hometown,tennis=tennis,padel=padel,pickleball=pickleball,golf=golf,gym=gym,boating=boating,jogging=jogging,dogs=dogs,kids_activities=kids_activities,soccer=soccer,cocktail_hour=cocktail_hour,philanthropy=philanthropy,basketball=basketball,art=art,spa=spa,fine_dining=fine_dining,polo=polo,scuba_diving=scuba_diving,horseback_riding=horseback_riding,yoga=yoga,boxing=boxing,chat_room=0,chat_initiated_by=0)
 
 
           db.session.add(new_profile)
@@ -87,7 +87,9 @@ def create_user_profile():
             "horseback_riding":horseback_riding,
             "yoga":yoga,
             "boxing":boxing,
-            "has_chat_notification":new_profile.has_chat_notification
+            "chat_room":new_profile.chat_room,
+            "chat_initiated_by":new_profile.chat_initiated_by
+
 
 
           }
@@ -108,6 +110,7 @@ def get_user_profile(id):
     print("************",profile)
     if(profile):
         return profile.to_dict()
+
     return jsonify("Profile can't be found")
 
 
@@ -186,6 +189,17 @@ def get_all_profiles():
     print(all_profiles)
 
     return jsonify(all_profiles)
+
+@profiles_routes.route('/add-notification/<int:room>/<int:id>',methods=['PUT'])
+def add_notification(room,id):
+    user_profile = Profile.query.get(id)
+    user_profile.chat_room=room
+    user_profile.chat_initiated_by=id
+    db.session.commit()
+    return user_profile.to_dict()
+
+
+
 
 
 

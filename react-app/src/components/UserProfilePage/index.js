@@ -11,25 +11,50 @@ import ShowEvents from "../ShowEvents";
 import onlineUser from "../logos/online.png"
 import offlineUser from "../logos/offline.png"
 import LiveChat from "../LiveChat"
+import {addChatNotificationThunk} from "../../store/userProfiles"
+import { getProfileThunk } from "../../store/userProfiles";
 
 const UserProfilePage =()=>{
     const dispatch=useDispatch();
+    const history=useHistory()
+    const {profileId}=useParams()
+    const sessionUser = useSelector((state) => state.session.user);
+    const users=useSelector((state)=>state.users)
+    const condos=useSelector((state)=>state.condos);
+    const userProfile=useSelector((state)=>state.userProfiles[profileId])
+
+    console.log(userProfile)
+
+
     const [isLoaded,setIsLoaded]=useState(false);
     const [checkedLocation,setCheckedLocation]=useState("");
     const [checkedInterest,setCheckedInterest]=useState("");
     const [sendLocation,setSendLocation]=useState("");
     const [sendInterest,setSendInterest]=useState("");
     const [liveChats,setLiveChats]=useState([]);
+    const [userNotifications,setUserNotifications]=useState("");
+    const [loadAgain,setLoadAgain]=useState(false)
 
     const [isReset,setIsReset]=useState(false)
-    const sessionUser = useSelector((state) => state.session.user);
-    const users=useSelector((state)=>state.users)
-    const condos=useSelector((state)=>state.condos);
+    if(userProfile && userNotifications !== `${userProfile.chat_room},${userProfile.chat_initiated_by}`){setUserNotifications(`${userProfile.chat_room},${userProfile.chat_initiated_by}`)}
     const allUsers=Object.values(users).filter(user=>user.id!==sessionUser.id)
 
     const onlineUsers=allUsers.filter(user=>user.is_online==true)
     const offlineUsers=allUsers.filter(user=>user.is_online==false)
+console.log(userNotifications)
 
+    useEffect(() => {
+
+        const getNotifications=async()=>{
+
+            await dispatch(getProfileThunk(profileId))
+
+
+
+
+        }
+        getNotifications();
+    },[] )
 
 
 
@@ -43,6 +68,8 @@ const UserProfilePage =()=>{
 
             await dispatch(getCondosThunk())
             await dispatch(getUsersThunk())
+            await dispatch(getProfileThunk(profileId))
+
             setIsLoaded(true);
 
         }
@@ -81,16 +108,28 @@ setSendInterest(checkedInterest);
 props={location:sendLocation,interest:sendInterest}
 
 }
-// const handleGoToChat=async(e,id)=>{
-//     e.preventDefault();
-//     setLiveChats(prev=>[...prev,id])
+function getRandomInt(min,max) {
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+  }
+const handleGoToChat=async(e,id)=>{
+    e.preventDefault();
+   const room= getRandomInt(1,1000);
+   await dispatch(addChatNotificationThunk(room,id))
+
+
+    history.push(`/live-chat/${room}/${id}`)
+
+
+}
 
 
 
 
 
 
-// }
+
     return(<>{sessionUser && <div>{sessionUser.has_profile==="no" &&<div>
         <p>Join the community</p>
 <OpenModalButton buttonText="Create a profile"
@@ -175,7 +214,7 @@ props={location:sendLocation,interest:sendInterest}
              <div className="users-on-user-profile-page">
                 <p>Users</p>
                 <ul>{onlineUsers.map(user=>(
-                    <li>{user.first_name} {user.last_name} <img src={onlineUser} id="online-offline-user-circle" /> <NavLink exact to={`/live-chat`}>Live chat</NavLink> </li>
+                    <li>{user.first_name} {user.last_name} <img src={onlineUser} id="online-offline-user-circle" /> <button onClick={(e)=>{handleGoToChat(e,user.profile_id)}}>Live chat</button></li>
 
 ))}
 
@@ -186,11 +225,12 @@ props={location:sendLocation,interest:sendInterest}
 ))}
 
                 </ul>
-                {/* {liveChats.length!==0 && liveChats.map(chat=>
+            <div><p>{userProfile?.chat_room}</p></div>
+                {/* {userNotification &&
                      <div className="live-chat-on-user-profile">
                         <LiveChat props={chat}/>
                      </div>
-                    )} */}
+                    } */}
 
 
 

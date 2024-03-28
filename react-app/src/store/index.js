@@ -7,13 +7,15 @@ import events from './events'
 import users from './users'
 import comments from './comments'
 
+
 const rootReducer = combineReducers({
   session,
   condos,
   userProfiles,
   events,
   users,
-  comments
+  comments,
+
 
 
 });

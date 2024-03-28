@@ -3,7 +3,8 @@ const CREATE_USER_PROFILE = "userProfile/CREATE_PROFILE";
 const GET_PROFILE="userProfile/GET_PROFILE"
 const GET_ALL_PROFILES="userProfile/GET_ALL_PROFILES"
 const DELETE_PROFILE="userProfile/DELETE_PROFILE"
-const EDIT_PROFILE="editProfile/EDIT_PROFILE"
+const EDIT_PROFILE="userProfile/EDIT_PROFILE"
+const ADD_NOTIFICATION="userProfile/ADD_NOTIFICATION"
 
 const createProfile = (data) => ({
 	type: CREATE_USER_PROFILE,
@@ -29,6 +30,12 @@ const editProfile=(data)=>({
     data
 
 })
+const addNotification = (data,profileId) => {
+    return {
+      type: ADD_NOTIFICATION,
+      data,profileId
+    }
+   }
 
 export const createUserProfileThunk = (formData) => async (dispatch) => {
 	const response = await fetch("/api/profiles/", {
@@ -109,22 +116,23 @@ export const deleteUserProfileThunk=(profileId)=>async(dispatch)=>{
         return errorData
 
     };
-    // export const editChatNotificationThunk = (formData,profileId) => async (dispatch) => {
-    //     const response = await fetch(`/api/profiles/edit/${profileId}`, {
-    //         method: "PUT",
 
-    //         body: formData,
-    //     });
-    //     if (response.ok) {
-    //         const data = await response.json();
-    //         dispatch(editProfile(data));
-    //         return data
-    //     }
-    //     const errorData = response.json();
+    export const addChatNotificationThunk = (room,id) => async (dispatch) => {
+        const response = await fetch(`/api/profiles/add-notification/${room}/${id}`, {
 
-    //     return errorData
+            method: "PUT",
 
-    // };
+        });
+        if (response.ok) {
+            const data = await response.json();
+            dispatch(editProfile(data));
+            return data
+        }
+        const errorData = response.json();
+
+        return errorData
+
+    };
 
 
 
@@ -136,8 +144,7 @@ const userProfiles=(state = {}, action)=> {
 
             return {...state,[action.data.user_id]:action.data}
         case GET_PROFILE:
-
-            return {...state,[action.data.user_id]:action.data}
+           return {...state,[action.data.user_id]:action.data}
         case GET_ALL_PROFILES:
                 action.data.map((profile) => new_state[profile.user_id] = profile)
                 return new_state
@@ -147,7 +154,9 @@ const userProfiles=(state = {}, action)=> {
                 delete newState[action.id];
                 return newState;
         case EDIT_PROFILE:
-            return {...state,[action.data.user_id]:action.data}
+            new_state[action.data.user_id]=action.data
+            return new_state
+            // return {...state,[action.data.user_id]:action.data}
 
 
 		default:

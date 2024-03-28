@@ -44,7 +44,7 @@ function App() {
       <Route exact path="/condos/:condoId(\d+)">
 <BuildingProfile />
           </Route>
-          <Route exact path="/profile" >
+          <Route exact path="/profile/:profileId(\d+)" >
 <UserProfilePage />
 
           </Route>
@@ -55,7 +55,7 @@ function App() {
             <Route exact path="/user-profile/manage-events">
             <ManageEvents />
             </Route>
-            <Route exact path="/live-chat">
+            <Route exact path="/live-chat/:roomNumber(\d+)/:profileId(\d+)">
 <LiveChat />
               </Route>
 

@@ -18,7 +18,7 @@ function SignupFormPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  if (sessionUser) { return <Redirect to="/profile" />;
+  if (sessionUser) { return <Redirect to={`/profile/${sessionUser.profile_id}`} />;
   }
 
   const handleSubmit = async (e) => {

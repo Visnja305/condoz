@@ -39,7 +39,7 @@ function BuildingProfile(){
 
       dispatch(getCondosThunk()).then(dispatch(authenticate())).then(() => setIsLoaded(true));
     }, [dispatch]);
-    if (sessionUser) {return <Redirect to="/profile" />}
+    if (sessionUser) {return <Redirect to={`/profile/${sessionUser.profile_id}`}/>}
 
 
     const handleSubmit = async (e) => {

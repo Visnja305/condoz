@@ -2,18 +2,19 @@ import React, {useEffect,useRef,useState} from 'react';
 import {useSelector} from 'react-redux';
 import "./LiveChat.css"
 import { io } from "socket.io-client"
-
+import { useParams } from "react-router-dom";
 
 
 let socket;
 
-function LiveChat({props}){
-    console.log(props)
+function LiveChat(){
+const params=useParams()
+console.log(params)
 const user=useSelector((state)=>state.session.user)
 const [connected,setConnected]=useState(false)
 const [newMsg,setNewMsg]=useState('');
 const [messages,setMessages]=useState([])
-const chatroom="123"
+const chatroom=123
 
 const messageBox=useRef();
 useEffect(()=>{
@@ -54,6 +55,9 @@ socket.on('join',async(data)=>{
     setMessages((prev)=>[...prev,data])
 });
 setConnected(true)
+
+
+
 
 }
 const handleDisconnect=async(e)=>{

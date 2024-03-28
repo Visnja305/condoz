@@ -38,7 +38,9 @@ class Profile(db.Model):
     horseback_riding=db.Column(db.Boolean)
     yoga=db.Column(db.Boolean)
     boxing=db.Column(db.Boolean)
-    has_chat_notification=db.Column(db.String(40), nullable=False)
+    chat_room=db.Column(db.Integer)
+    chat_initiated_by=db.Column(db.Integer)
+
 
 
 
@@ -46,6 +48,7 @@ class Profile(db.Model):
     condo=db.relationship('Condo', back_populates='profiles')
     events=db.relationship('Event',back_populates='profile',cascade="all, delete-orphan")
     comments=db.relationship('Comment',back_populates='profile',cascade="all, delete-orphan")
+
 
 
 
@@ -78,7 +81,9 @@ class Profile(db.Model):
             'scuba_diving':self.scuba_diving,
             'horseback_riding':self.horseback_riding,
             'yoga':self.yoga,
-            'boxing':self.boxing
+            'boxing':self.boxing,
+            'chat_room':self.chat_room,
+            'chat_initiated_by':self.chat_initiated_by
 
 
 
