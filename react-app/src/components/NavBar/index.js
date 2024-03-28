@@ -2,15 +2,17 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
 import {logout} from "../../store/session";
-
+import { useHistory } from "react-router-dom";
 import "./NavBar.css";
 
 function NavBar({ isLoaded }){
     const dispatch=useDispatch();
+	const history=useHistory();
 	const sessionUser = useSelector(state => state.session.user);
 const handleLogOut=async (e)=>{
     e.preventDefault();
     await dispatch(logout())
+	history.push("/")
 }
 	return (<>
         {sessionUser &&

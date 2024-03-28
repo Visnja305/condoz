@@ -22,7 +22,7 @@ const UserProfilePage =()=>{
     const sessionUser = useSelector((state) => state.session.user);
     const users=useSelector((state)=>state.users)
     const condos=useSelector((state)=>state.condos);
-    const allUsers=Object.values(users).filter(user=>user.id!==sessionUser.id)
+    const allUsers=Object.values(users).filter(user=>user?.id!==sessionUser?.id)
 
     const onlineUsers=allUsers.filter(user=>user.is_online==true)
     const offlineUsers=allUsers.filter(user=>user.is_online==false)
