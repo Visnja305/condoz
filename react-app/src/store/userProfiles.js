@@ -144,7 +144,10 @@ const userProfiles=(state = {}, action)=> {
 
             return {...state,[action.data.user_id]:action.data}
         case GET_PROFILE:
-           return {...state,[action.data.user_id]:action.data}
+            new_state=JSON.parse(JSON.stringify(new_state))
+            new_state[action.data.user_id]=action.data
+      return new_state
+        //    return {...state,[action.data.user_id]:action.data}
         case GET_ALL_PROFILES:
                 action.data.map((profile) => new_state[profile.user_id] = profile)
                 return new_state

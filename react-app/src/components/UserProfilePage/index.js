@@ -32,7 +32,7 @@ const UserProfilePage =()=>{
     const [sendLocation,setSendLocation]=useState("");
     const [sendInterest,setSendInterest]=useState("");
     const [liveChats,setLiveChats]=useState([]);
-    const [userNotifications,setUserNotifications]=useState("");
+    // const [userNotifications,setUserNotifications]=useState("");
     const [loadAgain,setLoadAgain]=useState(false)
 
     const [isReset,setIsReset]=useState(false)
@@ -48,6 +48,7 @@ console.log(userNotifications)
         const getNotifications=async()=>{
 
             await dispatch(getProfileThunk(profileId))
+
 
 
 
@@ -68,7 +69,7 @@ console.log(userNotifications)
 
             await dispatch(getCondosThunk())
             await dispatch(getUsersThunk())
-            await dispatch(getProfileThunk(profileId))
+            // await dispatch(getProfileThunk(profileId))
 
             setIsLoaded(true);
 
@@ -116,8 +117,8 @@ function getRandomInt(min,max) {
 const handleGoToChat=async(e,id)=>{
     e.preventDefault();
    const room= getRandomInt(1,1000);
-   await dispatch(addChatNotificationThunk(room,id))
-
+//    await dispatch(addChatNotificationThunk(room,id))
+Socket.emit("chat",payload)
 
     history.push(`/live-chat/${room}/${id}`)
 
