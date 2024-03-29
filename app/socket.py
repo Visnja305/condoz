@@ -38,3 +38,5 @@ def on_join(data):
     }
     join_room(data["room"])
     emit("join",new_data,broadcast=True)
+@socket.on("notification")
+def 

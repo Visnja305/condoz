@@ -13,11 +13,15 @@ import offlineUser from "../logos/offline.png"
 import LiveChat from "../LiveChat"
 import {addChatNotificationThunk} from "../../store/userProfiles"
 import { getProfileThunk } from "../../store/userProfiles";
+import { io } from "socket.io-client"
+
+let socket
 
 const UserProfilePage =()=>{
     const dispatch=useDispatch();
     const history=useHistory()
     const {profileId}=useParams()
+    socket=io()
     const sessionUser = useSelector((state) => state.session.user);
     const users=useSelector((state)=>state.users)
     const condos=useSelector((state)=>state.condos);
@@ -118,7 +122,13 @@ const handleGoToChat=async(e,id)=>{
     e.preventDefault();
    const room= getRandomInt(1,1000);
 //    await dispatch(addChatNotificationThunk(room,id))
-Socket.emit("chat",payload)
+ const payload={
+    initiatorProfileId:profileId,
+    invitedUserProfileId:id,
+    room:room
+
+}
+socket.emit("notification",payload)
 
     history.push(`/live-chat/${room}/${id}`)
 
