@@ -13,7 +13,7 @@ function SignupFormPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
-  const [type,setType]=useState("")
+  // const [type,setType]=useState("")
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
@@ -29,8 +29,9 @@ function SignupFormPage() {
       const last_name=lastName;
       const condo_id=condoId;
 
+      // const data= await dispatch(signUp(first_name,last_name,type,condo_id, email, password))
 
-      const data= await dispatch(signUp(first_name,last_name,type,condo_id, email, password))
+      const data= await dispatch(signUp(first_name,last_name,condo_id, email, password))
         if (data) {
           setErrors(data)
         }
@@ -79,7 +80,7 @@ function SignupFormPage() {
         </label>
 
 
-        <label>
+        {/* <label>
       Type:
       <select className="signup-form-input-select"
           name="type"
@@ -90,7 +91,7 @@ function SignupFormPage() {
         <option value="property-management">Property management</option>
 
       </select>
-    </label>
+    </label> */}
 
 
         <label>

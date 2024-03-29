@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: e2676ec46606
+Revision ID: ad26732911ca
 Revises:
-Create Date: 2024-03-25 17:37:21.432146
+Create Date: 2024-03-28 21:26:22.204717
 
 """
 from alembic import op
@@ -11,8 +11,10 @@ import sqlalchemy as sa
 import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
+
+
 # revision identifiers, used by Alembic.
-revision = 'e2676ec46606'
+revision = 'ad26732911ca'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -33,7 +35,6 @@ def upgrade():
     sa.Column('is_online', sa.Boolean(), nullable=True),
     sa.Column('first_name', sa.String(length=40), nullable=False),
     sa.Column('last_name', sa.String(length=40), nullable=False),
-    sa.Column('type', sa.String(length=40), nullable=False),
     sa.Column('condo_id', sa.Integer(), nullable=True),
     sa.Column('email', sa.String(length=255), nullable=False),
     sa.Column('has_profile', sa.String(length=40), nullable=False),
@@ -132,7 +133,7 @@ def upgrade():
         op.execute(f"ALTER TABLE profiles SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE events SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
-        
+
 
 
 def downgrade():

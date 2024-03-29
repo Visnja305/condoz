@@ -56,6 +56,13 @@ function BuildingProfile(){
       }
     }
     };
+    const onDemoUser = async (e) => {
+      e.preventDefault();
+      const data = await dispatch(login("demo@aa.io", "password"));
+      if (data) {
+        setErrors(data);
+      } 
+    };
 
 
 
@@ -98,7 +105,9 @@ function BuildingProfile(){
        <label>Password</label>
        </div>
         <button type="submit" id="login-button" disabled={email.length == 0 || password.length == 0}>Log In</button>
+
       </form>
+      <button onClick={(e)=>onDemoUser(e)} className="demo-user-btn"> Demo User</button>
       <span>Not a member?  <button id="signup-button-login-page" onClick={(e)=>history.push(`/${condoId}/signup`)}>Sign up</button></span>
 
 

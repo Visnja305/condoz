@@ -4,7 +4,7 @@ import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
 import "./CreateUserProfileModal.css";
 import educationLogo from ".././logos/education-logo.png"
-import profileImageLogo from ".././logos/profile-image-icon.png";
+import profileImageLogo from ".././logos/profile-logo.png";
 import ageIcon from ".././logos/age-icon.png";
 import workLogo from ".././logos/work-logo-black.png";
 import homeIcon from ".././logos/home-icon.png"
@@ -18,7 +18,7 @@ function CreateUserProfileModal() {
 const sessionUser = useSelector((state) => state.session.user);
 const { closeModal } = useModal();
 const dispatch = useDispatch();
-const [profileImage, setProfileImage]=useState("");
+const [profileImage, setProfileImage]=useState(profileImageLogo);
 const [dateOfBirth,setDateOfBirth]=useState("2024-01-01");
 const [usersAge,setUsersAge]=useState("");
 const [work,setWork]=useState("");
@@ -214,11 +214,12 @@ console.log(file)
           type="file"
           accept="image/*"
           onChange={(e)=>{previewFile(e)}}
-          required
+
         />
 
       </label>
-      <img id="preview-image-create-profile" src="" height="100px" width="100px" alt="Image preview..."></img>
+      
+      <img id="preview-image-create-profile" src={`${profileImageLogo}`} height="100px" width="100px" alt="Image preview..."></img>
 
       <label>
       <img src={ageIcon} id="create-user-profile-logos"/>
