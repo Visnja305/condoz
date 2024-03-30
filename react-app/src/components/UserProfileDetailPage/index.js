@@ -77,7 +77,7 @@ else{
 
 
 </div>
-{Number(id)===sessionUser.id && <div className="user-profile-detail-page-delete-and-edit">
+{Number(id)===sessionUser?.id && <div className="user-profile-detail-page-delete-and-edit">
 <OpenModalButton buttonText="Delete profile"
                     modalComponent={<DeleteUserProfileModal props={userProfile.id} />}
                   />

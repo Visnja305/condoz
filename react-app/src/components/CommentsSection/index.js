@@ -26,6 +26,7 @@ function CommentsSection({eventId}) {
   const eventComments=comments.filter(comment=>comment.event_id==eventId)
   const fromMostRecentEventComments=eventComments.reverse();
   const [comment, setComment] = useState("");
+  const [error,setError]=useState("")
 
   const [isLoaded,setIsLoaded]=useState(false)
 
@@ -49,9 +50,13 @@ function CommentsSection({eventId}) {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    if (comment.startsWith(" ")){
+setError("Comment not valid/can not begin with empty space")
+    }
+    else{
 
 
-
+setError("")
     const formData = new FormData();
     formData.append("content", comment);
     formData.append("author_id",sessionUser.id);
@@ -62,7 +67,7 @@ function CommentsSection({eventId}) {
     setComment("")
 
 
-
+    }
 
   }
 
@@ -79,7 +84,7 @@ function CommentsSection({eventId}) {
 
 
               <div className="comment-input-field-field">
-
+<p>{error}</p>
                 <input id="input-comment"
                   type="text"
                   value={comment}

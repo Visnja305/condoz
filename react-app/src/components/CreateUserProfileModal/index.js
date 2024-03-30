@@ -4,7 +4,7 @@ import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
 import "./CreateUserProfileModal.css";
 import educationLogo from ".././logos/education-logo.png"
-import profileImageLogo from ".././logos/profile-image-icon.png";
+import profileImageLogo from ".././logos/profile-logo.png";
 import ageIcon from ".././logos/age-icon.png";
 import workLogo from ".././logos/work-logo-black.png";
 import homeIcon from ".././logos/home-icon.png"
@@ -18,7 +18,7 @@ function CreateUserProfileModal() {
 const sessionUser = useSelector((state) => state.session.user);
 const { closeModal } = useModal();
 const dispatch = useDispatch();
-const [profileImage, setProfileImage]=useState("");
+const [profileImage, setProfileImage]=useState(profileImageLogo);
 const [dateOfBirth,setDateOfBirth]=useState("2024-01-01");
 const [usersAge,setUsersAge]=useState("");
 const [work,setWork]=useState("");
@@ -45,7 +45,9 @@ const [checkedScubaDiving, setCheckedScubaDiving] = useState(false);
 const [checkedHorsebackRiding, setCheckedHorsebackRiding] = useState(false);
 const [checkedYoga, setCheckedYoga] = useState(false);
 const [checkedBoxing, setCheckedBoxing] = useState(false);
-const [errors, setErrors] = useState({});
+const [ageError,setAgeError]=useState("")
+
+// const [errors, setErrors] = useState({});
 function calculateAge(dateOfBirth)
 {
   const now = new Date();
@@ -70,9 +72,17 @@ setUsersAge(uAge)
 
 const handleSubmit =async(e) => {
     e.preventDefault();
+    if(usersAge<18){
+      setAgeError("User can not be a minor")
+    }
+
+      else{
 
 
-    setErrors({});
+
+
+
+
     const formData = new FormData();
     formData.append("user_id",sessionUser.id);
     formData.append("condo_id",sessionUser.condo_id);
@@ -118,6 +128,7 @@ if (arr.length){
 }
 
   }
+}
 
 
 
@@ -204,7 +215,7 @@ console.log(file)
     }
   }
 	return (
-		<div>
+		<div className="create-user-profile-container">
             <h1>Create your profile!</h1>
 <form className="create-user-profile-form" onSubmit={handleSubmit}>
     <label>
@@ -214,18 +225,21 @@ console.log(file)
           type="file"
           accept="image/*"
           onChange={(e)=>{previewFile(e)}}
-          required
+
         />
 
       </label>
-      <img id="preview-image-create-profile" src="" height="100px" width="100px" alt="Image preview..."></img>
+
+      <img id="preview-image-create-profile" src={`${profileImageLogo}`} height="100px" width="100px" alt="Image preview..."></img>
 
       <label>
       <img src={ageIcon} id="create-user-profile-logos"/>
         Date of birth:
         <input type="date" id="age" name="age" value={dateOfBirth} min="1920-01-01" max="2024-01-01" onChange={(e)=>setDateOfBirth(e.target.value)} required/>
       </label>
+      <p>{ageError && ageError}</p>
       <p>Age : {usersAge}</p>
+
       <label >
       <img src={workLogo} id="create-user-profile-logos"/>
         Work

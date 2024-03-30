@@ -5,11 +5,11 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        first_name='demo',last_name='demoo',type='tenant',condo_id=1, email='demo@aa.io',has_profile="no",profile_id=0,is_online=False, password='password')
+        first_name='demo',last_name='demoo',condo_id=1, email='demo@aa.io',has_profile="yes",profile_id=1,is_online=False, password='password')
     marnie = User(
-        first_name='marnie',last_name='peterson',type='tenant',condo_id=3, email='marnie@aa.io',has_profile="no",profile_id=0,is_online=False, password='password')
+        first_name='marnie',last_name='peterson',condo_id=3, email='marnie@aa.io',has_profile="no",profile_id=0,is_online=False, password='password')
     bobbie = User(
-        first_name='bobbie',last_name='lock',type='tenant',condo_id=2, email='bobbie@aa.io',has_profile="no",profile_id=0,is_online=False, password='password')
+        first_name='bobbie',last_name='lock',condo_id=2, email='bobbie@aa.io',has_profile="no",profile_id=0,is_online=False, password='password')
 
     db.session.add(demo)
     db.session.add(marnie)
@@ -30,3 +30,8 @@ def undo_users():
         db.session.execute(text("DELETE FROM users"))
 
     db.session.commit()
+
+
+
+    # demo = User(
+        # first_name='demo',last_name='demoo',type='tenant',condo_id=1, email='demo@aa.io',has_profile="no",profile_id=0,is_online=False, password='password')

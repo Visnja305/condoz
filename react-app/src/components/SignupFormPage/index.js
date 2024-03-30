@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect,useParams } from "react-router-dom";
 import { signUp } from "../../store/session";
 import './SignupForm.css';
+import validator from "validator";
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ function SignupFormPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
-  const [type,setType]=useState("")
+  // const [type,setType]=useState("")
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
@@ -23,21 +24,26 @@ function SignupFormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!validator.isEmail(email)) {
+      setErrors(["Please, enter valid Email!"]);
+    }
+    else{
     if (password === confirmPassword) {
 
       const first_name=firstName;
       const last_name=lastName;
       const condo_id=condoId;
 
+      // const data= await dispatch(signUp(first_name,last_name,type,condo_id, email, password))
 
-      const data= await dispatch(signUp(first_name,last_name,type,condo_id, email, password))
+      const data= await dispatch(signUp(first_name,last_name,condo_id, email, password))
         if (data) {
           setErrors(data)
         }
     } else {
         setErrors(['Confirm Password field must be the same as the Password field']);
     }
-  };
+  }};
 
   return (
     <>
@@ -51,7 +57,7 @@ function SignupFormPage() {
           <input
             type="text"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) =>{setEmail(e.target.value)}}
             required
           />
         </label>
@@ -79,7 +85,7 @@ function SignupFormPage() {
         </label>
 
 
-        <label>
+        {/* <label>
       Type:
       <select className="signup-form-input-select"
           name="type"
@@ -90,7 +96,7 @@ function SignupFormPage() {
         <option value="property-management">Property management</option>
 
       </select>
-    </label>
+    </label> */}
 
 
         <label>

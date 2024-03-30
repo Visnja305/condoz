@@ -233,7 +233,7 @@ console.log(file)
       <img id="preview-image-edit-profile" src={`${userProfile.profile_img}`} height="100px" width="100px" alt="Image preview..."></img>
 
 
-      <label>
+      {/* <label>
       <img src={ageIcon} id="edit-user-profile-logos"/>
 
       Age:
@@ -243,7 +243,7 @@ console.log(file)
                   onChange={(e) => setUsersAge(e.target.value)}
                   required
                 />
-    </label>
+    </label> */}
       <label >
       <img src={workLogo} id="edit-user-profile-logos"/>
         Work
