@@ -3,10 +3,11 @@ from sqlalchemy.sql import text
 from datetime import datetime
 
 
-demo_date_1 = datetime(2024, 4, 4, 10, 10, 10)
-demo_date_2=datetime(2024, 5, 12, 11, 00, 00)
-demo_date_3=datetime(2024, 7, 11, 13, 00, 00)
-demo_date_4=datetime(2024, 6, 1, 11, 00, 00)
+demo_date_1 = datetime(2024, 4, 4, 10, 10)
+demo_date_2=datetime(2024, 5, 12, 11, 00)
+demo_date_3=datetime(2024, 7, 11, 13, 00)
+demo_date_4=datetime(2024, 6, 1, 11, 00)
+print()
 
 
 # Adds a demo user, you can add other users here if you want
@@ -43,3 +44,10 @@ def undo_events():
         # first_name='demo',last_name='demoo',type='tenant',condo_id=1, email='demo@aa.io',has_profile="no",profile_id=0,is_online=False, password='password')
 
         # organizer_id=1,organizer_profile_id=1,location="1",location_name="Oasis",details="Cocktail party",time="2024-07-10T12:55",time_created="2024-04-05T11:54",need_people_total="",left_room_for="",tennis=False,padel=False,pickleball=False,golf=False,gym=False,boating=False,jogging=False,dogs=True,kids_activities=False,soccer=False,cocktail_hour=True,philanthropy=False,basketball=False,art=False,spa=False,fine_dining=False,polo=False,scuba_diving=False,horseback_riding=False,yoga=False,boxing=False )
+
+
+
+# demo_date_1 = datetime(2024, 4, 4, 10, 10, 00)
+# demo_date_2=datetime(2024, 5, 12, 11, 00, 00)
+# demo_date_3=datetime(2024, 7, 11, 13, 00, 00)
+# demo_date_4=datetime(2024, 6, 1, 11, 00, 00)
