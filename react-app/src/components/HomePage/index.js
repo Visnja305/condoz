@@ -52,7 +52,8 @@ const location=useLocation()
 <img src={logo} id="website-logo" onMouseOver={handleMouseOver}
           />
           <div className="home-page-condos-container">
-          {isHovering && (
+          {isHovering  && <div><p>Choose your building and login/sign up!</p>
+          {(
           condos.map((condo) =>
 
           <div key={condo.id} className="imgLink">
@@ -66,7 +67,7 @@ const location=useLocation()
           </div>
 
         )
-        )}
+        )}</div>}
         </div>
       </motion.div>
 
