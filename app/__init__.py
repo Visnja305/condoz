@@ -11,8 +11,10 @@ from .api.condos_routes import condos_routes
 from .api.profiles_routes import profiles_routes
 from .api.events_routes import events_routes
 from .api.comments_routes import comments_routes
+
 from .seeds import seed_commands
 from .config import Config
+
 
 app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
 
@@ -36,8 +38,10 @@ app.register_blueprint(condos_routes, url_prefix='/api/condos')
 app.register_blueprint(profiles_routes, url_prefix='/api/profiles')
 app.register_blueprint(events_routes, url_prefix='/api/events')
 app.register_blueprint(comments_routes, url_prefix='/api/comments')
+
 db.init_app(app)
 Migrate(app, db)
+
 
 # Application Security
 CORS(app)
@@ -97,3 +101,5 @@ def react_root(path):
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
+
+

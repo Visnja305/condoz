@@ -6,6 +6,7 @@ import userProfiles from './userProfiles'
 import events from './events'
 import users from './users'
 import comments from './comments'
+import notifications from './notifications';
 
 const rootReducer = combineReducers({
   session,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   userProfiles,
   events,
   users,
-  comments
+  comments,
+  notifications
 
 
 });

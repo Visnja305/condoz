@@ -4,6 +4,7 @@ from flask_login import login_required
 from flask_login import current_user
 from app.models.db import db
 from app.models.profile import Profile
+
 from app.forms.user_profile_form import UserProfileForm
 
 
@@ -58,6 +59,8 @@ def create_user_profile():
 
 
 
+
+
           res_profile={
             "id":new_profile.id,
             "user_id":user_id,
@@ -87,7 +90,8 @@ def create_user_profile():
             "scuba_diving":scuba_diving,
             "horseback_riding":horseback_riding,
             "yoga":yoga,
-            "boxing":boxing
+            "boxing":boxing,
+
 
 
           }
@@ -100,7 +104,7 @@ def create_user_profile():
           return jsonify(form.errors)
     return jsonify("Login please")
 
-
+#get profile for other users
 @profiles_routes.route('/<int:id>')
 def get_user_profile(id):
     print("!!!!!!!!!!!!!!!!!",id)
@@ -109,8 +113,16 @@ def get_user_profile(id):
     if(profile):
         return profile.to_dict()
     return jsonify("Profile can't be found")
+#get profile for current user
 
+@profiles_routes.route('/current-user')
+def get_current_user_profile():
 
+    profile=Profile.query.filter_by(user_id=current_user.id).first()
+
+    if(profile):
+        return profile.to_dict()
+    return jsonify("Profile can't be found")
 
 @profiles_routes.route('/delete/<int:id>',methods=['DELETE'])
 def delete_user_profile(id):
@@ -177,6 +189,31 @@ def edit_user_profile(id):
       if form.errors:
           return jsonify(form.errors)
     return jsonify("Login please")
+
+
+
+@profiles_routes.route('/edit/add-chat-notification/<int:room>/<int:id>',methods=['PUT'])
+def add_chat_notification(room,id):
+          print("!!!!!!!!!!!!!!!!!!!!",id)
+
+          user_profile = Profile.query.get(id)
+          print("********************HEEEEEEEEEYYYYYYIGOTITT",user_profile.has_chat_notification)
+          if user_profile.has_chat_notification=="no":
+              user_profile.has_chat_notification=(str(room))
+          if user_profile.has_chat_notification!="no":
+              the_attribute=user_profile.has_chat_notification
+              the_list=the_attribute.split(",")
+              the_list.append(str(room))
+              the_string=','.join(map(str, the_list))
+              user_profile.has_chat_notification=the_string
+          db.session.commit()
+          print("*********IOVOOOOOOOOOOOOO",user_profile.has_chat_notification)
+
+          return user_profile.to_dict()
+
+
+
+
 
 @profiles_routes.route('/all')
 def get_all_profiles():

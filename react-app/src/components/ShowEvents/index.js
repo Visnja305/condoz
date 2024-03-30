@@ -12,14 +12,13 @@ import CommentsSection from "../CommentsSection";
 function ShowEvents({props}){
     const locationFilter= props.location;
     const interestFilter=props.interest;
-console.log(locationFilter)
-console.log(interestFilter)
+
     const dispatch = useDispatch();
     const [isLoaded,setIsLoaded]=useState(false);
 
 
     const events=Object.values(useSelector((state)=>state.events))
-console.log(events)
+
 
 
 

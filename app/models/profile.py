@@ -1,4 +1,8 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+# from sqlalchemy.dialects.postgresql import ARRAY
+from sqlalchemy.dialects.postgresql import ARRAY
+from sqlalchemy import Integer
+
 
 
 
@@ -40,10 +44,13 @@ class Profile(db.Model):
     boxing=db.Column(db.Boolean)
 
 
+
+
     user = db.relationship('User', back_populates='profiles')
     condo=db.relationship('Condo', back_populates='profiles')
     events=db.relationship('Event',back_populates='profile',cascade="all, delete-orphan")
     comments=db.relationship('Comment',back_populates='profile',cascade="all, delete-orphan")
+   
 
 
 
@@ -76,7 +83,9 @@ class Profile(db.Model):
             'scuba_diving':self.scuba_diving,
             'horseback_riding':self.horseback_riding,
             'yoga':self.yoga,
-            'boxing':self.boxing
+            'boxing':self.boxing,
+
+
 
 
 

@@ -61,6 +61,22 @@ export const getProfileThunk=(id)=>async (dispatch)=>{
 	}
 return response
 }
+export const getCurrentUsersProfileThunk=()=>async (dispatch)=>{
+    const response = await fetch("/api/profiles/current-user", {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
+	if (response.ok) {
+		const data = await response.json();
+
+
+		dispatch(getProfile(data));
+        return data
+	}
+return response
+}
+
 export const getProfilesThunk=()=>async (dispatch)=>{
     const response = await fetch(`/api/profiles/all`, {
 		headers: {
@@ -109,6 +125,7 @@ export const deleteUserProfileThunk=(profileId)=>async(dispatch)=>{
         return errorData
 
     };
+    
 
 
 
@@ -120,7 +137,7 @@ const userProfiles=(state = {}, action)=> {
 
             return {...state,[action.data.user_id]:action.data}
         case GET_PROFILE:
-            
+
             return {...state,[action.data.user_id]:action.data}
         case GET_ALL_PROFILES:
                 action.data.map((profile) => new_state[profile.user_id] = profile)

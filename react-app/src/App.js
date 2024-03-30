@@ -8,7 +8,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import UserProfileDetailPage from "./components/UserProfileDetailPage"
 import CreateEvent from "./components/CreateEvent"
 import ManageEvents from "./components/ManageEvents"
-import NavBar from "./components/NavBar"
+import NavBar from "./components/NavBar";
 import { authenticate } from "./store/session";
 
 
@@ -33,27 +33,32 @@ function App() {
       <Route exact path="/">
 <HomePage />
           </Route>
+          {sessionUser &&
           <Route exact path="/my-profile/create-event">
             <CreateEvent />
-          </Route>
-          <Route exact path="/user-profile/:id(\d+)" >
+          </Route>}
+        {sessionUser &&  <Route exact path="/user-profile/:id(\d+)" >
 <UserProfileDetailPage />
 
-          </Route>
+          </Route>}
       <Route exact path="/condos/:condoId(\d+)">
 <BuildingProfile />
           </Route>
+{sessionUser &&
           <Route exact path="/profile" >
 <UserProfilePage />
 
-          </Route>
+          </Route>}
 
           <Route exact path="/:condoId(\d+)/signup">
             <SignupFormPage />
             </Route>
+            {sessionUser &&
             <Route exact path="/user-profile/manage-events">
             <ManageEvents />
             </Route>
+}
+
 
 
       </Switch>
