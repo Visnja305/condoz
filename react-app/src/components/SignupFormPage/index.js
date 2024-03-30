@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect,useParams } from "react-router-dom";
 import { signUp } from "../../store/session";
 import './SignupForm.css';
+import validator from "validator";
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -23,6 +24,10 @@ function SignupFormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!validator.isEmail(email)) {
+      setErrors(["Please, enter valid Email!"]);
+    }
+    else{
     if (password === confirmPassword) {
 
       const first_name=firstName;
@@ -38,7 +43,7 @@ function SignupFormPage() {
     } else {
         setErrors(['Confirm Password field must be the same as the Password field']);
     }
-  };
+  }};
 
   return (
     <>
@@ -52,7 +57,7 @@ function SignupFormPage() {
           <input
             type="text"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) =>{setEmail(e.target.value)}}
             required
           />
         </label>
