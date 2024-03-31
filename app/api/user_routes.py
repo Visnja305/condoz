@@ -20,5 +20,5 @@ def users():
     """
     users = User.query.all()
     all_users=[user.to_dict() for user in users]
-    print("!!!!!!!!!!!!!!!!!",all_users)
+    
     return jsonify(all_users)

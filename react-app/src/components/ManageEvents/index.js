@@ -31,7 +31,7 @@ function ManageEvents(props){
         getUser();
 
     },[isLoaded])
-const currentUserEvents=events.filter(event=>event.organizer_id===user.id)
+const currentUserEvents=events.filter(event=>event?.organizer_id===user?.id)
 
 
 

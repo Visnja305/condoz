@@ -20,7 +20,7 @@ def create_user_profile():
     if current_user:
 
       if form.validate_on_submit():
-          print("????????????????????????????????",form.data.get("profile_img"))
+
 
           user_id=form.data.get("user_id")
           condo_id=form.data.get("condo_id")
@@ -107,9 +107,9 @@ def create_user_profile():
 #get profile for other users
 @profiles_routes.route('/<int:id>')
 def get_user_profile(id):
-    print("!!!!!!!!!!!!!!!!!",id)
+
     profile=Profile.query.filter_by(user_id=id).first()
-    print("************",profile)
+
     if(profile):
         return profile.to_dict()
     return jsonify("Profile can't be found")
@@ -197,7 +197,7 @@ def add_chat_notification(room,id):
           print("!!!!!!!!!!!!!!!!!!!!",id)
 
           user_profile = Profile.query.get(id)
-          print("********************HEEEEEEEEEYYYYYYIGOTITT",user_profile.has_chat_notification)
+
           if user_profile.has_chat_notification=="no":
               user_profile.has_chat_notification=(str(room))
           if user_profile.has_chat_notification!="no":
@@ -207,7 +207,7 @@ def add_chat_notification(room,id):
               the_string=','.join(map(str, the_list))
               user_profile.has_chat_notification=the_string
           db.session.commit()
-          print("*********IOVOOOOOOOOOOOOO",user_profile.has_chat_notification)
+          
 
           return user_profile.to_dict()
 

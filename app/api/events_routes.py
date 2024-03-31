@@ -19,6 +19,7 @@ def create_event():
     if current_user:
 
       if form.validate_on_submit():
+          print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",form.data.get("time"))
           organizer_id=form.data.get("organizer_id")
           organizer_profile_id=form.data.get("organizer_profile_id")
           location=form.data.get("location")
@@ -52,7 +53,7 @@ def create_event():
           other=form.data.get("other")
 
           new_event=Event(organizer_id=organizer_id,organizer_profile_id=organizer_profile_id,location=location,location_name=location_name,details=details,time=time,time_created=time_created,need_people_total=need_people_total,left_room_for=left_room_for,tennis=tennis,padel=padel,pickleball=pickleball,golf=golf,gym=gym,boating=boating,jogging=jogging,dogs=dogs,kids_activities=kids_activities,soccer=soccer,cocktail_hour=cocktail_hour,philanthropy=philanthropy,basketball=basketball,art=art,spa=spa,fine_dining=fine_dining,polo=polo,scuba_diving=scuba_diving,horseback_riding=horseback_riding,yoga=yoga,boxing=boxing,other=other)
-
+          print("6666666666666666666",new_event.time)
 
           db.session.add(new_event)
           db.session.commit()
@@ -86,7 +87,7 @@ def delete_event(id):
 
 @events_routes.route('/edit/<int:id>',methods=['PUT'])
 def edit_event(id):
-    print("????????????????????????",id)
+    
 
 
     form=EventForm()

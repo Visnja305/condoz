@@ -3,17 +3,17 @@ from sqlalchemy.sql import text
 from datetime import datetime
 
 
-demo_date_1 = datetime(2024, 4, 4, 10, 10)
-demo_date_2=datetime(2024, 5, 12, 11, 00)
-demo_date_3=datetime(2024, 7, 11, 13, 00)
-demo_date_4=datetime(2024, 6, 1, 11, 00)
-print()
+demo_date_1 =datetime(2024, 4, 4, 10, 10, 00)
+demo_date_2=datetime(2024, 5, 12, 11, 00, 00)
+demo_date_3=datetime(2024, 7, 11, 13, 00, 00)
+demo_date_4=datetime(2024, 6, 1, 11, 00, 00)
+
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_events():
     demo_event_1 = Event(
-        organizer_id=1,organizer_profile_id=1,location="1",location_name="Oasis",details="Cocktail party",time=demo_date_2,time_created=demo_date_1,need_people_total="",left_room_for="",tennis=False,padel=False,pickleball=False,golf=False,gym=False,boating=False,jogging=False,dogs=True,kids_activities=False,soccer=False,cocktail_hour=True,philanthropy=False,basketball=False,art=False,spa=False,fine_dining=False,polo=False,scuba_diving=False,horseback_riding=False,yoga=False,boxing=False )
+        organizer_id=1,organizer_profile_id=1,location="1",location_name="Oasis",details="Cocktail party",time=demo_date_2,time_created=demo_date_1,need_people_total=None,left_room_for=None,tennis=False,padel=False,pickleball=False,golf=False,gym=False,boating=False,jogging=False,dogs=True,kids_activities=False,soccer=False,cocktail_hour=True,philanthropy=False,basketball=False,art=False,spa=False,fine_dining=False,polo=False,scuba_diving=False,horseback_riding=False,yoga=False,boxing=False )
     demo_event_2 = Event(
         organizer_id=1,organizer_profile_id=1,location="Margaret pace park",location_name="Margaret pace park",details="Picknik day for Moms and Dads,bring your dogs too!",time=demo_date_3,time_created=demo_date_1,need_people_total=10,left_room_for=10,tennis=False,padel=False,pickleball=False,golf=False,gym=False,boating=False,jogging=False,dogs=True,kids_activities=True,soccer=False,cocktail_hour=False,philanthropy=False,basketball=False,art=False,spa=False,fine_dining=False,polo=False,scuba_diving=False,horseback_riding=False,yoga=False,boxing=False )
     demo_event_3 = Event(
@@ -47,7 +47,7 @@ def undo_events():
 
 
 
-# demo_date_1 = datetime(2024, 4, 4, 10, 10, 00)
-# demo_date_2=datetime(2024, 5, 12, 11, 00, 00)
-# demo_date_3=datetime(2024, 7, 11, 13, 00, 00)
-# demo_date_4=datetime(2024, 6, 1, 11, 00, 00)
+# demo_date_1 = datetime(2024, 4, 4, 10, 10, 00). timestamp()
+# demo_date_2=datetime(2024, 5, 12, 11, 00, 00). timestamp()
+# demo_date_3=datetime(2024, 7, 11, 13, 00, 00). timestamp()
+# demo_date_4=datetime(2024, 6, 1, 11, 00, 00). timestamp()
