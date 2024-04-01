@@ -12,6 +12,8 @@ import CommentsSection from "../CommentsSection";
 function ShowEvents({props}){
     const locationFilter= props.location;
     const interestFilter=props.interest;
+    
+
 
     const dispatch = useDispatch();
     const [isLoaded,setIsLoaded]=useState(false);
@@ -40,6 +42,20 @@ function ShowEvents({props}){
     },[isLoaded])
 
 function filterFunction(event){
+    if(locationFilter==="other" && interestFilter===""){
+
+
+
+        return event.location===event.location_name
+
+    }
+    if(locationFilter==="other" && interestFilter!==""){
+
+        return event.location===event.location_name &&
+        event[interestFilter]===true
+
+    }
+
     if(locationFilter!=="" && interestFilter===""){
         return event.location===locationFilter
     }
@@ -49,20 +65,20 @@ function filterFunction(event){
     }
     if(locationFilter!=="" && interestFilter!==""){
 
-        return event.location===props.location &&
+        return event.location===locationFilter &&
         event[interestFilter]===true
 
     }
 }
 
 
-
+let searchedEvents
 
     return (
 <><h1>Events</h1>
 
 {props.location==="" && props.interest==="" &&
-<div>{events.map(event=>(
+<div> {events.map(event=>(
    <div className="show-events-event">
     <div className="show-event">
    <p>{event.location_name},{event.time.slice(0,22)}</p>
@@ -86,10 +102,14 @@ function filterFunction(event){
    </div>
    </div>
 ))
-}</div>
+} </div>
 }
+
 {((locationFilter!=="" && interestFilter==="") || (locationFilter==="" && interestFilter!=="") || (locationFilter!=="" && interestFilter!=="") ) &&  <div>
-    {events.filter(filterFunction).map(event=>(
+    { events.filter(filterFunction).length!==0 ?
+
+
+events.filter(filterFunction).map(event=>(
    <div className="show-events-event">
     <div className="show-event">
    <p>{event.location_name},{event.time.slice(0,22)}</p>
@@ -112,7 +132,7 @@ function filterFunction(event){
 
    </div>
    </div>
-))
+)) : "No events found"
 
 
     }
