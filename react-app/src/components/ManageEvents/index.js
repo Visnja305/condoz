@@ -24,6 +24,7 @@ function ManageEvents(props){
 
         const getUser=async()=>{
             await dispatch(authenticate()).then(res=>setUser(res));
+            await dispatch(getEventsThunk())
 
             setIsLoaded(true);
 
