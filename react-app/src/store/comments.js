@@ -7,10 +7,10 @@ const DELETE_COMMENT = 'DELETE_COMMENT';
 
 
 // ACTIONS
-const getComments = (comments) => {
+const getComments = (comments,eventId) => {
   return {
     type: GET_COMMENTS,
-    comments
+    comments,eventId
   }
 }
 
@@ -40,7 +40,7 @@ const deleteComment = (id) => {
 export const getCommentsThunk = (eventId) => async (dispatch) => {
   const res = await fetch(`/api/comments/${eventId}`);
   const data = await res.json();
-  dispatch(getComments(data))
+  dispatch(getComments(data,eventId))
 
   return data
 }
@@ -111,22 +111,65 @@ if (response.ok) {
 return response
 
 }
+const initialState = {
+  allComments: {},
+  currentEventComments: {},
+
+};
 
 // reducer
-const comments = (state = {}, action) => {
+const comments = (state = initialState, action) => {
   let new_state = {};
   switch (action.type) {
     case GET_COMMENTS:
-      action.comments.map((comment) => new_state[comment.id] = comment)
-      return new_state
+      const currentEventComments = action.comments.reduce(
+        (acc, comment) => ({ ...acc, [comment.id]: comment}),
+        {}
+      );
+      return {
+        ...state,
+        currentEventComments: { ...state.currentEventComments, ...currentEventComments },
+
+      };
+
+      // action.comments.map((comment) => new_state[comment.id] = comment)
+      // return {...state,[action.eventId]:new_state}
     case ADD_COMMENT:
-      return { ...state, [action.comment.id]: action.comment };
+      const newComment=action.comment;
+      return {
+        ...state,
+        allComments: { ...state.allComments, [newComment.id]: newComment },
+        currentEventComments: { ...state.currentEventComments, [newComment.id]: newComment },
+      };
+
+
+      // return { ...state, [action.comment.id]: action.comment };
     case EDIT_COMMENT:
-      return { ...state, [action.comment.id]: action.comment };
+      const newComm=action.comment;
+      return {
+        ...state,
+        allComments: { ...state.allComments, [newComm.id]: newComm },
+        currentEventComments: { ...state.currentEventComments, [newComm.id]: newComm },
+      };
+
+
+      // return { ...state, [action.comment.id]: action.comment };
     case DELETE_COMMENT:
-      const newState = { ...state };
-      delete newState[action.id];
-      return newState;
+      const newAllComments = { ...state.allComments };
+      delete newAllComments[action.id];
+      const newCurrentEventComments = { ...state.currentEventComments };
+      delete newCurrentEventComments[action.id];
+      return {
+        ...state,
+        allComments: newAllComments,
+        currentEventComments: newCurrentEventComments,
+      };
+
+
+
+      // const newState = { ...state };
+      // delete newState[action.id];
+      // return newState;
 
     default:
       return state;
@@ -134,3 +177,24 @@ const comments = (state = {}, action) => {
 }
 
 export default comments;
+
+
+// const comments = (state = {}, action) => {
+//   let new_state = {};
+//   switch (action.type) {
+//     case GET_COMMENTS:
+//       action.comments.map((comment) => new_state[comment.id] = comment)
+//       return new_state
+//     case ADD_COMMENT:
+//       return { ...state, [action.comment.id]: action.comment };
+//     case EDIT_COMMENT:
+//       return { ...state, [action.comment.id]: action.comment };
+//     case DELETE_COMMENT:
+//       const newState = { ...state };
+//       delete newState[action.id];
+//       return newState;
+
+//     default:
+//       return state;
+//   }
+// }
