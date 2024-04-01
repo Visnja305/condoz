@@ -40,8 +40,8 @@ const currentUserEvents=events.filter(event=>event?.organizer_id===user?.id)
 
 
     return (
-<>{currentUserEvents.length===0 && <p>You don't have any events.</p>}
-{currentUserEvents.map(event=>(
+<>{isLoaded && currentUserEvents.length===0 && <p>You don't have any events.</p>}
+{isLoaded && currentUserEvents.map(event=>(
    <div className="manage-events-event"> <p>{event.location_name},{event.time.slice(0,22)}</p>
    <p>{event.details}</p>
    <p>{event.need_people_total ? <span>{`Available room for ${event.left_room_for}/out of ${event.need_people_total}`}</span> : "Everyone is invited!"}</p>
