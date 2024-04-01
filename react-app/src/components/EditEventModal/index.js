@@ -113,6 +113,7 @@ const [checkedBoxing, setCheckedBoxing] = useState(event.boxing);
 const [checkedOther, setCheckedOther]=useState(event.other);
 const [isLoaded,setIsLoaded]=useState(false);
 const [errors, setErrors] = useState({})
+const [locationError,setLocationError]=useState("")
 
 
 const currentDateTime =new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0,-8);
@@ -126,8 +127,13 @@ console.log(currentDateTime)
 
 const handleSubmit =async(e) => {
     e.preventDefault();
+    if(checkedOtherLocation && location===""){
 
+      setLocationError("Please specify a location")
+    }
+    else{
 
+    setLocationError("")
     setErrors({});
     const formData = new FormData();
     formData.append("organizer_id",sessionUser.id);
@@ -185,6 +191,7 @@ const handleSubmit =async(e) => {
 
 
   }
+}
 
   const handleChangeLocationUsersCondo=()=>{
 setCheckedUsersCondo(!checkedUsersCondo);
@@ -294,6 +301,8 @@ setCheckedOtherLocation(checkedUsersCondo);
 
             <input id="create-event-other-location" type="radio" value={checkedOtherLocation} onChange = {handleChangeLocationOther} checked={checkedOtherLocation} />
             </label>
+            
+            <p>{locationError}</p>
 
           {checkedOtherLocation &&
 

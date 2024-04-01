@@ -12,7 +12,7 @@ import CommentsSection from "../CommentsSection";
 function ShowEvents({props}){
     const locationFilter= props.location;
     const interestFilter=props.interest;
-    
+
 
 
     const dispatch = useDispatch();
@@ -81,7 +81,7 @@ let searchedEvents
 <div> {events.map(event=>(
    <div className="show-events-event">
     <div className="show-event">
-   <p>{event.location_name},{event.time.slice(0,22)}</p>
+   <p>{event.location_name},{event?.time.slice(0,22)}</p>
    <p>{event.details}</p>
    <p>{event.need_people_total ? <span>{`Available room for ${event.left_room_for}/out of ${event.need_people_total}`}</span> : "Everyone is invited!"}</p>
    <p>Interests: <ul>{Object.keys(event).map((a)=>(
