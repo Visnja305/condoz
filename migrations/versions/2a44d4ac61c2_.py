@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 5a49ea9045cd
+Revision ID: 2a44d4ac61c2
 Revises:
-Create Date: 2024-03-31 01:24:15.963838
+Create Date: 2024-04-01 01:48:59.410730
 
 """
 from alembic import op
@@ -14,7 +14,7 @@ SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
-revision = '5a49ea9045cd'
+revision = '2a44d4ac61c2'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -133,7 +133,7 @@ def upgrade():
         op.execute(f"ALTER TABLE profiles SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE events SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
-
+        
 
 
 def downgrade():
