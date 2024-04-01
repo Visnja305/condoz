@@ -85,7 +85,7 @@ props={location:sendLocation,interest:sendInterest}
 
 
 </div>
-    }{sessionUser.has_profile==="yes" &&<div>
+    }{sessionUser.has_profile==="yes" &&<div className="links-when-user-has-profile">
 <NavLink activeClassName="user-profile-link-active"
             className="user-profile-link"
             exact to={`/user-profile/${sessionUser.id}`}
@@ -153,8 +153,8 @@ props={location:sendLocation,interest:sendInterest}
                 </select>
               </li>
              </ul>
-             <button onClick={(e)=>{resetFilters(e)}}>Reset</button>
-             <button type="submit">Search</button>
+             <button id="filter-events-buttons" onClick={(e)=>{resetFilters(e)}}>Reset</button>
+             <button id="filter-events-buttons" type="submit">Search</button>
              </form>
              <ShowEvents props={{location:sendLocation,interest:sendInterest}} />
              </div>

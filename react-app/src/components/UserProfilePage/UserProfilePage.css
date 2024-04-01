@@ -4,5 +4,16 @@
 }
 .events-and-users-user-profile-page{
     display:flex;
-    
+
 }
+#filter-events-buttons{
+    background-color:#dcc08c;
+}
+#filter-events-buttons:hover {
+    background-color: #a5a29e;
+
+  }
+  .links-when-user-has-profile{
+display:flex;
+flex-direction: column;
+  }

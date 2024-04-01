@@ -40,7 +40,7 @@ const currentUserEvents=events.filter(event=>event?.organizer_id===user?.id)
 
 
     return (
-<>{currentUserEvents.length===0}<p>You don't have any events.</p>
+<>{currentUserEvents.length===0 && <p>You don't have any events.</p>}
 {currentUserEvents.map(event=>(
    <div className="manage-events-event"> <p>{event.location_name},{event.time.slice(0,22)}</p>
    <p>{event.details}</p>

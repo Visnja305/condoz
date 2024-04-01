@@ -14,11 +14,17 @@ function EditCommentModal({props}) {
     const dispatch=useDispatch();
     const comment=props;
     const [content,setContent]=useState(comment.content);
+    const [error,setError]=useState("")
 
 
 const handleSubmit =async(e) => {
     e.preventDefault();
 
+    if (content.startsWith(" ") || content===""){
+        setError("Comment not valid/can not begin with empty space/field can not be empty")
+            }
+else{
+    setError("")
 
 
     const formData = new FormData();
@@ -34,13 +40,14 @@ const handleSubmit =async(e) => {
 
   })
 
-
+}
   }
 
 
 
     return(<>
         <p>Update comment</p>
+        <p>{error}</p>
         <form className="edit-comment-form" onSubmit={handleSubmit}>
 
             <input id="edit-comment-input"
