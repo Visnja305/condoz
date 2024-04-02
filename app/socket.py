@@ -42,4 +42,4 @@ def on_join(data):
 @socket.on("notification")
 def on_notification(payload):
     print("*****************",payload)
-    emit("notification",payload)
+    emit("notification",payload,broadcast=True)

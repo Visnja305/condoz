@@ -18,7 +18,9 @@ const UsersLiveChat =()=>{
 
     const [connected,setConnected]=useState(false)
     const [newMsg,setNewMsg]=useState('');
-    const [messages,setMessages]=useState([])
+    const [messages,setMessages]=useState([]);
+    const [chatRoomInitiated,setChatroomInitiated]=useState([]);
+    const [chatRoomInvited,setChatRoomInvited]=useState([]);
     const chatroom=123;
     const messageBox=useRef();
 
@@ -53,6 +55,7 @@ useEffect(()=>{
     // if(env==='production'){socket=io(renderdatabase)}
 
 socket=io()
+
 // socket=io("ws://localhost:8000")
 socket.on("chat",(data)=>{
     setMessages(prev=>[...prev,data])
@@ -61,8 +64,8 @@ socket.on("chat",(data)=>{
 })
 // socket.emit("notification",payload)
 return()=>{
-    socket.emit('leave',chatroom)
-    socket.disconnect()
+    socket.emit('leave',chatroom);
+    socket.disconnect();
 }
 },[chatroom])
 
@@ -102,21 +105,60 @@ const handleConnect=async(e)=>{
         }
         setNewMsg("");
     }
+
+    function getRandomInt(min,max) {
+        const minCeiled = Math.ceil(min);
+        const maxFloored = Math.floor(max);
+        return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+      }
+
+    const handleBeginChat=(e,id)=>{
+        e.preventDefault();
+        const room=getRandomInt(1,1000);
+        const payload={
+                initiatorProfileId:sessionUser.profile_id,
+                invitedUserProfileId:id,
+                room:room
+
+            }
+        socket.emit("notification",payload)
+
+    }
+    useEffect(() => {
+        socket=io()
+        socket.on("notification",async function(data){
+            console.log(data.invitedUserProfileId===sessionUser.profile_id && data.initiatorProfileId!==sessionUser.profile_id)
+            if(data.invitedUserProfileId===sessionUser.profile_id && data.initiatorProfileId!==sessionUser.profile_id){
+                setChatRoomInvited((prev)=>[...prev,data.room]);
+
+
+            }
+
+        })
+
+
+    },[])
+    socket?.on("notification",async(data)=>{
+        console.log(data)
+        console.log(Number(data.invitedUserProfileId)===Number(sessionUser.profile_id) && Number(data.initiatorProfileId)!==Number(sessionUser.profile_id))
+        if(data.invitedUserProfileId===sessionUser.profile_id && data.initiatorProfileId!==sessionUser.profile_id){
+           await setChatRoomInvited((prev)=>[...prev,data.room]);
+
+
+        }
+    //     // setNotification((prev)=>[...prev,data])
+    })
+    console.log(chatRoomInvited)
     if(!sessionUser){return <Redirect to="/" />}
 
-function getRandomInt(min,max) {
-    const minCeiled = Math.ceil(min);
-    const maxFloored = Math.floor(max);
-    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
-  }
+
 
 
     return(<>
              <div className="users-on-usersLiveChat">
                 <p>Users</p>
                 <ul>{onlineUsers.map(user=>(
-                    <li>{user.first_name} {user.last_name} <img src={onlineUser} id="online-offline-user-circle" /><NavLink exact to="/live-chat"
-                     >LIVE CHAT</NavLink> </li>
+                    <li>{user.first_name} {user.last_name} <img src={onlineUser} id="online-offline-user-circle" /><button onClick={(e)=>handleBeginChat(e,user.profile_id)}>Chat</button> </li>
 
 ))}
 
