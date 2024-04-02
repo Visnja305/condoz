@@ -8,15 +8,26 @@ import CreateUserProfileModal from "../CreateUserProfileModal";
 import { getCondosThunk } from "../../store/condos";
 import {getUsersThunk} from "../../store/users";
 import ShowEvents from "../ShowEvents";
+import LiveChat from "../LiveChat";
 import onlineUser from "../logos/online.png"
 import offlineUser from "../logos/offline.png"
+import { io } from "socket.io-client"
+
+
+let socket
+let chatroom
 const UserProfilePage =()=>{
+
     const dispatch=useDispatch();
+    const history=useHistory();
     const [isLoaded,setIsLoaded]=useState(false);
     const [checkedLocation,setCheckedLocation]=useState("");
     const [checkedInterest,setCheckedInterest]=useState("");
     const [sendLocation,setSendLocation]=useState("");
     const [sendInterest,setSendInterest]=useState("");
+    const [userRequestChat,setUserRequestChat]=useState(false);
+    const [chatroom,setChatroom]=useState("");
+    const [payload,setPayload]=useState({})
 
     const [isReset,setIsReset]=useState(false)
     const sessionUser = useSelector((state) => state.session.user);
@@ -26,6 +37,10 @@ const UserProfilePage =()=>{
 
     const onlineUsers=allUsers.filter(user=>user.is_online==true)
     const offlineUsers=allUsers.filter(user=>user.is_online==false)
+
+
+
+
 
 
 
@@ -71,9 +86,35 @@ let props
 const handleSubmit=async (e)=>{
     e.preventDefault();
 
+
 setSendLocation(checkedLocation);
 setSendInterest(checkedInterest);
 props={location:sendLocation,interest:sendInterest}
+
+}
+function getRandomInt(min,max) {
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+  }
+
+const handleGoToChat=async(e,id)=>{
+    e.preventDefault();
+    socket=io()
+   const chatroom= getRandomInt(1,1000);
+//    await dispatch(addChatNotificationThunk(room,id))
+ setPayload({
+    initiatorProfileId:sessionUser.profile_id,
+    invitedUserProfileId:id,
+    room:chatroom
+
+})
+setUserRequestChat(true)
+setChatroom(chatroom)
+// socket.emit("notification",payload)
+
+//     history.push(`/live-chat/${chatroom}/${id}`)
+
 
 }
 
@@ -161,7 +202,7 @@ props={location:sendLocation,interest:sendInterest}
              <div className="users-on-user-profile-page">
                 <p>Users</p>
                 <ul>{onlineUsers.map(user=>(
-                    <li>{user.first_name} {user.last_name} <img src={onlineUser} id="online-offline-user-circle" /> </li>
+                    <li>{user.first_name} {user.last_name} <img src={onlineUser} id="online-offline-user-circle" /><button onClick={(e)=>{handleGoToChat(e,user.profile_id)}}>Live chat</button> </li>
 
 ))}
 
@@ -172,6 +213,11 @@ props={location:sendLocation,interest:sendInterest}
 ))}
 
                 </ul>
+                {userRequestChat &&
+                     <div className="live-chat-on-user-profile">
+                        <LiveChat props={{chatroom,payload}}/>
+                     </div>
+                    }
 
 
 

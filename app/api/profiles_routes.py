@@ -194,7 +194,7 @@ def edit_user_profile(id):
 
 @profiles_routes.route('/edit/add-chat-notification/<int:room>/<int:id>',methods=['PUT'])
 def add_chat_notification(room,id):
-          print("!!!!!!!!!!!!!!!!!!!!",id)
+          
 
           user_profile = Profile.query.get(id)
 
@@ -207,7 +207,7 @@ def add_chat_notification(room,id):
               the_string=','.join(map(str, the_list))
               user_profile.has_chat_notification=the_string
           db.session.commit()
-          
+
 
           return user_profile.to_dict()
 
@@ -220,7 +220,7 @@ def get_all_profiles():
 
     profiles = Profile.query.all()
     all_profiles=[profile.to_dict() for profile in profiles]
-    print(all_profiles)
+
 
     return jsonify(all_profiles)
 

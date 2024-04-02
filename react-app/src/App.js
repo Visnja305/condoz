@@ -9,6 +9,7 @@ import UserProfileDetailPage from "./components/UserProfileDetailPage"
 import CreateEvent from "./components/CreateEvent"
 import ManageEvents from "./components/ManageEvents"
 import NavBar from "./components/NavBar";
+import LiveChat from "./components/LiveChat";
 import { authenticate } from "./store/session";
 
 
@@ -57,7 +58,11 @@ function App() {
             <Route exact path="/user-profile/manage-events">
             <ManageEvents />
             </Route>
+
 }
+<Route exact path="/live-chat">
+            <LiveChat />
+            </Route>
 
 
 
