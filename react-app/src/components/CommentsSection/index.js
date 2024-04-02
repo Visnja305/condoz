@@ -21,7 +21,7 @@ function CommentsSection({eventId}) {
   const dispatch = useDispatch();
   const history = useHistory();
   const comments = Object.values(useSelector((state) => state.comments.currentEventComments))
-  console.log(comments)
+
   // const comments = Object.values(useSelector((state) => state.comments));
   const profiles=useSelector((state)=>state.userProfiles);
   const sessionUser=useSelector((state)=>state.session.user);

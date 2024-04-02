@@ -10,7 +10,7 @@ def handle_my_chat(data):
     # Message(message=message)
     room=data["room"]
     msg=data["message"]
-    user=data["user"]["first_name"]
+    user=data["sessionUser"]["first_name"]
     new_data={
         "user":user,
         "msg":msg
@@ -21,7 +21,7 @@ def handle_my_chat(data):
 def exit_room(data):
     print("we are in the leave")
     room=data["room"]
-    user=data["user"]["first_name"]
+    user=data["sessionUser"]["first_name"]
     leave_room(room)
     msg=f"{user} left the room"
     new_data={"msg":msg}
@@ -30,7 +30,7 @@ def exit_room(data):
 @socket.on("join")
 def on_join(data):
     print(data)
-    user=data["user"]["first_name"]
+    user=data["sessionUser"]["first_name"]
     msg=f"{user} has joined the room"
     new_data={
         "user":"Global Notification",
@@ -42,3 +42,4 @@ def on_join(data):
 @socket.on("notification")
 def on_notification(payload):
     print("*****************",payload)
+    emit("notification",payload)
