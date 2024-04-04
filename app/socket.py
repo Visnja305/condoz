@@ -1,4 +1,5 @@
 from flask_socketio import SocketIO,emit,join_room,leave_room
+from flask import session
 # from app.model import Message
 # if env=='production' default what render url is
 socket=SocketIO(cors_allowed_origins="*")
@@ -43,4 +44,5 @@ def on_join(data):
 @socket.on("notification")
 def on_notification(payload):
     print("*****************",payload)
+    print("????????????????????????",session)
     emit("notification",payload,broadcast=True)

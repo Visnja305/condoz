@@ -3,7 +3,7 @@ import React, { useEffect, useState,useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Redirect, useLocation, useHistory,NavLink } from "react-router-dom";
 import { io } from "socket.io-client"
-
+import LiveChat from "../LiveChat"
 import "./UsersLiveChat.css"
 import {getUsersThunk} from "../../store/users";
 import onlineUser from "../logos/online.png";
@@ -40,74 +40,7 @@ const UsersLiveChat =()=>{
         }
         getData();
     },[isLoaded])
-    useEffect(()=>{
-        if(connected && messageBox){
-            console.log(messageBox)
-            messageBox.current.scrollIntoView({
-                behavior:"smooth",
-                block:"end",
-                inline:"nearest"
-            })
-        }
-    },[messages])
-    //creation of socket and start listeners
-useEffect(()=>{
-    // if(env==='production'){socket=io(renderdatabase)}
 
-socket=io()
-
-
-socket.on("chat",(data)=>{
-    console.log("stigli smo do ovde pred kraj")
-    setMessages((prev)=>[...prev,data])
-
-
-})
-// socket.emit("notification",payload)
-return()=>{
-    socket.emit('leave',chatroom);
-    socket.disconnect();
-}
-},[chatroom])
-
-const handleConnect=async(e)=>{
-    const payload={
-        sessionUser,
-        room:chatroom
-    }
-    socket.emit('join',payload);
-    socket.on('join',async(data)=>{
-        setMessages((prev)=>[...prev,data])
-    });
-    setConnected(true)
-    }
-
-    const handleDisconnect=async(e)=>{
-        const payload={
-            sessionUser,
-            room:chatroom
-        }
-        socket.emit('leave',payload);
-        socket.on('leave',async(data)=>{
-            setMessages((prev)=>[...prev,data])
-
-        })
-        setConnected(false)
-    }
-    const sendChat=async(e)=>{
-
-        e.preventDefault()
-        if(newMsg){
-            console.log("nova porukaa")
-            const payload={
-                room:chatroom,
-                sessionUser,
-                message:newMsg
-            }
-            socket.emit("chat",payload)
-        }
-        setNewMsg("");
-    }
 
     function getRandomInt(min,max) {
         const minCeiled = Math.ceil(min);
@@ -124,15 +57,17 @@ const handleConnect=async(e)=>{
                 room:room
 
             }
+
         socket.emit("notification",payload)
+        setChatroomInitiated((prev)=>[...prev,payload])
 
     }
     useEffect(() => {
         socket=io()
         socket.on("notification",async function(data){
-            console.log(data.invitedUserProfileId===sessionUser.profile_id && data.initiatorProfileId!==sessionUser.profile_id)
-            if(data.invitedUserProfileId===sessionUser.profile_id && data.initiatorProfileId!==sessionUser.profile_id){
-                setChatRoomInvited((prev)=>[...prev,data.room]);
+            console.log(data.invitedUserProfileId===sessionUser?.profile_id && data.initiatorProfileId!==sessionUser?.profile_id)
+            if(data.invitedUserProfileId===sessionUser?.profile_id && data.initiatorProfileId!==sessionUser?.profile_id){
+                setChatRoomInvited((prev)=>[...prev,data]);
 
 
             }
@@ -141,16 +76,16 @@ const handleConnect=async(e)=>{
 
 
     },[])
-    socket?.on("notification",async(data)=>{
-        console.log(data)
-        console.log(Number(data.invitedUserProfileId)===Number(sessionUser.profile_id) && Number(data.initiatorProfileId)!==Number(sessionUser.profile_id))
-        if(data.invitedUserProfileId===sessionUser.profile_id && data.initiatorProfileId!==sessionUser.profile_id){
-           await setChatRoomInvited((prev)=>[...prev,data.room]);
+    // socket?.on("notification",async(data)=>{
+    //     console.log(data)
+    //     console.log(Number(data.invitedUserProfileId)===Number(sessionUser.profile_id) && Number(data.initiatorProfileId)!==Number(sessionUser.profile_id))
+    //     if(data.invitedUserProfileId===sessionUser.profile_id && data.initiatorProfileId!==sessionUser.profile_id){
+    //        await setChatRoomInvited((prev)=>[...prev,data.room]);
 
 
-        }
-    //     // setNotification((prev)=>[...prev,data])
-    })
+    //     }
+    // //     // setNotification((prev)=>[...prev,data])
+    // })
 
     if(!sessionUser){return <Redirect to="/" />}
 
@@ -178,25 +113,14 @@ const handleConnect=async(e)=>{
 
 
              </div>
-             <div className="live-chat-on-users-live-chat">
-             <h1>Messenger</h1>
-<div className='controls'>
-<button onClick={handleConnect}>Connect</button>
-<button onClick={handleDisconnect}>Disconnect</button>
-</div>
-<div className='message-box' style={{height:"200px",width:"300px"}}>
-    {connected ? messages.map((message,idx)=>(
-        <div ref={messageBox} className='message-container'key={`${idx}-${new Date().getTime()}`}>
-            <p>{message.msg}</p>
-            <p>{message.user}</p>
+             <div>
+                <h1>Chats initiated</h1>
+             {chatRoomInitiated && chatRoomInitiated.map(roomData=><LiveChat props={roomData} />)}
+             </div>
+             <div>
+                <h1>Chats invited</h1>
+                {chatRoomInvited && chatRoomInvited.map(roomData=><LiveChat props={roomData} />)}
 
-        </div>
-    )) : <h2>Not connected</h2>}
-</div>
-<div>
-    <input placeholder='start chatting' value={newMsg} onChange={(e)=>setNewMsg(e.target.value)}/>
-    <button onClick={sendChat}>send</button>
-</div>
              </div>
 
 

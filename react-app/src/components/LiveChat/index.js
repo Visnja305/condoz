@@ -8,8 +8,8 @@ import { useParams } from "react-router-dom";
 
 let socket;
 
-function LiveChat(){
-// console.log(props)
+function LiveChat({props}){
+console.log(props.room)
 // const chatroom=props.chatroom;
 // const payload=props.payload;
 
@@ -17,7 +17,7 @@ const user=useSelector((state)=>state.session.user)
 const [connected,setConnected]=useState(false)
 const [newMsg,setNewMsg]=useState('');
 const [messages,setMessages]=useState([])
-const chatroom=123
+const chatroom=props.room
 
 const messageBox=useRef();
 useEffect(()=>{
