@@ -50,10 +50,12 @@ return()=>{
 },[chatroom])
 
 const handleConnect=async(e)=>{
+    console.log("trying to connect")
 const payload={
     user,
     room:chatroom
 }
+console.log(payload)
 socket.emit('join',payload);
 socket.on('join',async(data)=>{
     setMessages((prev)=>[...prev,data])
@@ -90,7 +92,7 @@ const sendChat=async(e)=>{
 }
 return(
 <div className='splash-container'>
-<h1>Messenger</h1>
+<h1>Chat with {props.invited ? <span>{props.initiatorProfileId}</span> : <span>{props.invitedUserProfileId}</span>} in chatroom number {<span>{chatroom}</span>}</h1>
 <div className='controls'>
 <button onClick={handleConnect}>Connect</button>
 <button onClick={handleDisconnect}>Disconnect</button>

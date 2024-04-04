@@ -67,6 +67,7 @@ const UsersLiveChat =()=>{
         socket.on("notification",async function(data){
             console.log(data.invitedUserProfileId===sessionUser?.profile_id && data.initiatorProfileId!==sessionUser?.profile_id)
             if(data.invitedUserProfileId===sessionUser?.profile_id && data.initiatorProfileId!==sessionUser?.profile_id){
+                data.invited=true;
                 setChatRoomInvited((prev)=>[...prev,data]);
 
 
