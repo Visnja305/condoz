@@ -5,7 +5,7 @@ socket=SocketIO(cors_allowed_origins="*")
 
 @socket.on("chat")
 def handle_my_chat(data):
-    print(data,"we are in the chat")
+    print(data,"we are in the chat***********************************************")
     # message=data["message"]
     # Message(message=message)
     room=data["room"]
@@ -15,6 +15,7 @@ def handle_my_chat(data):
         "user":user,
         "msg":msg
     }
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!",new_data)
     emit("chat",new_data,broadcast=True,to=room)
 
 @socket.on("leave")

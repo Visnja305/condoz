@@ -56,9 +56,10 @@ useEffect(()=>{
 
 socket=io()
 
-// socket=io("ws://localhost:8000")
+
 socket.on("chat",(data)=>{
-    setMessages(prev=>[...prev,data])
+    console.log("stigli smo do ovde pred kraj")
+    setMessages((prev)=>[...prev,data])
 
 
 })
@@ -94,8 +95,10 @@ const handleConnect=async(e)=>{
         setConnected(false)
     }
     const sendChat=async(e)=>{
+
         e.preventDefault()
         if(newMsg){
+            console.log("nova porukaa")
             const payload={
                 room:chatroom,
                 sessionUser,
@@ -148,7 +151,7 @@ const handleConnect=async(e)=>{
         }
     //     // setNotification((prev)=>[...prev,data])
     })
-    console.log(chatRoomInvited)
+
     if(!sessionUser){return <Redirect to="/" />}
 
 
