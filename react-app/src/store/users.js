@@ -1,6 +1,7 @@
 // constants
 const GET_USERS = "users/GET_USERS";
 const GET_USER="users/GET_USER";
+const GET_USER_BY_PROFILE_ID="users/GET_USER_BY_PROFILE_ID"
 
 const getUser=(user)=>({
 	type:GET_USER,
@@ -11,6 +12,12 @@ const getUsers = (users) => ({
 	type: GET_USERS,
 	users
 });
+
+const getUserByProfileId=(user)=>({
+	type: GET_USER_BY_PROFILE_ID,
+	user
+
+})
 
 export const getUserThunk = (userId) => async (dispatch) => {
 
@@ -49,12 +56,30 @@ export const getUsersThunk = () => async (dispatch) => {
 		dispatch(getUsers(users));
 	}
 };
+export const getUserByProfileIdThunk=(id)=>async (dispatch)=>{
+    const response = await fetch(`/api/users/search-by-profile/${id}`, {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
+	if (response.ok) {
+		const user = await response.json();
 
+
+		dispatch(getUserByProfileId(user));
+		
+        return user
+	}
+return response
+}
 
 const users=(state = {}, action)=> {
     let new_state={}
 	switch (action.type) {
 		case GET_USER:
+			return {...state,[action.user.id]:action.user}
+
+		case GET_USER_BY_PROFILE_ID:
 			return {...state,[action.user.id]:action.user}
 
 		case GET_USERS:

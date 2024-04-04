@@ -1,6 +1,7 @@
 import React, { useEffect, useState,useRef } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
+import { getUserByProfileIdThunk} from "../../store/users";
 
 import { io } from "socket.io-client"
 import { useParams } from "react-router-dom";
@@ -9,17 +10,35 @@ import { useParams } from "react-router-dom";
 let socket;
 
 function LiveChat({props}){
-console.log(props.room)
-// const chatroom=props.chatroom;
-// const payload=props.payload;
+console.log(props)
+const dispatch=useDispatch()
 
 const user=useSelector((state)=>state.session.user)
+const initiatorUserIfInvited=useSelector((state)=>state.users[props.initiatorProfileId]);
+const invitedUserIfInviting=useSelector((state)=>state.users[props.invitedUserProfileId])
 const [connected,setConnected]=useState(false)
 const [newMsg,setNewMsg]=useState('');
-const [messages,setMessages]=useState([])
+const [messages,setMessages]=useState([]);
+const [invitedUserOrInitiator,setInvitedUserOrInitiator]=useState("");
+
 const chatroom=props.room
 
 const messageBox=useRef();
+useEffect( ()=>{
+    if(props.invited){
+        const getData=async()=>{
+   dispatch(getUserByProfileIdThunk(props.initiatorProfileId)).then(res=>setInvitedUserOrInitiator(res))}
+getData()
+        }
+    if(!props.invited){
+const getData=async()=>{
+    dispatch(getUserByProfileIdThunk(props.invitedUserProfileId)).then(res=>setInvitedUserOrInitiator(res))}
+
+getData()
+            }
+
+},[])
+console.log(invitedUserOrInitiator)
 useEffect(()=>{
         if(connected && messageBox){
             console.log(messageBox)
@@ -92,7 +111,7 @@ const sendChat=async(e)=>{
 }
 return(
 <div className='splash-container'>
-<h1>Chat with {props.invited ? <span>{props.initiatorProfileId}</span> : <span>{props.invitedUserProfileId}</span>} in chatroom number {<span>{chatroom}</span>}</h1>
+<h1>Chat with <span>{invitedUserOrInitiator.first_name} {invitedUserOrInitiator.last_name}</span> in chatroom number {<span>{chatroom}</span>}</h1>
 <div className='controls'>
 <button onClick={handleConnect}>Connect</button>
 <button onClick={handleDisconnect}>Disconnect</button>
@@ -243,3 +262,42 @@ export default LiveChat;
 
 // }
 // export default LiveChat;
+
+
+
+
+{/* <h1>Chat with {props.invited ? <span>{initiatorUserIfInvited.first_name} {initiatorUserIfInvited.last_name}</span> : <span>{invitedUserIfInviting.first_name} {invitedUserIfInviting.last_name}</span>} in chatroom number {<span>{chatroom}</span>}</h1> */}
+
+
+// if(props.invited){
+//     const getProfile=async()=>{
+//     await dispatch(getUserByProfileIdThunk(props.initiatorProfileId))}
+//     const theUser=getProfile()
+//     console.log(theUser)
+//         }
+//     if(!props.invited){
+//     const getProfile=async()=>{
+//     dispatch(getUserByProfileIdThunk(props.invitedUserProfileId)).then(res=>setInvitedUserOrInitiator(res.body))}
+//     getProfile()
+//             }
+
+
+
+// useEffect(()=>{
+//     if(props.invited){
+//     const getProfile=async()=>{
+//     await dispatch(getUserByProfileIdThunk(props.initiatorProfileId)).then(res=>console.log(res))}
+//     const theUser=getProfile()
+//     if (theUser){
+//         console.log(theUser)}
+//         }
+//     if(!props.invited){
+//     const getProfile=async()=>{
+//     await dispatch(getUserByProfileIdThunk(props.invitedUserProfileId))}
+//     const theUser=getProfile()
+//     if (theUser){
+//     console.log(theUser)}
+
+//             }
+
+// },[])

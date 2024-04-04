@@ -16,13 +16,11 @@ const UsersLiveChat =()=>{
     const history=useHistory();
     const [isLoaded,setIsLoaded]=useState(false);
 
-    const [connected,setConnected]=useState(false)
-    const [newMsg,setNewMsg]=useState('');
-    const [messages,setMessages]=useState([]);
+   
     const [chatRoomInitiated,setChatroomInitiated]=useState([]);
     const [chatRoomInvited,setChatRoomInvited]=useState([]);
-    const chatroom=123;
-    const messageBox=useRef();
+
+
 
     const sessionUser = useSelector((state) => state.session.user);
     const users=useSelector((state)=>state.users)
@@ -47,27 +45,40 @@ const UsersLiveChat =()=>{
         const maxFloored = Math.floor(max);
         return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
       }
-
+      const handleInvitedChatsArr = (data) => {
+        setChatRoomInvited(data)
+    }
+    const handleInitiatedChatsArr = (data) => {
+        setChatroomInitiated(data)
+    }
     const handleBeginChat=(e,id)=>{
         e.preventDefault();
         const room=getRandomInt(1,1000);
         const payload={
                 initiatorProfileId:sessionUser.profile_id,
                 invitedUserProfileId:id,
-                room:room
+                room:room,
+                handleInvitedChatsArr:handleInvitedChatsArr,
+                handleInitiatedChatsArr:handleInitiatedChatsArr
+
 
             }
 
         socket.emit("notification",payload)
         setChatroomInitiated((prev)=>[...prev,payload])
 
+
     }
+
+
+
     useEffect(() => {
         socket=io()
         socket.on("notification",async function(data){
             console.log(data.invitedUserProfileId===sessionUser?.profile_id && data.initiatorProfileId!==sessionUser?.profile_id)
             if(data.invitedUserProfileId===sessionUser?.profile_id && data.initiatorProfileId!==sessionUser?.profile_id){
                 data.invited=true;
+
                 setChatRoomInvited((prev)=>[...prev,data]);
 
 

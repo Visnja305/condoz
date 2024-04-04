@@ -12,6 +12,15 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+@user_routes.route('/search-by-profile/<int:id>')
+def getUserByProfileId(id):
+    """
+    Query for a user by id and returns that user in a dictionary
+    """
+
+    user = User.query.filter_by(profile_id = id).first()
+    
+    return user.to_dict()
 
 @user_routes.route('/')
 def users():
@@ -20,5 +29,5 @@ def users():
     """
     users = User.query.all()
     all_users=[user.to_dict() for user in users]
-    
+
     return jsonify(all_users)
