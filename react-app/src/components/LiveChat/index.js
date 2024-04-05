@@ -1,155 +1,180 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { getUserByProfileIdThunk} from "../../store/users";
+import { getUserByProfileIdThunk } from "../../store/users";
 
-import { io } from "socket.io-client"
+import { io } from "socket.io-client";
 import { useParams } from "react-router-dom";
-
 
 let socket;
 
-function LiveChat({props}){
-console.log(props)
-const dispatch=useDispatch()
+function LiveChat({ props }) {
+  console.log(props);
+  const dispatch = useDispatch();
 
-const user=useSelector((state)=>state.session.user)
-const initiatorUserIfInvited=useSelector((state)=>state.users[props.initiatorProfileId]);
-const invitedUserIfInviting=useSelector((state)=>state.users[props.invitedUserProfileId])
-const [connected,setConnected]=useState(false)
-const [newMsg,setNewMsg]=useState('');
-const [messages,setMessages]=useState([]);
-const [invitedUserOrInitiator,setInvitedUserOrInitiator]=useState("");
+  const user = useSelector((state) => state.session.user);
 
-const chatroom=props.room
+  const [connected, setConnected] = useState(false);
+  const [newMsg, setNewMsg] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [invitedUserOrInitiator, setInvitedUserOrInitiator] = useState("");
 
-const messageBox=useRef();
-useEffect( ()=>{
-    if(props.invited){
-        const getData=async()=>{
-   dispatch(getUserByProfileIdThunk(props.initiatorProfileId)).then(res=>setInvitedUserOrInitiator(res))}
-getData()
-        }
-    if(!props.invited){
-const getData=async()=>{
-    dispatch(getUserByProfileIdThunk(props.invitedUserProfileId)).then(res=>setInvitedUserOrInitiator(res))}
+  const chatroom = props.room;
 
-getData()
-            }
+  const messageBox = useRef();
+  useEffect(() => {
+    if (props.invited) {
+      const getData = async () => {
+        dispatch(getUserByProfileIdThunk(props.initiatorProfileId)).then(
+          (res) => setInvitedUserOrInitiator(res)
+        );
+      };
+      getData();
+    }
+    if (!props.invited) {
+      const getData = async () => {
+        dispatch(getUserByProfileIdThunk(props.invitedUserProfileId)).then(
+          (res) => setInvitedUserOrInitiator(res)
+        );
+      };
 
-},[])
-console.log(invitedUserOrInitiator)
-useEffect(()=>{
-        if(connected && messageBox){
-            console.log(messageBox)
-            messageBox.current.scrollIntoView({
-                behavior:"smooth",
-                block:"end",
-                inline:"nearest"
-            })
-        }
-    },[messages])
+      getData();
+    }
+  }, []);
+  console.log(invitedUserOrInitiator);
+  useEffect(() => {
+    if (connected && messageBox) {
+      console.log(messageBox);
+      messageBox.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+    }
+  }, [messages]);
 
-//creation of socket and start listeners
-useEffect(()=>{
+  //creation of socket and start listeners
+  useEffect(() => {
     // if(env==='production'){socket=io(renderdatabase)}
 
-socket=io()
-// socket=io("ws://localhost:8000")
-socket.on("chat",(data)=>{
-    setMessages(prev=>[...prev,data])
+    socket = io();
+    // socket=io("ws://localhost:8000")
+    socket.on("chat", (data) => {
+      setMessages((prev) => [...prev, data]);
+    });
 
+    // return () => {
+    //   socket.emit("leave", chatroom);
+    //   socket.disconnect();
+    // };
+  }, [chatroom]);
 
-})
-// socket.emit("notification",payload)
-return()=>{
-    socket.emit('leave',chatroom)
-    socket.disconnect()
-}
-},[chatroom])
+  const handleConnect = async (e) => {
+    console.log("trying to connect");
+    const payload = {
+      user,
+      room: chatroom,
+    };
+    console.log(payload);
+    socket.emit("join", payload);
+    socket.on("join", async (data) => {
+      setMessages((prev) => [...prev, data]);
+    });
+    setConnected(true);
+  };
 
-const handleConnect=async(e)=>{
-    console.log("trying to connect")
-const payload={
-    user,
-    room:chatroom
-}
-console.log(payload)
-socket.emit('join',payload);
-socket.on('join',async(data)=>{
-    setMessages((prev)=>[...prev,data])
-});
-setConnected(true)
+  const handleDisconnect = async (e) => {
+    console.log("handle disconnect 1")
+    const payload = {
+      user,
+      room: chatroom,
+    };
+    socket.emit("leave", payload);
+    socket.on("leave", async (data) => {
+        console.log("socket leave 1")
+      setMessages((prev) => [...prev, data]);
+      console.log("socket leave 2")
+    });
+    setConnected(false);
+    console.log("handle disonnect 2")
+    if (props.invited) {
+      props.handleInvitedChatsArr((prev) => {
+        const index = prev.indexOf(props);
 
+        const x = prev.splice(index, 1);
 
-
-
-}
-const handleDisconnect=async(e)=>{
-    const payload={
-        user,
-        room:chatroom
+        return [...prev];
+      });
     }
-    socket.emit('leave',payload);
-    socket.on('leave',async(data)=>{
-        setMessages((prev)=>[...prev,data])
+    if (!props.invited) {
+      props.handleInitiatedChatsArr((prev) => {
+        const index =  prev.indexOf(props);
 
-    })
-    setConnected(false)
-}
-const sendChat=async(e)=>{
-    e.preventDefault()
-    if(newMsg){
-        const payload={
-            room:chatroom,
-            user,
-            message:newMsg
-        }
-        socket.emit("chat",payload)
+        const x = prev.splice(index, 1);
+        return [...prev];
+      });
+    }
+    console.log("handle disonnect 3")
+  };
+  const sendChat = async (e) => {
+    e.preventDefault();
+    if (newMsg) {
+      const payload = {
+        room: chatroom,
+        user,
+        message: newMsg,
+      };
+      socket.emit("chat", payload);
     }
     setNewMsg("");
-}
-return(
-<div className='splash-container'>
-<h1>Chat with <span>{invitedUserOrInitiator.first_name} {invitedUserOrInitiator.last_name}</span> in chatroom number {<span>{chatroom}</span>}</h1>
-<div className='controls'>
-<button onClick={handleConnect}>Connect</button>
-<button onClick={handleDisconnect}>Disconnect</button>
-</div>
-<div className='message-box' style={{height:"200px",width:"300px"}}>
-    {connected ? messages.map((message,idx)=>(
-        <div ref={messageBox} className='message-container'key={`${idx}-${new Date().getTime()}`}>
-            <p>{message.msg}</p>
-            <p>{message.user}</p>
-
-        </div>
-    )) : <h2>Not connected</h2>}
-</div>
-<div>
-    <input placeholder='start chatting' value={newMsg} onChange={(e)=>setNewMsg(e.target.value)}/>
-    <button onClick={sendChat}>send</button>
-</div>
-
-</div>
-
-
-)
-
-
+  };
+  return (
+    <div className="splash-container">
+      <h1>
+        Chat with{" "}
+        <span>
+          {invitedUserOrInitiator.first_name} {invitedUserOrInitiator.last_name}
+        </span>{" "}
+        in chatroom number {<span>{chatroom}</span>}
+      </h1>
+      <div className="controls">
+        <button onClick={handleConnect}>Connect</button>
+        <button onClick={()=>handleDisconnect()}>Disconnect</button>
+      </div>
+      <div className="message-box" style={{ height: "200px", width: "300px" }}>
+        {connected ? (
+          messages.map((message, idx) => (
+            <div
+              ref={messageBox}
+              className="message-container"
+              key={`${idx}-${new Date().getTime()}`}
+            >
+              <p>{message.msg}</p>
+              <p>{message.user}</p>
+            </div>
+          ))
+        ) : (
+          <h2>Not connected</h2>
+        )}
+      </div>
+      <div>
+        <input
+          placeholder="start chatting"
+          value={newMsg}
+          onChange={(e) => setNewMsg(e.target.value)}
+        />
+        <button onClick={sendChat}>send</button>
+      </div>
+    </div>
+  );
 }
 export default LiveChat;
-
-
-
-
-
 
 // import React, {useEffect,useRef,useState} from 'react';
 // import {useSelector} from 'react-redux';
 // import "./LiveChat.css"
 // import { io } from "socket.io-client"
 // import { useParams } from "react-router-dom";
-
 
 // let socket;
 
@@ -185,7 +210,6 @@ export default LiveChat;
 // socket.on("chat",(data)=>{
 //     setMessages(prev=>[...prev,data])
 
-
 // })
 // socket.emit("notification",payload)
 // // return()=>{
@@ -204,9 +228,6 @@ export default LiveChat;
 //     setMessages((prev)=>[...prev,data])
 // });
 // setConnected(true)
-
-
-
 
 // }
 // const handleDisconnect=async(e)=>{
@@ -256,18 +277,14 @@ export default LiveChat;
 
 // </div>
 
-
 // )
-
 
 // }
 // export default LiveChat;
 
-
-
-
-{/* <h1>Chat with {props.invited ? <span>{initiatorUserIfInvited.first_name} {initiatorUserIfInvited.last_name}</span> : <span>{invitedUserIfInviting.first_name} {invitedUserIfInviting.last_name}</span>} in chatroom number {<span>{chatroom}</span>}</h1> */}
-
+{
+  /* <h1>Chat with {props.invited ? <span>{initiatorUserIfInvited.first_name} {initiatorUserIfInvited.last_name}</span> : <span>{invitedUserIfInviting.first_name} {invitedUserIfInviting.last_name}</span>} in chatroom number {<span>{chatroom}</span>}</h1> */
+}
 
 // if(props.invited){
 //     const getProfile=async()=>{
@@ -280,8 +297,6 @@ export default LiveChat;
 //     dispatch(getUserByProfileIdThunk(props.invitedUserProfileId)).then(res=>setInvitedUserOrInitiator(res.body))}
 //     getProfile()
 //             }
-
-
 
 // useEffect(()=>{
 //     if(props.invited){
