@@ -21,7 +21,7 @@ const UsersLiveChat = () => {
   const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const [chatRoomInitiated, setChatroomInitiated] = useState([]);
+  const [chatRoomInitiated, setChatRoomInitiated] = useState([]);
   const [chatRoomInvited, setChatRoomInvited] = useState([]);
 
   const sessionUser = useSelector((state) => state.session.user);
@@ -32,6 +32,12 @@ const UsersLiveChat = () => {
   const onlineUsers = allUsers.filter((user) => user.is_online == true);
   const offlineUsers = allUsers.filter((user) => user.is_online == false);
 
+//   useEffect(()=>{
+// const getData=async()=>{
+//     await chatRoomInvited;
+//     await chatRoomInitiated
+// }
+//   },[chatRoomInitiated,chatRoomInvited])
   useEffect(() => {
     const getData = async () => {
       await dispatch(getUsersThunk());
@@ -48,11 +54,17 @@ const UsersLiveChat = () => {
     const maxFloored = Math.floor(max);
     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
   }
-  const handleInvitedChatsArr = (data) => {
-    setChatRoomInvited(data);
+  const handleInvitedChatsArr = (props) => {
+   return setChatRoomInvited(prev=>{
+        const index =prev.indexOf(props);
+        prev.splice(index, 1);
+        return [...prev]})
   };
-  const handleInitiatedChatsArr = (data) => {
-    setChatroomInitiated(data);
+  const handleInitiatedChatsArr = (props) => {
+    return setChatRoomInitiated(prev=>{
+        const index =prev.indexOf(props);
+        prev.splice(index, 1);
+        return [...prev]})
   };
   const handleBeginChat = (e, id) => {
     e.preventDefault();
@@ -64,28 +76,36 @@ const UsersLiveChat = () => {
       handleInvitedChatsArr: handleInvitedChatsArr,
       handleInitiatedChatsArr: handleInitiatedChatsArr,
     };
-
+socket=io()
     socket.emit("notification", payload);
-    setChatroomInitiated((prev) => [...prev, payload]);
+
+    setChatRoomInitiated((prev) =>
+ [...prev, payload]
+    );
+
   };
 
   useEffect(() => {
     socket = io();
-    socket.on("notification", async function (data) {
-      console.log(
-        data.invitedUserProfileId === sessionUser?.profile_id &&
-          data.initiatorProfileId !== sessionUser?.profile_id
-      );
+    socket.on("notification", async (payload)=> {
+    //   console.log(
+    //     payload.invitedUserProfileId === sessionUser?.profile_id &&
+    //       payload.initiatorProfileId !== sessionUser?.profile_id
+    //   );
       if (
-        data.invitedUserProfileId === sessionUser?.profile_id &&
-        data.initiatorProfileId !== sessionUser?.profile_id
+        payload.invitedUserProfileId === sessionUser?.profile_id &&
+        payload.initiatorProfileId !== sessionUser?.profile_id
       ) {
-        data.invited = true;
+        payload.invited = true;
+        payload.handleInvitedChatsArr=handleInvitedChatsArr;
+        payload.handleInitiatedChatsArr=handleInitiatedChatsArr;
 
-        setChatRoomInvited((prev) => [...prev, data]);
+        await setChatRoomInvited((prev) => [...prev, payload]);
+
       }
     });
   }, []);
+
   // socket?.on("notification",async(data)=>{
   //     console.log(data)
   //     console.log(Number(data.invitedUserProfileId)===Number(sessionUser.profile_id) && Number(data.initiatorProfileId)!==Number(sessionUser.profile_id))
@@ -129,12 +149,12 @@ const UsersLiveChat = () => {
       </div>
       <div>
         <h1>Chats initiated</h1>
-        {chatRoomInitiated.length!==0 &&
+        { chatRoomInitiated?.length!==0  &&
           chatRoomInitiated.map((roomData) => <LiveChat props={roomData} />)}
       </div>
       <div>
         <h1>Chats invited</h1>
-        {chatRoomInvited.length!==0 &&
+        {  chatRoomInvited?.length!==0 &&
           chatRoomInvited.map((roomData) => <LiveChat props={roomData} />)}
       </div>
     </>
@@ -142,3 +162,11 @@ const UsersLiveChat = () => {
 };
 
 export default UsersLiveChat;
+
+
+// if(chatRoomInitiated.length!==0){
+//     setChatroomInitiated((prev) => [...prev, payload]);
+//     }
+//     if(chatRoomInitiated.length===0){
+//     setChatroomInitiated([payload])
+//     }

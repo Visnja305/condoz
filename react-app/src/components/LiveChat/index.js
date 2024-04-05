@@ -10,6 +10,7 @@ let socket;
 
 function LiveChat({ props }) {
   console.log(props);
+  const theArr=props.handleInvitedChatsArr
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.session.user);
@@ -84,6 +85,7 @@ function LiveChat({ props }) {
   };
 
   const handleDisconnect = async (e) => {
+    e.stopPropagation();
     console.log("handle disconnect 1")
     const payload = {
       user,
@@ -98,22 +100,11 @@ function LiveChat({ props }) {
     setConnected(false);
     console.log("handle disonnect 2")
     if (props.invited) {
-      props.handleInvitedChatsArr((prev) => {
-        const index = prev.indexOf(props);
-
-        const x = prev.splice(index, 1);
-
-        return [...prev];
-      });
-    }
+     props.handleInvitedChatsArr(props)}
     if (!props.invited) {
-      props.handleInitiatedChatsArr((prev) => {
-        const index =  prev.indexOf(props);
-
-        const x = prev.splice(index, 1);
-        return [...prev];
-      });
+      props.handleInitiatedChatsArr(props)
     }
+
     console.log("handle disonnect 3")
   };
   const sendChat = async (e) => {
@@ -138,8 +129,8 @@ function LiveChat({ props }) {
         in chatroom number {<span>{chatroom}</span>}
       </h1>
       <div className="controls">
-        <button onClick={handleConnect}>Connect</button>
-        <button onClick={()=>handleDisconnect()}>Disconnect</button>
+        <button onClick={(e)=>handleConnect(e)}>Connect</button>
+        <button onClick={(e)=>handleDisconnect(e)}>Disconnect</button>
       </div>
       <div className="message-box" style={{ height: "200px", width: "300px" }}>
         {connected ? (
