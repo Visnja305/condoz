@@ -17,7 +17,7 @@ from .config import Config
 from app.socket import socket
 
 
-app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
+app = Flask(__name__, static_folder='../frontend/dist', static_url_path='/')
 
 # Setup login manager
 login = LoginManager(app)
