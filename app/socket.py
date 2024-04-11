@@ -2,7 +2,8 @@ from flask_socketio import SocketIO,emit,join_room,leave_room
 from flask import session
 # from app.model import Message
 # if env=='production' default what render url is
-socket=SocketIO(cors_allowed_origins="*")
+# socket=SocketIO(cors_allowed_origins="*")
+socket=SocketIO(cors_allowed_origins="http://127.0.0.1:3000")
 
 @socket.on("chat")
 def handle_my_chat(data):

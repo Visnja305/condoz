@@ -2,9 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
-  useParams,
-  useLocation,
-  NavLink,
   Navigate
 } from "react-router-dom";
 import { io } from "socket.io-client";
@@ -17,7 +14,7 @@ let socket;
 
 const UsersLiveChat = () => {
   const dispatch = useDispatch();
-  // const history = useHistory();
+  
   const [isLoaded, setIsLoaded] = useState(false);
 
   const [chatRoomInitiated, setChatRoomInitiated] = useState([]);
@@ -75,7 +72,7 @@ const UsersLiveChat = () => {
       handleInvitedChatsArr: handleInvitedChatsArr,
       handleInitiatedChatsArr: handleInitiatedChatsArr,
     };
-socket=io()
+socket=io();
     socket.emit("notification", payload);
 
     setChatRoomInitiated((prev) =>
@@ -87,6 +84,7 @@ socket=io()
   useEffect(() => {
     socket = io();
     socket.on("notification", async (payload)=> {
+      console.log(payload)
     //   console.log(
     //     payload.invitedUserProfileId === sessionUser?.profile_id &&
     //       payload.initiatorProfileId !== sessionUser?.profile_id

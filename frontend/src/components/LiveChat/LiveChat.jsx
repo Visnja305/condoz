@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUserByProfileIdThunk } from "../../store/users";
 
 import { io } from "socket.io-client";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 let socket;
 
@@ -64,10 +64,10 @@ function LiveChat({ props }) {
       setMessages((prev) => [...prev, data]);
     });
 
-    // return () => {
-    //   socket.emit("leave", chatroom);
-    //   socket.disconnect();
-    // };
+    return () => {
+      socket.emit("leave", chatroom);
+      socket.disconnect();
+    };
   }, [chatroom]);
 
   const handleConnect = async (e) => {
@@ -77,6 +77,7 @@ function LiveChat({ props }) {
       room: chatroom,
     };
     console.log(payload);
+
     socket.emit("join", payload);
     socket.on("join", async (data) => {
       setMessages((prev) => [...prev, data]);
@@ -91,6 +92,9 @@ function LiveChat({ props }) {
       user,
       room: chatroom,
     };
+  //   socket = io({
+  //     transports: ['websocket']
+  // });
     socket.emit("leave", payload);
     socket.on("leave", async (data) => {
         console.log("socket leave 1")
@@ -115,6 +119,9 @@ function LiveChat({ props }) {
         user,
         message: newMsg,
       };
+    //   socket = io({
+    //     transports: ['websocket']
+    // });
       socket.emit("chat", payload);
     }
     setNewMsg("");
@@ -154,7 +161,7 @@ function LiveChat({ props }) {
           value={newMsg}
           onChange={(e) => setNewMsg(e.target.value)}
         />
-        <button onClick={sendChat}>send</button>
+        <button onClick={(e)=>sendChat(e)}>send</button>
       </div>
     </div>
   );
