@@ -16,9 +16,9 @@ export default defineConfig((mode) => ({
     port:3000,
     open: true,
     proxy: {
-            "/api": "http://127.0.0.1:5000",
+            "/api": {target:"http://127.0.0.1:5000"},
             "/socket.io": {
-              target: 'http://127.0.0.1:5000',
+              target: 'ws://127.0.0.1:5000',
               changeOrigin: true,
               secure: false,
               ws: true,

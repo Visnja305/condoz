@@ -5,10 +5,12 @@ import { getUserByProfileIdThunk } from "../../store/users";
 
 import { io } from "socket.io-client";
 // import { useParams } from "react-router-dom";
+let socket
 
-let socket;
 
 function LiveChat({ props }) {
+
+
   console.log(props);
   const theArr=props.handleInvitedChatsArr
   const dispatch = useDispatch();
@@ -58,8 +60,10 @@ function LiveChat({ props }) {
   useEffect(() => {
     // if(env==='production'){socket=io(renderdatabase)}
 
-    socket = io();
+
     // socket=io("ws://localhost:8000")
+    socket=io('ws://127.0.0.1:5000');
+
     socket.on("chat", (data) => {
       setMessages((prev) => [...prev, data]);
     });
@@ -77,7 +81,7 @@ function LiveChat({ props }) {
       room: chatroom,
     };
     console.log(payload);
-
+socket=io('ws://127.0.0.1:5000')
     socket.emit("join", payload);
     socket.on("join", async (data) => {
       setMessages((prev) => [...prev, data]);
@@ -122,6 +126,7 @@ function LiveChat({ props }) {
     //   socket = io({
     //     transports: ['websocket']
     // });
+
       socket.emit("chat", payload);
     }
     setNewMsg("");

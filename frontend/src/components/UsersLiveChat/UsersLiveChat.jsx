@@ -10,15 +10,18 @@ import "./UsersLiveChat.css";
 import { getUsersThunk } from "../../store/users";
 import onlineUser from "../logos/online.png";
 import offlineUser from "../logos/offline.png";
-let socket;
+let socket
 
 const UsersLiveChat = () => {
+
+
   const dispatch = useDispatch();
-  
+
   const [isLoaded, setIsLoaded] = useState(false);
 
   const [chatRoomInitiated, setChatRoomInitiated] = useState([]);
   const [chatRoomInvited, setChatRoomInvited] = useState([]);
+
 
   const sessionUser = useSelector((state) => state.session.user);
   const users = useSelector((state) => state.users);
@@ -27,6 +30,7 @@ const UsersLiveChat = () => {
   );
   const onlineUsers = allUsers.filter((user) => user.is_online == true);
   const offlineUsers = allUsers.filter((user) => user.is_online == false);
+const chatroom=123;
 
 //   useEffect(()=>{
 // const getData=async()=>{
@@ -41,9 +45,9 @@ const UsersLiveChat = () => {
     };
     getData();
   }, [isLoaded]);
-  useEffect(() => {
-    console.log(chatRoomInitiated, chatRoomInvited);
-  }, [chatRoomInitiated, chatRoomInvited]);
+  // useEffect(() => {
+  //   console.log(chatRoomInitiated, chatRoomInvited);
+  // }, [chatRoomInitiated, chatRoomInvited]);
 
   function getRandomInt(min, max) {
     const minCeiled = Math.ceil(min);
@@ -69,11 +73,12 @@ const UsersLiveChat = () => {
       initiatorProfileId: sessionUser.profile_id,
       invitedUserProfileId: id,
       room: room,
-      handleInvitedChatsArr: handleInvitedChatsArr,
-      handleInitiatedChatsArr: handleInitiatedChatsArr,
+
     };
-socket=io();
+    socket=io('ws://127.0.0.1:5000')
     socket.emit("notification", payload);
+    payload.handleInvitedChatsArr=handleInvitedChatsArr;
+    payload.handleInitiatedChatsArr=handleInitiatedChatsArr;
 
     setChatRoomInitiated((prev) =>
  [...prev, payload]
@@ -81,27 +86,56 @@ socket=io();
 
   };
 
-  useEffect(() => {
-    socket = io();
-    socket.on("notification", async (payload)=> {
-      console.log(payload)
+  // useEffect(() => {
+  //   socket = io();
+  //   socket.on("notification", async function (data) {
+  //     console.log(
+  //       data.invitedUserProfileId === sessionUser?.profile_id &&
+  //         data.initiatorProfileId !== sessionUser?.profile_id
+  //     );
+  //     if (
+  //       data.invitedUserProfileId === sessionUser?.profile_id &&
+  //       data.initiatorProfileId !== sessionUser?.profile_id
+  //     ) {
+  //       data.invited = true;
+
+  //       setChatRoomInvited((prev) => [...prev, data]);
+  //     }
+  //   })
+  // }, []);
+
+useEffect(()=>{
+   socket=io('ws://127.0.0.1:5000')
+
+    socket.on("notification", async function (payload){
+      console.log("lllllllllllllllllllllllllllllll",payload)
     //   console.log(
     //     payload.invitedUserProfileId === sessionUser?.profile_id &&
     //       payload.initiatorProfileId !== sessionUser?.profile_id
     //   );
       if (
-        payload.invitedUserProfileId === sessionUser?.profile_id &&
-        payload.initiatorProfileId !== sessionUser?.profile_id
+        payload.invitedUserProfileId === sessionUser.profile_id &&
+        payload.initiatorProfileId !== sessionUser.profile_id
       ) {
         payload.invited = true;
         payload.handleInvitedChatsArr=handleInvitedChatsArr;
         payload.handleInitiatedChatsArr=handleInitiatedChatsArr;
 
-        await setChatRoomInvited((prev) => [...prev, payload]);
-
+        setChatRoomInvited((prev) => [...prev, payload]);
+console.log("!!!!!!!!!!!!!!!!!!!!!!!!",chatRoomInvited)
       }
     });
-  }, []);
+
+  },[])
+
+
+
+
+
+
+
+
+
 
   // socket?.on("notification",async(data)=>{
   //     console.log(data)

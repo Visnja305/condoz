@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams,Navigate} from "react-router-dom";
-import SignupFormPage from "../SignupFormPage";
-import LoginFormPage from "../LoginFormPage";
 import { authenticate } from "../../store/session";
 import { getCondosThunk } from "../../store/condos";
-import Navigation from "../Navigation";
 import "./BuildingProfile.css"
 import { login } from "../../store/session";
 import validator from "validator";
 
-import UserProfilePage from "../UserProfilePage";
 
 
 function BuildingProfile(){
