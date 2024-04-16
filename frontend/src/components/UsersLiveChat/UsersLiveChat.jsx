@@ -19,6 +19,7 @@ const UsersLiveChat = () => {
 
   const [chatRoomInitiated, setChatRoomInitiated] = useState([]);
   const [chatRoomInvited, setChatRoomInvited] = useState([]);
+  const [recPayload,setRecPayload]=useState("");
 
   const sessionUser = useSelector((state) => state.session.user);
   const users = useSelector((state) => state.users);
@@ -83,48 +84,67 @@ socket=io()
 
   };
 
+//   useEffect(() => {
+
+//     socket = io();
+//    socket.on("notification", async (payload)=> {
+//     await setRecPayload(payload)
+//     });
+// const check=async()=>{
+//     if (
+//                 recPayload.invitedUserProfileId === sessionUser?.profile_id &&
+//                 recPayload.initiatorProfileId !== sessionUser?.profile_id && chatRoomInvited.filter(room=>Number(room.room)===Number(recPayload.room)).length===0
+//               ) {
+
+
+
+//                 recPayload.invited = true;
+//                 recPayload.handleInvitedChatsArr=handleInvitedChatsArr;
+//                 recPayload.handleInitiatedChatsArr=handleInitiatedChatsArr;
+
+//                 await setChatRoomInvited((prev) => [...prev, recPayload]);
+
+//               }
+
+//             }
+//             check();
+//   }, []);
+
+
   useEffect(() => {
+
     socket = io();
     socket.on("notification", async (payload)=> {
-    //   console.log(
-    //     payload.invitedUserProfileId === sessionUser?.profile_id &&
-    //       payload.initiatorProfileId !== sessionUser?.profile_id
-    //   );
+
       if (
         payload.invitedUserProfileId === sessionUser?.profile_id &&
-        payload.initiatorProfileId !== sessionUser?.profile_id
+        payload.initiatorProfileId !== sessionUser?.profile_id 
       ) {
-        let exists=false;
-        chatRoomInvited.forEach(chat=>{if(chat.room===payload.room){
-exists=true;
-return
 
-        }})
-        if(exists===false){
         payload.invited = true;
         payload.handleInvitedChatsArr=handleInvitedChatsArr;
         payload.handleInitiatedChatsArr=handleInitiatedChatsArr;
 
-        setChatRoomInvited((prev) => [...prev, payload]);
-        }
+        await setChatRoomInvited((prev) => [...prev, payload]);
+
       }
     });
   }, []);
 
-  // socket?.on("notification",async(data)=>{
-  //     console.log(data)
-  //     console.log(Number(data.invitedUserProfileId)===Number(sessionUser.profile_id) && Number(data.initiatorProfileId)!==Number(sessionUser.profile_id))
-  //     if(data.invitedUserProfileId===sessionUser.profile_id && data.initiatorProfileId!==sessionUser.profile_id){
-  //        await setChatRoomInvited((prev)=>[...prev,data.room]);
-
-  //     }
-  // //     // setNotification((prev)=>[...prev,data])
-  // })
 
   if (!sessionUser) {
     return <Navigate to="/" />;
   }
-
+let arr=[];
+for(let i=0;i<chatRoomInvited.length;i++){
+if(!arr.includes(chatRoomInvited[i].room)){
+arr.push(chatRoomInvited[i].room)
+}
+else{
+    chatRoomInvited.splice(i, 1);
+    i--
+}
+}
   console.log(chatRoomInitiated);
   console.log(chatRoomInvited)
 
