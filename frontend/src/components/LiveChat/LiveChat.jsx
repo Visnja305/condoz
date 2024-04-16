@@ -1,10 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
-
+import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserByProfileIdThunk } from "../../store/users";
-
 import { io } from "socket.io-client";
-import { useParams } from "react-router-dom";
+import "./LiveChat.css";
 
 let socket;
 

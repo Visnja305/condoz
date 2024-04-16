@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 
@@ -12,8 +12,6 @@ import workLogo from "../logos/work-logo-black.png";
 import homeIcon from "../logos/home-icon.png"
 import activityLogo from "../logos/activity-logo.png"
 import { authenticate } from "../../store/session";
-import { getProfileThunk } from "../../store/userProfiles";
-
 
 
 

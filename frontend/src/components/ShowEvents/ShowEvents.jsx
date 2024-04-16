@@ -1,9 +1,6 @@
-import React, { useEffect,useState } from "react";
+import { useEffect,useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
-import "./ShowEvents.css"
-import {useLocation} from "react-router-dom";
-import { getCondosThunk } from "../../store/condos";
-import { Link } from "react-router-dom";
+import "./ShowEvents.css";
 import { getEventsThunk } from "../../store/events";
 import UserProfileSmall from "../UserProfileSmall";
 import CommentsSection from "../CommentsSection";
@@ -144,4 +141,3 @@ events.filter(filterFunction).map(event=>(
 }
 
 export default ShowEvents;
-

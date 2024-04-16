@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, useLocation, Navigate,NavLink} from "react-router-dom";
+import { useParams} from "react-router-dom";
 import { getProfileThunk } from "../../store/userProfiles";
-import { authenticate } from "../../store/session";
 import { getUserThunk } from "../../store/users";
 import OpenModalButton from "../OpenModalButton";
 import DeleteUserProfileModal from "../DeleteUserProfileModal";

@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, Navigate, useLocation,NavLink } from "react-router-dom";
+import { Navigate,NavLink } from "react-router-dom";
 import "./UserProfilePage.css"
 import OpenModalButton from "../OpenModalButton";
 import CreateUserProfileModal from "../CreateUserProfileModal";
 import { getCondosThunk } from "../../store/condos";
 import {getUsersThunk} from "../../store/users";
 import ShowEvents from "../ShowEvents";
-import LiveChat from "../LiveChat";
-import onlineUser from "../logos/online.png"
-import offlineUser from "../logos/offline.png"
-import { io } from "socket.io-client"
 
-
-let socket
-let chatroom
 const UserProfilePage =()=>{
 
     const dispatch=useDispatch();
@@ -128,7 +121,7 @@ props={location:sendLocation,interest:sendInterest}
               <li>
                 Location:
                 {Object.values(condos).map((condo)=>(
-                <label>
+                <label key={condo.id}>
                 {condo.name}
 
                 <input type="radio" value={condo.id} onChange = {(e)=>{handleChangeLocation(e)}} checked={Number(checkedLocation)===Number(condo.id)} />

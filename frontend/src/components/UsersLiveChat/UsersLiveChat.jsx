@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -52,12 +52,14 @@ const UsersLiveChat = () => {
   }
   const handleInvitedChatsArr = (props) => {
    return setChatRoomInvited(prev=>{
+    console.log("I am invited and leaving!!!!!!",props)
         const index =prev.indexOf(props);
         prev.splice(index, 1);
         return [...prev]})
   };
   const handleInitiatedChatsArr = (props) => {
     return setChatRoomInitiated(prev=>{
+        console.log("I initiated and leaving!!!!!!",props)
         const index =prev.indexOf(props);
         prev.splice(index, 1);
         return [...prev]})
@@ -68,12 +70,12 @@ const UsersLiveChat = () => {
     const payload = {
       initiatorProfileId: sessionUser.profile_id,
       invitedUserProfileId: id,
-      room: room,
-      handleInvitedChatsArr: handleInvitedChatsArr,
-      handleInitiatedChatsArr: handleInitiatedChatsArr,
+      room: room
     };
 socket=io()
     socket.emit("notification", payload);
+    payload.handleInvitedChatsArr= handleInvitedChatsArr;
+    payload.handleInitiatedChatsArr=handleInitiatedChatsArr;
 
     setChatRoomInitiated((prev) =>
  [...prev, payload]
@@ -92,12 +94,19 @@ socket=io()
         payload.invitedUserProfileId === sessionUser?.profile_id &&
         payload.initiatorProfileId !== sessionUser?.profile_id
       ) {
+        let exists=false;
+        chatRoomInvited.forEach(chat=>{if(chat.room===payload.room){
+exists=true;
+return
+
+        }})
+        if(exists===false){
         payload.invited = true;
         payload.handleInvitedChatsArr=handleInvitedChatsArr;
         payload.handleInitiatedChatsArr=handleInitiatedChatsArr;
 
-        await setChatRoomInvited((prev) => [...prev, payload]);
-
+        setChatRoomInvited((prev) => [...prev, payload]);
+        }
       }
     });
   }, []);

@@ -1,8 +1,6 @@
-import React, { useEffect,useState } from "react";
+import { useEffect,useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
-import "./ManageEvents.css"
-
-import { Link } from "react-router-dom";
+import "./ManageEvents.css";
 import { getEventsThunk } from "../../store/events";
 
 

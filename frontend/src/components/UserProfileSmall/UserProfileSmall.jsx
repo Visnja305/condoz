@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, useParams, Navigate,Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {getProfileThunk} from "../../store/userProfiles";
 import {getUsersThunk} from "../../store/users";
 import "./UserProfileSmall.css"

@@ -1,8 +1,7 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
 import {logout} from "../../store/session";
-import { useParams, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import "./NavBar.css";
 

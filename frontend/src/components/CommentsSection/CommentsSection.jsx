@@ -1,9 +1,5 @@
-import React, { useState,useEffect } from "react";
-
+import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-
-import { useParams, Navigate } from 'react-router-dom';
 import "./CommentsSection.css"
 import commentIcon from ".././logos/send-comment.png";
 import editIcon from ".././logos/edit.png";
@@ -103,7 +99,7 @@ setError("")
           </form>
           <div className="view-all-comments-for-event">
           {fromMostRecentEventComments.map(comment=>(
-            <div id="comment">
+            <div id="comment" key={comment.id}>
 
 
             <div><img src={profiles[comment.author_id]?.profile_img} id="profile-img-from-comment-author"/></div>

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { signUp } from "../../store/session";
 import "./CreateUserProfileModal.css";
 import educationLogo from ".././logos/education-logo.png"
 import profileImageLogo from ".././logos/profile-logo.png";

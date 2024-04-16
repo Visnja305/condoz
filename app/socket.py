@@ -23,10 +23,13 @@ def handle_my_chat(data):
 def exit_room(data):
     print("we are in the leave")
     room=data["room"]
+    print("!!!!!!!!!",room)
     user=data["user"]["first_name"]
     leave_room(room)
     msg=f"{user} left the room"
-    new_data={"msg":msg}
+    new_data={"msg":msg,
+              "user":"Global Notification"
+              }
     emit("leave",new_data,broadcast=True)
 
 @socket.on("join")

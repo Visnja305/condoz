@@ -1,17 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { authenticate } from "../../store/session";
 import {getCondosThunk} from "../../store/condos";
 import {createEventThunk} from "../../store/events";
 import { Navigate } from "react-router-dom";
-
-
-
 import activityLogo from ".././logos/activity-logo.png"
 import "./CreateEvent.css";
-
-
-
 
 
 function CreateEvent() {
