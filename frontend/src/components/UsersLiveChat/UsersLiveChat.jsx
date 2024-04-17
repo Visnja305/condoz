@@ -118,7 +118,7 @@ socket=io()
 
       if (
         payload.invitedUserProfileId === sessionUser?.profile_id &&
-        payload.initiatorProfileId !== sessionUser?.profile_id 
+        payload.initiatorProfileId !== sessionUser?.profile_id
       ) {
 
         payload.invited = true;
@@ -135,16 +135,36 @@ socket=io()
   if (!sessionUser) {
     return <Navigate to="/" />;
   }
-let arr=[];
-for(let i=0;i<chatRoomInvited.length;i++){
-if(!arr.includes(chatRoomInvited[i].room)){
-arr.push(chatRoomInvited[i].room)
+function removingExtraChats(arr,initiatorOrInvited){
+    let roomNumbers=[];
+    let chatInitiators=[];
+
+
+    for(let i=0;i<arr.length;i++){
+    if(!roomNumbers.includes(arr[i].room)){
+
+    roomNumbers.push(arr[i].room)
+    }
+    else{
+        arr.splice(i, 1);
+        i--
+    }
+    }
+
+    for(let i=0;i<arr.length;i++){
+        if(!chatInitiators.includes(arr[i][initiatorOrInvited])){
+
+            chatInitiators.push(arr[i][initiatorOrInvited])
+        }
+        else{
+            arr.splice(i, 1);
+            i--
+        }
+        }
 }
-else{
-    chatRoomInvited.splice(i, 1);
-    i--
-}
-}
+
+removingExtraChats(chatRoomInvited,"initiatorProfileId")
+removingExtraChats(chatRoomInitiated,"invitedUserProfileId")
   console.log(chatRoomInitiated);
   console.log(chatRoomInvited)
 
