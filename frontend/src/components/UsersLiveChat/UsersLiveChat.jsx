@@ -73,7 +73,13 @@ const UsersLiveChat = () => {
       invitedUserProfileId: id,
       room: room
     };
+
+    if (process.env.NODE_ENV === 'production'){
+        socket=io("ws://condoz.onrender.com")
+    }
+else{
 socket=io()
+}
     socket.emit("notification", payload);
     payload.handleInvitedChatsArr= handleInvitedChatsArr;
     payload.handleInitiatedChatsArr=handleInitiatedChatsArr;
@@ -113,7 +119,12 @@ socket=io()
 
   useEffect(() => {
 
-    socket = io();
+    if (process.env.NODE_ENV === 'production'){
+        socket=io("ws://condoz.onrender.com")
+    }
+else{
+socket=io()
+}
     socket.on("notification", async (payload)=> {
 
       if (
