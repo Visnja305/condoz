@@ -6,10 +6,12 @@ import {createEventThunk} from "../../store/events";
 import { Navigate } from "react-router-dom";
 import activityLogo from ".././logos/activity-logo.png"
 import "./CreateEvent.css";
+import { useNavigate } from "react-router-dom";
 
 
 function CreateEvent() {
 const dispatch = useDispatch();
+let navigate = useNavigate();
 // const history=useHistory();
 const sessionUser = useSelector((state) => state.session.user);
 const condos=useSelector((state)=>state.condos);
@@ -136,7 +138,7 @@ else{
     //   }
 
 
-    await dispatch(createEventThunk(formData)).then(()=>{return <Navigate to="/profile"/>}).catch(
+    await dispatch(createEventThunk(formData)).then(()=>{return navigate("/profile")}).catch(
         async (res) => {
 
          console.log(res)

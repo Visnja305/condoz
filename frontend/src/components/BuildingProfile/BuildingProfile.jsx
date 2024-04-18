@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams,Navigate} from "react-router-dom";
+import { useParams,Navigate,useNavigate} from "react-router-dom";
 import { authenticate } from "../../store/session";
 import { getCondosThunk } from "../../store/condos";
 import "./BuildingProfile.css"
@@ -12,6 +12,7 @@ import validator from "validator";
 function BuildingProfile(){
     const {condoId}=useParams();
     // let history=useHistory();
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -60,7 +61,10 @@ function BuildingProfile(){
       }
     };
 
-
+// const handleSignOut=(e)=>{
+//     // <Navigate to={`/${condoId}/signup`}/>
+//    navigate('{`/${condoId}/signup`}');
+// }
 
 
     return (
@@ -104,7 +108,7 @@ function BuildingProfile(){
 
       </form>
       <button onClick={(e)=>onDemoUser(e)} className="demo-user-btn"> Demo User</button>
-      <span>Not a member?  <button id="signup-button-login-page" onClick={(e)=>{return <Navigate to={`/${condoId}/signup`}/>}}>Sign up</button></span>
+      <span>Not a member?  <button id="signup-button-login-page" onClick={(e)=>navigate(`/${condoId}/signup`)}>Sign up</button></span>
 
 
       </div>
