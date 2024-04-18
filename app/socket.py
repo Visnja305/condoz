@@ -3,14 +3,23 @@ from flask import session
 import os
 # from app.model import Message
 # if env=='production' default what render url is
-if os.environ.get('FLASK_ENV') == 'production':
-    socket=SocketIO(cors_allowed_origins="https://condoz.onrender.com")
+# if os.environ.get('FLASK_ENV') == 'production':
+#     socket=SocketIO(cors_allowed_origins="https://condoz.onrender.com")
+# else:
+
+#     socket=SocketIO(cors_allowed_origins="*")
+if os.environ.get("FLASK_ENV") == "production":
+    origins = [
+        "http://condoz.onrender.com",
+        "https://condoz.onrender.com"
+    ]
 else:
+    origins = "*"
 
-    socket=SocketIO(cors_allowed_origins="*")
-
-    @socket.on("chat")
-    def handle_my_chat(data):
+# create your SocketIO instance
+socket = SocketIO(cors_allowed_origins=origins)
+@socket.on("chat")
+def handle_my_chat(data):
         print(data,"we are in the chat***********************************************")
         # message=data["message"]
         # Message(message=message)
@@ -24,8 +33,8 @@ else:
         print("!!!!!!!!!!!!!!!!!!!!!!!!!",new_data)
         emit("chat",new_data,broadcast=True,to=room)
 
-    @socket.on("leave")
-    def exit_room(data):
+@socket.on("leave")
+def exit_room(data):
         print("we are in the leave")
         room=data["room"]
         print("!!!!!!!!!",room)
@@ -37,8 +46,8 @@ else:
                 }
         emit("leave",new_data,broadcast=True)
 
-    @socket.on("join")
-    def on_join(data):
+@socket.on("join")
+def on_join(data):
         print(data)
         user=data["user"]["first_name"]
         msg=f"{user} has joined the room"
@@ -49,8 +58,8 @@ else:
         join_room(data["room"])
         emit("join",new_data,broadcast=True)
 
-    @socket.on("notification")
-    def on_notification(payload):
+@socket.on("notification")
+def on_notification(payload):
         print("*****************",payload)
         print("????????????????????????",session)
         emit("notification",payload,broadcast=True)
