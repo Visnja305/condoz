@@ -75,7 +75,7 @@ const UsersLiveChat = () => {
     };
 
     if (process.env.NODE_ENV === 'production'){
-        socket=io("https://condoz.onrender.com")
+        socket=io("wss://condoz.onrender.com")
     }
 else{
 socket=io()
@@ -120,7 +120,7 @@ socket=io()
   useEffect(() => {
 
     if (process.env.NODE_ENV === 'production'){
-        socket=io("https://condoz.onrender.com")
+        socket=io("wss://condoz.onrender.com")
     }
 else{
 socket=io()
