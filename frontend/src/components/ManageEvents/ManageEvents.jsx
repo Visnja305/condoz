@@ -38,7 +38,7 @@ const currentUserEvents=events.filter(event=>event?.organizer_id===user?.id)
 
 
     return (
-<>{isLoaded && currentUserEvents.length===0 && <p>You don't have any events.</p>}
+<>{isLoaded && currentUserEvents.length===0 && <p>There is no events.</p>}
 {isLoaded && currentUserEvents.map(event=>(
    <div className="manage-events-event" key={`${event.id}`}> <p>{event.location_name},{event.time.slice(0,22)}</p>
    <p>{event.details}</p>

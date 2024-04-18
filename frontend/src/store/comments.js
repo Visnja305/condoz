@@ -1,6 +1,7 @@
 
 // constants
 /* eslint-disable no-mixed-spaces-and-tabs */
+/* eslint-disable no-case-declarations */
 const GET_COMMENTS = 'GET_COMMENTS';
 const ADD_COMMENT = 'ADD_COMMENT';
 const EDIT_COMMENT = 'EDIT_COMMENT';
@@ -120,7 +121,7 @@ const initialState = {
 
 // reducer
 const comments = (state = initialState, action) => {
-  let new_state = {};
+  
   switch (action.type) {
     case GET_COMMENTS:
       const currentEventComments = action.comments.reduce(

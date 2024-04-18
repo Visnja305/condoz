@@ -5,6 +5,7 @@ import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import profileButton from "../../logo/profile-button.png"
+/* eslint-disable react/prop-types */
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();

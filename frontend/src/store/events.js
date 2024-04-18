@@ -1,4 +1,5 @@
 // constants
+/* eslint-disable no-case-declarations */
 const CREATE_EVENT = "events/CREATE_EVENT";
 const GET_EVENTS="events/GET_EVENTS";
 const DELETE_EVENT="events/DELETE_EVENT";

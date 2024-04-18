@@ -76,7 +76,7 @@ const [isLoaded,setIsLoaded]=useState(false);
 
 
 
-    },[isLoaded])
+    },[dispatch,isLoaded])
 
 const handleSubmit =async(e) => {
     e.preventDefault();
@@ -126,7 +126,7 @@ const handleSubmit =async(e) => {
 
   })
 
-
+setUsersAge("");
   }
 
 

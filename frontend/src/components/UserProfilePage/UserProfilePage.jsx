@@ -60,14 +60,14 @@ const resetFilters=(e)=>{
     setIsReset(true);
 }
 
-let props;
+
 const handleSubmit=async (e)=>{
     e.preventDefault();
 
 
 setSendLocation(checkedLocation);
 setSendInterest(checkedInterest);
-props={location:sendLocation,interest:sendInterest}
+//  let props={location:sendLocation,interest:sendInterest}
 
 }
 

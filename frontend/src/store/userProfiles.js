@@ -1,4 +1,5 @@
 // constants
+/* eslint-disable no-case-declarations */
 const CREATE_USER_PROFILE = "userProfile/CREATE_PROFILE";
 const GET_PROFILE="userProfile/GET_PROFILE"
 const GET_ALL_PROFILES="userProfile/GET_ALL_PROFILES"
@@ -125,7 +126,7 @@ export const deleteUserProfileThunk=(profileId)=>async(dispatch)=>{
         return errorData
 
     };
-   
+
 
 
 
