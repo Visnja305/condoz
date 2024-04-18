@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteCommentThunk } from "../../store/comments";
 import "./DeleteCommentModal.css";
-
+/* eslint-disable react/prop-types */
 
 
 

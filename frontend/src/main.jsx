@@ -9,7 +9,7 @@ import * as sessionActions from "./store/session";
 import App from "./App";
 
 import "./index.css";
-
+/* eslint-disable no-mixed-spaces-and-tabs */
 const store = configureStore();
 
 if (import.meta.env.MODE !== "production") {

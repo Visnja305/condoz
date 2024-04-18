@@ -1,5 +1,6 @@
 
 // constants
+/* eslint-disable no-mixed-spaces-and-tabs */
 const GET_COMMENTS = 'GET_COMMENTS';
 const ADD_COMMENT = 'ADD_COMMENT';
 const EDIT_COMMENT = 'EDIT_COMMENT';

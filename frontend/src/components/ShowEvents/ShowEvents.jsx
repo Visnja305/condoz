@@ -4,7 +4,7 @@ import "./ShowEvents.css";
 import { getEventsThunk } from "../../store/events";
 import UserProfileSmall from "../UserProfileSmall";
 import CommentsSection from "../CommentsSection";
-
+/* eslint-disable react/prop-types */
 
 function ShowEvents({props}){
     const locationFilter= props.location;
@@ -69,20 +69,20 @@ function filterFunction(event){
 }
 
 
-let searchedEvents
+
 
     return (
 <><h1>Events</h1>
 
 {props.location==="" && props.interest==="" &&
 <div> {events.map(event=>(
-   <div className="show-events-event">
-    <div className="show-event">
+   <div className="show-events-event" key={`${event.id}`}>
+    <div className="show-event" >
    <p>{event.location_name},{event?.time.slice(0,22)}</p>
    <p>{event.details}</p>
    <p>{event.need_people_total ? <span>{`Available room for ${event.left_room_for}/out of ${event.need_people_total}`}</span> : "Everyone is invited!"}</p>
    <p>Interests: <ul>{Object.keys(event).map((a)=>(
- event[a]===true && <li key={a}>{a}</li>
+ event[a]===true && <li key={`${a}`}>{a}</li>
 
 ))}
         </ul>
@@ -107,13 +107,13 @@ let searchedEvents
 
 
 events.filter(filterFunction).map(event=>(
-   <div className="show-events-event">
-    <div className="show-event">
+   <div className="show-events-event" key={`${event.id}`} >
+    <div className="show-event" >
    <p>{event.location_name},{event.time.slice(0,22)}</p>
    <p>{event.details}</p>
    <p>{event.need_people_total ? <span>{`Available room for ${event.left_room_for}/out of ${event.need_people_total}`}</span> : "Everyone is invited!"}</p>
    <p>Interests: <ul>{Object.keys(event).map((a)=>(
- event[a]===true && <li key={a}>{a}</li>
+ event[a]===true && <li key={`${a}`}>{a}</li>
 
 ))}
         </ul>

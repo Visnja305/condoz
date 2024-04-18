@@ -3,7 +3,6 @@ import { useDispatch,useSelector } from "react-redux";
 import { authenticate } from "../../store/session";
 import {getCondosThunk} from "../../store/condos";
 import {createEventThunk} from "../../store/events";
-import { Navigate } from "react-router-dom";
 import activityLogo from ".././logos/activity-logo.png"
 import "./CreateEvent.css";
 import { useNavigate } from "react-router-dom";
@@ -52,7 +51,7 @@ const [checkedYoga, setCheckedYoga] = useState(false);
 const [checkedBoxing, setCheckedBoxing] = useState(false);
 const [checkedOther, setCheckedOther]=useState(false);
 const [isLoaded,setIsLoaded]=useState(false);
-const [errors, setErrors] = useState({});
+// const [errors, setErrors] = useState({});
 const [locationError,setLocationError]=useState("")
 
 
@@ -88,7 +87,7 @@ if(checkedOtherLocation && location===""){
 else{
 
     setLocationError("")
-    setErrors({});
+  
     const formData = new FormData();
     formData.append("organizer_id",sessionUser.id);
     formData.append("organizer_profile_id",sessionUser.profile_id);

@@ -1,6 +1,6 @@
 import { useModal } from '../../context/Modal';
 import "./OpenModalButton.css"
-
+/* eslint-disable react/prop-types */
 function OpenModalButton({
   modalComponent, // component to render inside the modal
   buttonText, // text of the button that opens the modal

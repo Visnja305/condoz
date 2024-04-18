@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate,NavLink } from "react-router-dom";
@@ -22,7 +22,7 @@ const UserProfilePage =()=>{
 
     const [isReset,setIsReset]=useState(false)
     const sessionUser = useSelector((state) => state.session.user);
-    const users=useSelector((state)=>state.users)
+    // const users=useSelector((state)=>state.users)
     const condos=useSelector((state)=>state.condos);
 
     useEffect(() => {
@@ -59,8 +59,8 @@ const resetFilters=(e)=>{
 
     setIsReset(true);
 }
-let props
 
+let props;
 const handleSubmit=async (e)=>{
     e.preventDefault();
 
@@ -121,7 +121,7 @@ props={location:sendLocation,interest:sendInterest}
               <li>
                 Location:
                 {Object.values(condos).map((condo)=>(
-                <label key={condo.id}>
+                <label key={`${condo.id}`}>
                 {condo.name}
 
                 <input type="radio" value={condo.id} onChange = {(e)=>{handleChangeLocation(e)}} checked={Number(checkedLocation)===Number(condo.id)} />

@@ -10,7 +10,7 @@ import { postCommentThunk } from "../../store/comments";
 import OpenModalButton from "../OpenModalButton";
 import DeleteCommentModal from "../DeleteCommentModal";
 import EditCommentModal from "../EditCommentModal";
-
+/* eslint-disable react/prop-types */
 
 function CommentsSection({eventId}) {
 
@@ -99,7 +99,7 @@ setError("")
           </form>
           <div className="view-all-comments-for-event">
           {fromMostRecentEventComments.map(comment=>(
-            <div id="comment" key={comment.id}>
+            <div id="comment" key={`${comment.id}`}>
 
 
             <div><img src={profiles[comment.author_id]?.profile_img} id="profile-img-from-comment-author"/></div>

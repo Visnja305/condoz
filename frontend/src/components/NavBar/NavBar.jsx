@@ -4,6 +4,7 @@ import {logout} from "../../store/session";
 import { Navigate } from 'react-router-dom';
 
 import "./NavBar.css";
+/* eslint-disable react/prop-types */
 
 function NavBar({ isLoaded }){
 	// const history=useHistory();

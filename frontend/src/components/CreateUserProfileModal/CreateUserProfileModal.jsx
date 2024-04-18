@@ -115,7 +115,7 @@ const handleSubmit =async(e) => {
 
 const arr=[]
 
-    await dispatch(createUserProfileThunk(formData)).then(res=>arr.push(res)).then(res=>closeModal()).catch(
+    await dispatch(createUserProfileThunk(formData)).then(res=>arr.push(res)).then(closeModal()).catch(
         async (res) => {
 
          console.log(res)

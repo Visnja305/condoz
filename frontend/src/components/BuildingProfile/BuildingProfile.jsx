@@ -74,7 +74,7 @@ function BuildingProfile(){
      <form onSubmit={handleSubmit} className="enter-building-profile-form">
         <ul>
           {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
+            <li key={`${idx}`}>{error}</li>
           ))}
         </ul>
         <p>{message}</p>
@@ -108,7 +108,7 @@ function BuildingProfile(){
 
       </form>
       <button onClick={(e)=>onDemoUser(e)} className="demo-user-btn"> Demo User</button>
-      <span>Not a member?  <button id="signup-button-login-page" onClick={(e)=>navigate(`/${condoId}/signup`)}>Sign up</button></span>
+      <span>Not a member?  <button id="signup-button-login-page" onClick={()=>navigate(`/${condoId}/signup`)}>Sign up</button></span>
 
 
       </div>

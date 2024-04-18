@@ -3,16 +3,17 @@ import { useDispatch,useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 
 
-import { editUserProfileThunk } from "../../store/userProfiles";
+// import { editUserProfileThunk } from "../../store/userProfiles";
+
+// import educationLogo from "../logos/education-logo.png"
+// import profileImageLogo from "../logos/profile-image-icon.png";
+// import ageIcon from "../logos/age-icon.png";
+// import workLogo from "../logos/work-logo-black.png";
+// import homeIcon from "../logos/home-icon.png"
 import "./EditEventModal.css";
-import educationLogo from "../logos/education-logo.png"
-import profileImageLogo from "../logos/profile-image-icon.png";
-import ageIcon from "../logos/age-icon.png";
-import workLogo from "../logos/work-logo-black.png";
-import homeIcon from "../logos/home-icon.png"
 import activityLogo from "../logos/activity-logo.png"
 import { editEventThunk } from "../../store/events";
-
+/* eslint-disable react/prop-types */
 
 
 
@@ -111,8 +112,8 @@ const [checkedHorsebackRiding, setCheckedHorsebackRiding] = useState(event.horse
 const [checkedYoga, setCheckedYoga] = useState(event.yoga);
 const [checkedBoxing, setCheckedBoxing] = useState(event.boxing);
 const [checkedOther, setCheckedOther]=useState(event.other);
-const [isLoaded,setIsLoaded]=useState(false);
-const [errors, setErrors] = useState({})
+// const [isLoaded,setIsLoaded]=useState(false);
+// const [errors, setErrors] = useState({})
 const [locationError,setLocationError]=useState("")
 
 
@@ -134,7 +135,7 @@ const handleSubmit =async(e) => {
     else{
 
     setLocationError("")
-    setErrors({});
+    // setErrors({});
     const formData = new FormData();
     formData.append("organizer_id",sessionUser.id);
     formData.append("organizer_profile_id",sessionUser.profile_id);

@@ -4,7 +4,7 @@ import {deleteUserProfileThunk} from "../../store/userProfiles"
 import { Navigate } from "react-router-dom";
 import { editUsersHasNoProfileThunk } from "../../store/session";
 import "./DeleteUserProfileModal.css";
-
+/* eslint-disable react/prop-types */
 
 
 

@@ -4,7 +4,7 @@ import { useModal } from "../../context/Modal";
 import commentIcon from ".././logos/send-comment.png";
 import { editCommentThunk } from "../../store/comments";
 import "./EditCommentModal.css";
-
+/* eslint-disable react/prop-types */
 
 
 function EditCommentModal({props}) {

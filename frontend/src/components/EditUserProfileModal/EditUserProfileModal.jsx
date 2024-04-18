@@ -6,13 +6,13 @@ import { Navigate } from "react-router-dom";
 import { editUserProfileThunk } from "../../store/userProfiles";
 import "./EditUserProfileModal.css";
 import educationLogo from "../logos/education-logo.png"
-import profileImageLogo from "../logos/profile-image-icon.png";
-import ageIcon from "../logos/age-icon.png";
+// import profileImageLogo from "../logos/profile-image-icon.png";
+// import ageIcon from "../logos/age-icon.png";
 import workLogo from "../logos/work-logo-black.png";
 import homeIcon from "../logos/home-icon.png"
 import activityLogo from "../logos/activity-logo.png"
 import { authenticate } from "../../store/session";
-
+/* eslint-disable react/prop-types */
 
 
 function EditUserProfileModal(props) {
@@ -58,7 +58,7 @@ const [checkedScubaDiving, setCheckedScubaDiving] = useState(userProfile.scuba_d
 const [checkedHorsebackRiding, setCheckedHorsebackRiding] = useState(userProfile.horseback_riding);
 const [checkedYoga, setCheckedYoga] = useState(userProfile.yoga);
 const [checkedBoxing, setCheckedBoxing] = useState(userProfile.boxing);
-const [errors, setErrors] = useState({});
+// const [errors, setErrors] = useState({});
 const [isLoaded,setIsLoaded]=useState(false);
 
 
@@ -82,7 +82,7 @@ const handleSubmit =async(e) => {
     e.preventDefault();
 
 
-    setErrors({});
+    // setErrors({});
     const formData = new FormData();
     formData.append("user_id",sessionUser.id);
     formData.append("condo_id",sessionUser.condo_id);
@@ -119,7 +119,7 @@ const handleSubmit =async(e) => {
 
 
 
-    await dispatch(editUserProfileThunk(formData,profileId)).then(res=>closeModal()).then(()=>{return<Navigate to="/profile"/>}).catch(
+    await dispatch(editUserProfileThunk(formData,profileId)).then(closeModal()).then(()=>{return<Navigate to="/profile"/>}).catch(
         async (res) => {
 
          console.log(res)

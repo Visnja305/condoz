@@ -19,7 +19,7 @@ const UsersLiveChat = () => {
 
   const [chatRoomInitiated, setChatRoomInitiated] = useState([]);
   const [chatRoomInvited, setChatRoomInvited] = useState([]);
-  const [recPayload,setRecPayload]=useState("");
+
 
   const sessionUser = useSelector((state) => state.session.user);
   const users = useSelector((state) => state.users);
@@ -187,7 +187,7 @@ removingExtraChats(chatRoomInitiated,"invitedUserProfileId")
         <p>Users</p>
         <ul>
           {onlineUsers.map((user) => (
-            <li>
+            <li key={`${user.id}`}>
               {user.first_name} {user.last_name}{" "}
               <img src={onlineUser} id="online-offline-user-circle" />
               <button onClick={(e) => handleBeginChat(e, user.profile_id)}>
@@ -198,7 +198,7 @@ removingExtraChats(chatRoomInitiated,"invitedUserProfileId")
         </ul>
         <ul>
           {offlineUsers.map((user) => (
-            <li>
+            <li key={`${user.id}`}>
               {user.first_name} {user.last_name}{" "}
               <img src={offlineUser} id="online-offline-user-circle" />{" "}
             </li>
@@ -208,12 +208,12 @@ removingExtraChats(chatRoomInitiated,"invitedUserProfileId")
       <div>
         <h1>Chats initiated</h1>
         { chatRoomInitiated?.length!==0  &&
-          chatRoomInitiated.map((roomData) => <LiveChat props={roomData} />)}
+          chatRoomInitiated.map((roomData) => <div key={`${roomData.room}`}><LiveChat props={roomData} /></div>)}
       </div>
       <div>
         <h1>Chats invited</h1>
         {  chatRoomInvited?.length!==0 &&
-          chatRoomInvited.map((roomData) => <LiveChat props={roomData} />)}
+          chatRoomInvited.map((roomData) =><div key={`${roomData.room} `}><LiveChat props={roomData} /></div> )}
       </div>
     </>
   );

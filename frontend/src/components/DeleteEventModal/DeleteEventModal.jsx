@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteEventThunk } from "../../store/events";
 import "./DeleteEventModal.css";
-
+/* eslint-disable react/prop-types */
 
 
 

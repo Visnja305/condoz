@@ -3,12 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUserByProfileIdThunk } from "../../store/users";
 import { io } from "socket.io-client";
 import "./LiveChat.css";
+/* eslint-disable react/prop-types */
 
 let socket;
 
 function LiveChat({ props }) {
   console.log(props);
-  const theArr=props.handleInvitedChatsArr
+//   const theArr=props.handleInvitedChatsArr
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.session.user);
@@ -74,7 +75,7 @@ socket=io()
     // };
   }, [chatroom]);
 
-  const handleConnect = async (e) => {
+  const handleConnect = async () => {
     console.log("trying to connect");
     const payload = {
       user,
@@ -142,7 +143,7 @@ socket=io()
             <div
               ref={messageBox}
               className="message-container"
-              key={`${idx}-${new Date().getTime()}`}
+              key={`${idx}`}
             >
               <p>{message.msg}</p>
               <p>{message.user}</p>

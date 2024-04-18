@@ -12,7 +12,7 @@ function HomePage(){
     const dispatch = useDispatch();
 
     const [isHovering, setIsHovering] = useState(false);
-    const [isClicked,setIsClicked]=useState(false)
+    // const [isClicked,setIsClicked]=useState(false)
 
 
  useEffect(() => {
@@ -25,14 +25,14 @@ function HomePage(){
         setIsHovering(true);
       };
 
-      const handleMouseOut = () => {
-        setIsHovering(false);
-      };
-const onClick=()=>{
+    //   const handleMouseOut = () => {
+    //     setIsHovering(false);
+    //   };
+// const onClick=()=>{
 
-  setIsClicked(true)
+//   setIsClicked(true)
 
-}
+// }
 const location=useLocation()
 
 
@@ -56,7 +56,7 @@ const location=useLocation()
           {(
           condos.map((condo) =>
 
-          <div key={condo.id} className="imgLink">
+          <div key={`${condo.id}`} className="imgLink">
 
 
 
