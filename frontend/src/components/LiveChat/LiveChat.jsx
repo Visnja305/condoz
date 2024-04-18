@@ -57,7 +57,7 @@ function LiveChat({ props }) {
     // if(env==='production'){socket=io(renderdatabase)}
 
     if (process.env.NODE_ENV === 'production'){
-        socket=io("ws://condoz.onrender.com")
+        socket=io("https://condoz.onrender.com")
     }
 else{
 socket=io()
