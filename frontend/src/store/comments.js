@@ -121,16 +121,18 @@ const initialState = {
 
 // reducer
 const comments = (state = initialState, action) => {
-  
+
   switch (action.type) {
     case GET_COMMENTS:
+      const { eventId } = action;
+      const {comments}=action;
       const currentEventComments = action.comments.reduce(
         (acc, comment) => ({ ...acc, [comment.id]: comment}),
         {}
       );
       return {
         ...state,
-        currentEventComments: { ...state.currentEventComments, ...currentEventComments },
+        currentEventComments: { ...state.currentEventComments,[eventId]:comments },
 
       };
 

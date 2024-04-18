@@ -67,11 +67,12 @@ export const getUserByProfileIdThunk=(id)=>async (dispatch)=>{
 
 
 		dispatch(getUserByProfileId(user));
-		
+
         return user
 	}
 return response
 }
+
 
 const users=(state = {}, action)=> {
     let new_state={}

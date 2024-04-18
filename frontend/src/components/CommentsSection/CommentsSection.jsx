@@ -15,14 +15,16 @@ import EditCommentModal from "../EditCommentModal";
 function CommentsSection({eventId}) {
 
   const dispatch = useDispatch();
-  // const history = useHistory();
-  const comments = Object.values(useSelector((state) => state.comments.currentEventComments))
 
-  // const comments = Object.values(useSelector((state) => state.comments));
+  const eventComments = useSelector((state) => state.comments.currentEventComments[eventId])
+  let fromMostRecentEventComments
+  if(eventComments){
+  fromMostRecentEventComments=eventComments.reverse();
+  }
   const profiles=useSelector((state)=>state.userProfiles);
   const sessionUser=useSelector((state)=>state.session.user);
-  const eventComments=comments.filter(comment=>comment.event_id==eventId)
-  const fromMostRecentEventComments=eventComments.reverse();
+
+
   const [comment, setComment] = useState("");
   const [error,setError]=useState("")
 
@@ -98,7 +100,7 @@ setError("")
 
           </form>
           <div className="view-all-comments-for-event">
-          {fromMostRecentEventComments.map(comment=>(
+          {fromMostRecentEventComments?.map(comment=>(
             <div id="comment" key={`${comment.id}-${new Date().getTime()}`}>
 
 
