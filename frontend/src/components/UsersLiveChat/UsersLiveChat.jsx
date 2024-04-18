@@ -74,12 +74,13 @@ const UsersLiveChat = () => {
       room: room
     };
 
-    if (process.env.NODE_ENV === 'production'){
-        socket=io("wss://condoz.onrender.com")
-    }
-else{
-socket=io()
-}
+//     if (process.env.NODE_ENV === 'production'){
+//         socket=io("wss://condoz.onrender.com")
+//     }
+// else{
+// socket=io()
+// }
+socket=io();
     socket.emit("notification", payload);
     payload.handleInvitedChatsArr= handleInvitedChatsArr;
     payload.handleInitiatedChatsArr=handleInitiatedChatsArr;
@@ -119,12 +120,13 @@ socket=io()
 
   useEffect(() => {
 
-    if (process.env.NODE_ENV === 'production'){
-        socket=io("wss://condoz.onrender.com")
-    }
-else{
-socket=io()
-}
+//     if (process.env.NODE_ENV === 'production'){
+//         socket=io("wss://condoz.onrender.com")
+//     }
+// else{
+// socket=io()
+// }
+socket=io();
     socket.on("notification", async (payload)=> {
 
       if (

@@ -56,12 +56,13 @@ function LiveChat({ props }) {
   useEffect(() => {
     // if(env==='production'){socket=io(renderdatabase)}
 
-    if (process.env.NODE_ENV === 'production'){
-        socket=io("wss://condoz.onrender.com")
-    }
-else{
+//     if (process.env.NODE_ENV === 'production'){
+//         socket=io("wss://condoz.onrender.com")
+//     }
+// else{
+// socket=io()
+// }
 socket=io()
-}
     // socket=io("ws://localhost:8000")
     socket.on("chat", (data) => {
       setMessages((prev) => [...prev, data]);
