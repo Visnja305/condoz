@@ -56,7 +56,7 @@ const location=useLocation()
           {(
           condos.map((condo) =>
 
-          <div key={`${condo.id}`} className="imgLink">
+          <div key={`${condo.id}-${new Date().getTime()}`} className="imgLink">
 
 
 

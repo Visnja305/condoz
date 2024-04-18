@@ -143,7 +143,7 @@ socket=io()
             <div
               ref={messageBox}
               className="message-container"
-              key={`${idx}`}
+              key={`${idx}-${new Date().getTime()}`}
             >
               <p>{message.msg}</p>
               <p>{message.user}</p>

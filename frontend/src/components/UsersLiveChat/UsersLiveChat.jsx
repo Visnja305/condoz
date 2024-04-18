@@ -187,7 +187,7 @@ removingExtraChats(chatRoomInitiated,"invitedUserProfileId")
         <p>Users</p>
         <ul>
           {onlineUsers.map((user) => (
-            <li key={`${user.id}`}>
+            <li key={`${user.id}-${new Date().getTime()}`}>
               {user.first_name} {user.last_name}{" "}
               <img src={onlineUser} id="online-offline-user-circle" />
               <button onClick={(e) => handleBeginChat(e, user.profile_id)}>
@@ -198,7 +198,7 @@ removingExtraChats(chatRoomInitiated,"invitedUserProfileId")
         </ul>
         <ul>
           {offlineUsers.map((user) => (
-            <li key={`${user.id}`}>
+            <li key={`${user.id}-${new Date().getTime()}`}>
               {user.first_name} {user.last_name}{" "}
               <img src={offlineUser} id="online-offline-user-circle" />{" "}
             </li>
@@ -213,7 +213,7 @@ removingExtraChats(chatRoomInitiated,"invitedUserProfileId")
       <div>
         <h1>Chats invited</h1>
         {  chatRoomInvited?.length!==0 &&
-          chatRoomInvited.map((roomData) =><div key={`${roomData.room} `}><LiveChat props={roomData} /></div> )}
+          chatRoomInvited.map((roomData) =><div key={`${roomData.room}`}><LiveChat props={roomData} /></div> )}
       </div>
     </>
   );

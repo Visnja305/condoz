@@ -74,7 +74,7 @@ function BuildingProfile(){
      <form onSubmit={handleSubmit} className="enter-building-profile-form">
         <ul>
           {errors.map((error, idx) => (
-            <li key={`${idx}`}>{error}</li>
+            <li key={`${idx}-${new Date().getTime()}`}>{error}</li>
           ))}
         </ul>
         <p>{message}</p>

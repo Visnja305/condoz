@@ -68,7 +68,7 @@ else{
         <p>Work: {userProfile?.work}</p>
         <p>Hometown: {userProfile?.hometown}</p>
         <p>Interests: <ul>{Object.keys(userProfile).map((a)=>(
- userProfile[a]===true && <li key={`${a}`}>{a}</li>
+ userProfile[a]===true && <li key={`${a}-${new Date().getTime()}`}>{a}</li>
 
 ))}
         </ul>

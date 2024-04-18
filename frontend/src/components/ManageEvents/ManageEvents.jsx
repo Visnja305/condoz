@@ -40,11 +40,11 @@ const currentUserEvents=events.filter(event=>event?.organizer_id===user?.id)
     return (
 <>{isLoaded && currentUserEvents.length===0 && <p>There is no events.</p>}
 {isLoaded && currentUserEvents.map(event=>(
-   <div className="manage-events-event" key={`${event.id}`}> <p>{event.location_name},{event.time.slice(0,22)}</p>
+   <div className="manage-events-event" key={`${event.id}-${new Date().getTime()}`}> <p>{event.location_name},{event.time.slice(0,22)}</p>
    <p>{event.details}</p>
    <p>{event.need_people_total ? <span>{`Available room for ${event.left_room_for}/out of ${event.need_people_total}`}</span> : "Everyone is invited!"}</p>
    <p>Interests: <ul>{Object.keys(event).map((a)=>(
- event[a]===true && <li key={`${a}`}>{a}</li>
+ event[a]===true && <li key={`${a}-${new Date().getTime()}`}>{a}</li>
 
 ))}
         </ul>
