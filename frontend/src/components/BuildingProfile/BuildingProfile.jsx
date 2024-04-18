@@ -11,6 +11,7 @@ import validator from "validator";
 
 function BuildingProfile(){
     const {condoId}=useParams();
+    console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR",import.meta.env)
     // let history=useHistory();
     const navigate = useNavigate();
 

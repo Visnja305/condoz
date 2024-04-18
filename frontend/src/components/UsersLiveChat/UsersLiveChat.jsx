@@ -80,7 +80,7 @@ const UsersLiveChat = () => {
 // else{
 // socket=io()
 // }
-socket=io();
+socket=io(import.meta.env.PROD===true ? "https://condoz.onrender.com/socket.io" : "")
     socket.emit("notification", payload);
     payload.handleInvitedChatsArr= handleInvitedChatsArr;
     payload.handleInitiatedChatsArr=handleInitiatedChatsArr;
@@ -126,7 +126,7 @@ socket=io();
 // else{
 // socket=io()
 // }
-socket=io();
+socket=io(import.meta.env.PROD===true ? "https://condoz.onrender.com/socket.io" : "");
     socket.on("notification", async (payload)=> {
 
       if (
