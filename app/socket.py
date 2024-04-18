@@ -10,7 +10,7 @@ import os
 #     socket=SocketIO(cors_allowed_origins="*")
 if os.environ.get("FLASK_ENV") == "production":
     origins = [
-        "http://condoz.onrender.com"
+        "https://condoz.onrender.com"
 
     ]
 else:
