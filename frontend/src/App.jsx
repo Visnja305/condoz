@@ -18,7 +18,7 @@ import { authenticate } from "./store/session";
 function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const sessionUser = useSelector((state) => state.session.user);
+  // const sessionUser = useSelector((state) => state.session.user);
   useEffect(() => {
     const getData=()=>{
   dispatch(authenticate());
