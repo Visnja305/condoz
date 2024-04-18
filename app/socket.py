@@ -1,23 +1,18 @@
 from flask_socketio import SocketIO,emit,join_room,leave_room
 from flask import session
 import os
-# from app.model import Message
-# if env=='production' default what render url is
-# if os.environ.get('FLASK_ENV') == 'production':
-#     socket=SocketIO(cors_allowed_origins="https://condoz.onrender.com")
+
+socket=SocketIO(cors_allowed_origins="*")
+# if os.environ.get("FLASK_ENV") == "production":
+#     origins = [
+#         "https://condoz.onrender.com"
+
+#     ]
 # else:
+#     origins = "*"
 
-#     socket=SocketIO(cors_allowed_origins="*")
-if os.environ.get("FLASK_ENV") == "production":
-    origins = [
-        "https://condoz.onrender.com"
-
-    ]
-else:
-    origins = "*"
-
-# create your SocketIO instance
-socket = SocketIO(cors_allowed_origins=origins)
+# # create your SocketIO instance
+# socket = SocketIO(cors_allowed_origins=origins)
 @socket.on("chat")
 def handle_my_chat(data):
         print(data,"we are in the chat***********************************************")
