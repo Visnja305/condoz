@@ -38,6 +38,7 @@ const UsersLiveChat = () => {
   useEffect(() => {
     const getData = async () => {
       await dispatch(getUsersThunk());
+      console.log("from users live chat!!!!",isLoaded)
       setIsLoaded(true);
     };
     getData();

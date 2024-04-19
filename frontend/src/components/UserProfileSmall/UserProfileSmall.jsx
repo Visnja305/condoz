@@ -29,7 +29,7 @@ function UserProfileSmall({userId}){
             await dispatch(getUsersThunk())
             await dispatch(getProfileThunk(userId))
             setIsLoaded(true);
-
+            console.log("from user profile small!!!!",isLoaded)
         }
         getUsers();
 

@@ -32,6 +32,7 @@ const UserProfilePage =()=>{
             await dispatch(getCondosThunk())
             await dispatch(getUsersThunk())
             setIsLoaded(true);
+            console.log("from user profile page !!!!",isLoaded)
 
         }
         getData();
