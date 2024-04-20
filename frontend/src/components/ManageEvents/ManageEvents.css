@@ -1,3 +1,12 @@
 .manage-events-event{
+    display:flex;
+    flex-direction:column;
     border:solid;
+    margin: auto;
+    width:50%;
+    padding: 10px;
+    align-items: center;
+  justify-content: center;
+
+
 }

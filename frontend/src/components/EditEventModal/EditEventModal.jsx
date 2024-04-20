@@ -285,7 +285,7 @@ setCheckedOtherLocation(checkedUsersCondo);
 
 
 
-    return(<>
+    return(<div className="edit-event-modal-base">
         <p>Update information</p>
         <form className="edit-event-form" onSubmit={handleSubmit}>
 
@@ -457,7 +457,7 @@ setCheckedOtherLocation(checkedUsersCondo);
       </form>
 
 
-</>
+</div>
     )
 }
 

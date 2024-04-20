@@ -22,11 +22,13 @@ function DeleteEventModal({props}) {
 
 
     }
-    return(<>
+    return(<div className="delete-event-modal-base">
         <p>Are you sure you want to delete your event?</p>
+        <div className="delete-event-modal-buttons">
         <button onClick={handleOnClick}>Yes</button>
         <button onClick={closeModal}>No</button>
-</>
+        </div>
+</div>
     )
 }
 

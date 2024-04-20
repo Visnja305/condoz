@@ -7,4 +7,5 @@
 .edit-comment-modal-base{
     position:relative;
     z-index: 2000 !important;
+    padding:30px;
 }

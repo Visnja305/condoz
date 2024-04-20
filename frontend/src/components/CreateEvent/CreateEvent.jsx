@@ -87,7 +87,7 @@ if(checkedOtherLocation && location===""){
 else{
 
     setLocationError("")
-  
+
     const formData = new FormData();
     formData.append("organizer_id",sessionUser.id);
     formData.append("organizer_profile_id",sessionUser.profile_id);
@@ -235,7 +235,7 @@ if(!isLoaded){
 
 
 	return (
-		<div>
+		<div className="create-event-base">
             <h1>Create an Event!</h1>
 <form className="create-event-form" onSubmit={handleSubmit} >
 

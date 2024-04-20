@@ -3,9 +3,18 @@
     height:200px;
 }
 .user-profile-detail-information{
-    border:solid chocolate;
+    border:solid rgb(143, 130, 121);
+    padding: 20px;
 }
 #online-offline-user-icon{
     width:12px;
     height:12px;
+}
+.container-user-profile-detail-page{
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+  justify-content: center;
+  padding:20px;
+
 }

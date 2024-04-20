@@ -21,11 +21,13 @@ function DeleteCommentModal({props}) {
 
 
     }
-    return(<>
+    return(<div className="delete-comment-modal-base">
         <p>Delete comment?</p>
+        <div>
         <button onClick={handleOnClick}>Yes</button>
         <button onClick={closeModal}>No</button>
-</>
+        </div>
+</div>
     )
 }
 

@@ -1,4 +1,16 @@
 .create-event-form{
     display:flex;
     flex-direction:column;
+    border:solid;
+    margin: auto;
+    width:50%;
+    padding: 10px;
+    align-items: center;
+  justify-content: center;
+}
+.create-event-base{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  justify-content: center;
 }

@@ -46,7 +46,7 @@ function SignupFormPage() {
   }};
 
   return (
-    <>
+    <div className="signup-page-base">
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit} className="signup-form">
         <ul>
@@ -122,7 +122,7 @@ function SignupFormPage() {
 
         <button type="submit">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 
