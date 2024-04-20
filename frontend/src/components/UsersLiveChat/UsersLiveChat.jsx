@@ -40,6 +40,7 @@ const UsersLiveChat = () => {
       await dispatch(getUsersThunk());
       setIsLoaded(true);
     };
+    console.log("getUsersThunk from UsersLiveChat!!!!!!!!!!!!!!!!!!!")
     getData();
   }, [isLoaded]);
   useEffect(() => {

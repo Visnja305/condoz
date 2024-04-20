@@ -17,12 +17,18 @@ function CommentsSection({eventId}) {
   const dispatch = useDispatch();
 
   const eventComments = useSelector((state) => state.comments.currentEventComments[eventId])
-  let fromMostRecentEventComments
-  if(eventComments){
-  fromMostRecentEventComments=eventComments.reverse();
-  }
+
+//   console.log("All Comments from an event!!!!",eventComments)
+//   let fromMostRecentEventComments
+//   if(eventComments){
+//   fromMostRecentEventComments=eventComments.reverse();
+//   }
   const profiles=useSelector((state)=>state.userProfiles);
   const sessionUser=useSelector((state)=>state.session.user);
+  const mostRecentComments=eventComments?.reverse();
+
+
+//   console.log("looooooooooooooooooook here",mostRecentComments)
 
 
   const [comment, setComment] = useState("");
@@ -100,7 +106,7 @@ setError("")
 
           </form>
           <div className="view-all-comments-for-event">
-          {fromMostRecentEventComments?.map(comment=>(
+          {mostRecentComments?.map(comment=>(
             <div id="comment" key={`${comment.id}-${new Date().getTime()}`}>
 
 

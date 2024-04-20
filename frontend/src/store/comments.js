@@ -30,10 +30,10 @@ const editComment = (comment) => {
   }
 }
 
-const deleteComment = (id) => {
+const deleteComment = (id,eventId) => {
   return {
     type: DELETE_COMMENT,
-    id
+    id,eventId
   }
 }
 
@@ -105,9 +105,12 @@ export const deleteCommentThunk = (commentId) => async (dispatch) => {
 
 });
 if (response.ok) {
-  const id = await response.json();
+  const res = await response.json();
 
-  dispatch(deleteComment(id));
+  const id=res.id;
+  const eventId=res.event_id;
+
+  dispatch(deleteComment(id,eventId));
   return "Comment removed";
 }
 return response
@@ -126,34 +129,45 @@ const comments = (state = initialState, action) => {
     case GET_COMMENTS:
       const { eventId } = action;
       const {comments}=action;
-      const currentEventComments = action.comments.reduce(
-        (acc, comment) => ({ ...acc, [comment.id]: comment}),
-        {}
-      );
+      // const currentEventComments = action.comments.reduce(
+      //   (acc, comment) => ({ ...acc, comment}),
+      //   {}
+      // );
+      console.log(comments)
       return {
         ...state,
         currentEventComments: { ...state.currentEventComments,[eventId]:comments },
 
       };
 
+
       // action.comments.map((comment) => new_state[comment.id] = comment)
       // return {...state,[action.eventId]:new_state}
     case ADD_COMMENT:
       const newComment=action.comment;
+      const newPlusPreviousComments=[...state.currentEventComments[newComment.event_id],newComment]
       return {
         ...state,
         allComments: { ...state.allComments, [newComment.id]: newComment },
-        currentEventComments: { ...state.currentEventComments, [newComment.id]: newComment },
+        currentEventComments: { ...state.currentEventComments, [newComment.event_id]: newPlusPreviousComments },
       };
 
 
       // return { ...state, [action.comment.id]: action.comment };
     case EDIT_COMMENT:
       const newComm=action.comment;
+      const newPlusPrevComments=[...state.currentEventComments[newComm.event_id]]
+      newPlusPrevComments.forEach((comm)=>{
+        if(comm.id===newComm.id){
+          comm.content=newComm.content
+        }
+
+      })
+
       return {
         ...state,
-        allComments: { ...state.allComments, [newComm.id]: newComm },
-        currentEventComments: { ...state.currentEventComments, [newComm.id]: newComm },
+        allComments: { ...state.allComments, ...state.allComments[newComm.id]= newComm },
+        currentEventComments: {...state.currentEventComments, [newComm.event_id]:newPlusPrevComments },
       };
 
 
@@ -161,8 +175,15 @@ const comments = (state = initialState, action) => {
     case DELETE_COMMENT:
       const newAllComments = { ...state.allComments };
       delete newAllComments[action.id];
-      const newCurrentEventComments = { ...state.currentEventComments };
-      delete newCurrentEventComments[action.id];
+      const newCurrentEventComments = {...state.currentEventComments};
+      for(let i=0;i<newCurrentEventComments[action.eventId].length;i++){
+        if(comm.id===action.id){
+          console.log("???????????????++++++++++",newCurrentEventComments[action.eventId][index])
+ newCurrentEventComments[action.eventId].splice(i,1);
+i--;
+
+        }
+      }
       return {
         ...state,
         allComments: newAllComments,

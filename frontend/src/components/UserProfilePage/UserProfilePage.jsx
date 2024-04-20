@@ -71,25 +71,7 @@ setSendInterest(checkedInterest);
 
 }
 
-// const handleGoToChat=async(e,id)=>{
-//     e.preventDefault();
-//     socket=io()
-//    const chatroom= getRandomInt(1,1000);
-// //    await dispatch(addChatNotificationThunk(room,id))
-//  setPayload({
-//     initiatorProfileId:sessionUser.profile_id,
-//     invitedUserProfileId:id,
-//     room:chatroom
 
-// })
-// setUserRequestChat(true)
-// setChatroom(chatroom)
-// // socket.emit("notification",payload)
-
-// //     history.push(`/live-chat/${chatroom}/${id}`)
-
-
-// }
 
     return(<>{sessionUser && <div>{sessionUser.has_profile==="no" &&<div>
         <p>Join the community</p>
