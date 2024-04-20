@@ -43,7 +43,7 @@ else{
 
 
 
-    return(<>
+    return(<div className="edit-comment-modal-base">
         <p>Update comment</p>
         <p>{error}</p>
         <form className="edit-comment-form" onSubmit={handleSubmit}>
@@ -63,7 +63,7 @@ else{
       </form>
 
 
-</>
+</div>
     )
 }
 

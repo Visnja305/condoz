@@ -101,6 +101,12 @@ def delete_comment(comment_id):
     db.session.delete(comment)
     db.session.commit()
 
+    # res={
+    #    "id":comment.id,
+    #    "event_id":comment.event_id
+
+    # }
+
 
     return jsonify(comment.id), 200
   except Exception as e:

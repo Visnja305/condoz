@@ -72,7 +72,7 @@ function filterFunction(event){
 
 
     return (
-<><h1>Events</h1>
+<div className="show-events-base"><h1>Events</h1>
 
 {props.location==="" && props.interest==="" &&
 <div> {events.map(event=>(
@@ -136,7 +136,7 @@ events.filter(filterFunction).map(event=>(
 
     </div>}
 
-</>
+</div>
     )
 }
 

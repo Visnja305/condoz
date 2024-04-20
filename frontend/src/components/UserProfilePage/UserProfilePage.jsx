@@ -92,7 +92,7 @@ setSendInterest(checkedInterest);
 
 // }
 
-    return(<>{sessionUser && <div>{sessionUser.has_profile==="no" &&<div>
+    return(<div className="user-profile-page-base">{sessionUser && <div className="if-session-user-profile-page-base">{sessionUser.has_profile==="no" &&<div className="if-user-has-profile-page">
         <p>Join the community</p>
 <OpenModalButton buttonText="Create a profile"
                     modalComponent={<CreateUserProfileModal  />}
@@ -189,7 +189,7 @@ setSendInterest(checkedInterest);
 
 
 
-    </div>}</div>  }</>)
+    </div>}</div>  }</div>)
 }
 
 export default UserProfilePage;
