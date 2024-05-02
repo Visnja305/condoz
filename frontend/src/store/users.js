@@ -32,7 +32,7 @@ const getUserByProfileId=(offline,online)=>({
 const getOnlineAndOfflineUsers=(offline,online)=>({
 	type:GET_ONLINE_AND_OFFLINE_USERS,
 	online,offline
-	
+
 })
 
 export const getUserThunk = (userId) => async (dispatch) => {
@@ -128,7 +128,6 @@ const users=(state = {}, action)=> {
 			action.users.map((user) => new_state[user.id] = user)
             return new_state
 		case GET_ONLINE_AND_OFFLINE_USERS:
-			console.log("from REDUX",action.online)
 
 			return {...state,["onlineUsers"]:action.online,["offlineUsers"]:action.offline}
 

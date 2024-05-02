@@ -12,7 +12,7 @@ import ShowEvents from "../ShowEvents";
 const UserProfilePage =()=>{
 
     const dispatch=useDispatch();
-    // const history=useHistory();
+
     const [isLoaded,setIsLoaded]=useState(false);
     const [checkedLocation,setCheckedLocation]=useState("");
     const [checkedInterest,setCheckedInterest]=useState("");
@@ -22,9 +22,9 @@ const UserProfilePage =()=>{
 
     const [isReset,setIsReset]=useState(false)
     const sessionUser = useSelector((state) => state.session.user);
-    // const users=useSelector((state)=>state.users)
-    const condos=useSelector((state)=>state.condos);
 
+    const condos=useSelector((state)=>state.condos);
+console.log("RENDER FROM USER PROFILE PAGE")
     useEffect(() => {
 
         const getData=async()=>{

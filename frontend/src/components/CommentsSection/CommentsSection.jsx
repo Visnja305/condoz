@@ -33,16 +33,17 @@ function CommentsSection({eventId}) {
     const getInfo=async()=>{
         await dispatch(getCommentsThunk(eventId));
         await dispatch(getProfilesThunk());
+        console.log("from comments section!!!!")
 
 
 
-        setIsLoaded(true);
+        // setIsLoaded(true);
 
     }
     getInfo();
-},[isLoaded])
+},[eventId])
 
-
+console.log("RENDER FROM COMMENTS SECTION")
 
 
 

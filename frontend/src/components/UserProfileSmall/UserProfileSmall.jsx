@@ -28,7 +28,7 @@ function UserProfileSmall({userId}){
         const getUsers=async()=>{
             await dispatch(getUsersThunk())
             await dispatch(getProfileThunk(userId))
-            setIsLoaded(true);
+            // setIsLoaded(true);
             console.log("from user profile small!!!!",isLoaded)
         }
         getUsers();
@@ -38,9 +38,9 @@ function UserProfileSmall({userId}){
 
 
 
-    },[isLoaded])
+    },[userId])
 
-
+ console.log("RENDER FROM USER PROFILE SMALL")
 
 
 
