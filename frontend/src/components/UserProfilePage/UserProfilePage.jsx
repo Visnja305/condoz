@@ -175,7 +175,7 @@ setSendInterest(checkedInterest);
              </div>
              <div className="users-on-user-profile-page">
              <NavLink
-            exact to="/live-chat"
+            exact to={`/live-chat/${sessionUser.id}`}
              >Live chat</NavLink>
 
 

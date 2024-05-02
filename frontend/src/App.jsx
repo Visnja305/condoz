@@ -49,7 +49,7 @@ const router = createBrowserRouter([
       { path: "/condos/:condoId", element: <BuildingProfile/> },
       { path: "/profile" , element: <UserProfilePage /> },
       { path: "/:condoId/signup", element: <SignupFormPage /> },
-      { path: "/live-chat", element: <UsersLiveChat /> },
+      { path: "/live-chat/:id", element: <UsersLiveChat /> },
       { path: "/user-profile/manage-events", element: <ManageEvents /> },
 
     ],

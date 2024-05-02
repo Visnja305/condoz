@@ -4,15 +4,19 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   Navigate
 } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import { io } from "socket.io-client";
 import LiveChat from "../LiveChat";
 import "./UsersLiveChat.css";
 import { getUsersThunk } from "../../store/users";
 import onlineUser from "../logos/online.png";
 import offlineUser from "../logos/offline.png";
+import {getOnlineAndOfflineUsersThunk} from "../../store/users";
 let socket;
 
 const UsersLiveChat = () => {
+  const {id}=useParams();
+
   const dispatch = useDispatch();
 
   const [isLoaded, setIsLoaded] = useState(false);
@@ -22,22 +26,17 @@ const UsersLiveChat = () => {
 
 
   const sessionUser = useSelector((state) => state.session.user);
-  const users = useSelector((state) => state.users);
-  const allUsers = Object.values(users).filter(
-    (user) => user?.id !== sessionUser?.id
-  );
-  const onlineUsers = allUsers.filter((user) => user.is_online == true);
-  const offlineUsers = allUsers.filter((user) => user.is_online == false);
+  const onlineUsers = useSelector((state) => state.users["onlineUsers"]);
 
-//   useEffect(()=>{
-// const getData=async()=>{
-//     await chatRoomInvited;
-//     await chatRoomInitiated
-// }
-//   },[chatRoomInitiated,chatRoomInvited])
+  const offlineUsers=useSelector((state) => state.users["offlineUsers"]);
+
+
   useEffect(() => {
     const getData = async () => {
       await dispatch(getUsersThunk());
+      // await dispatch(getOnlineUsersThunk());
+      // await dispatch(getOfflineUsersThunk());
+      await dispatch(getOnlineAndOfflineUsersThunk())
       console.log("from users live chat!!!!",isLoaded)
       setIsLoaded(true);
     };
@@ -93,31 +92,7 @@ socket=io()
 
   };
 
-//   useEffect(() => {
 
-//     socket = io();
-//    socket.on("notification", async (payload)=> {
-//     await setRecPayload(payload)
-//     });
-// const check=async()=>{
-//     if (
-//                 recPayload.invitedUserProfileId === sessionUser?.profile_id &&
-//                 recPayload.initiatorProfileId !== sessionUser?.profile_id && chatRoomInvited.filter(room=>Number(room.room)===Number(recPayload.room)).length===0
-//               ) {
-
-
-
-//                 recPayload.invited = true;
-//                 recPayload.handleInvitedChatsArr=handleInvitedChatsArr;
-//                 recPayload.handleInitiatedChatsArr=handleInitiatedChatsArr;
-
-//                 await setChatRoomInvited((prev) => [...prev, recPayload]);
-
-//               }
-
-//             }
-//             check();
-//   }, []);
 
 
   useEffect(() => {
@@ -189,7 +164,7 @@ removingExtraChats(chatRoomInitiated,"invitedUserProfileId")
       <div className="users-on-usersLiveChat">
         <p>Users</p>
         <ul>
-          {onlineUsers.map((user) => (
+          {onlineUsers?.map((user) => user.id!==sessionUser.id && (
             <li key={`${user.id}-${new Date().getTime()}`}>
               {user.first_name} {user.last_name}{" "}
               <img src={onlineUser} id="online-offline-user-circle" />
@@ -197,10 +172,10 @@ removingExtraChats(chatRoomInitiated,"invitedUserProfileId")
                 Chat
               </button>{" "}
             </li>
-          ))}
+          ) )}
         </ul>
         <ul>
-          {offlineUsers.map((user) => (
+          {offlineUsers?.map((user) => (
             <li key={`${user.id}-${new Date().getTime()}`}>
               {user.first_name} {user.last_name}{" "}
               <img src={offlineUser} id="online-offline-user-circle" />{" "}
@@ -225,9 +200,4 @@ removingExtraChats(chatRoomInitiated,"invitedUserProfileId")
 export default UsersLiveChat;
 
 
-// if(chatRoomInitiated.length!==0){
-//     setChatroomInitiated((prev) => [...prev, payload]);
-//     }
-//     if(chatRoomInitiated.length===0){
-//     setChatroomInitiated([payload])
-//     }
+
