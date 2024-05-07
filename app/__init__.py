@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, send_from_directory
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
@@ -100,7 +100,7 @@ def react_root(path):
     or index.html requests
     """
     if path == 'favicon.ico':
-        return "", 200
+        return app.send_from_directory('public', 'favicon.ico')
     return app.send_static_file('index.html')
 
 
