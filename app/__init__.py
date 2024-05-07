@@ -86,13 +86,13 @@ def api_help():
                     for rule in app.url_map.iter_rules() if rule.endpoint != 'static' }
     return route_list
 
-
+@app.route("/favicon.ico")
+def favicon():
+    return "", 200
 
 @app.route('/', defaults={'path': ''})
 
-# @app.route("/favicon.ico")
-# def favicon():
-#     return "", 200
+
 
 @app.route('/<path:path>')
 def react_root(path):
