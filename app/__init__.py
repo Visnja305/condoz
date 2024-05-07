@@ -86,11 +86,14 @@ def api_help():
                     for rule in app.url_map.iter_rules() if rule.endpoint != 'static' }
     return route_list
 
+
+
+@app.route('/', defaults={'path': ''})
+
 @app.route("/favicon.ico")
 def favicon():
     return "", 200
 
-@app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def react_root(path):
     """
@@ -98,8 +101,8 @@ def react_root(path):
     react builds in the production environment for favicon
     or index.html requests
     """
-    # if path == 'favicon.ico':
-    #     return app.send_from_directory('public', 'favicon.ico')
+    if path == 'favicon.ico':
+        return app.send_from_directory('public', 'favicon.ico')
     return app.send_static_file('index.html')
 
 
