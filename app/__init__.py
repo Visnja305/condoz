@@ -90,9 +90,9 @@ def api_help():
 
 @app.route('/', defaults={'path': ''})
 
-@app.route("/favicon.ico")
-def favicon():
-    return "", 200
+# @app.route("/favicon.ico")
+# def favicon():
+#     return "", 200
 
 @app.route('/<path:path>')
 def react_root(path):
