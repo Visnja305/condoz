@@ -90,9 +90,7 @@ def api_help():
 
 @app.route('/', defaults={'path': ''})
 
-@app.route("/<path:favicon.ico>")
-def favicon(path):
-    return url_for('static',filename='index.html')
+
 
 # @app.route("/favicon.ico")
 # def favicon(path):
