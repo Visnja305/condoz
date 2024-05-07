@@ -94,6 +94,9 @@ def api_help():
 # def favicon(path):
 #     return url_for('static', filename='data:,')
 
+@app.route("/favicon.ico")
+def favicon(path):
+    return send_from_directory(app.static_folder, 'favicon.ico')
 
 @app.route('/<path:path>')
 def react_root(path):
@@ -103,8 +106,8 @@ def react_root(path):
     or index.html requests
     """
     if path == 'favicon.ico':
-        # return app.send_from_directory('public', 'favicon.ico')
-        return url_for('static', filename='data:,')
+        return app.send_from_directory('public', 'favicon.ico')
+
     return app.send_static_file('index.html')
 
 
