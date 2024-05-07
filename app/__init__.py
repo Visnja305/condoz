@@ -90,13 +90,17 @@ def api_help():
 
 @app.route('/', defaults={'path': ''})
 
+@app.route("/favicon.ico")
+def favicon():
+    return url_for('static')
+
 # @app.route("/favicon.ico")
 # def favicon(path):
 #     return url_for('static', filename='data:,')
 
-@app.route("/<path:favicon.ico>")
-def favicon(path):
-    return send_from_directory(app.static_folder, 'favicon.ico')
+# @app.route("/<path:favicon.ico>")
+# def favicon(path):
+#     return send_from_directory(app.static_folder, 'favicon.ico')
 
 @app.route('/<path:path>')
 def react_root(path):
