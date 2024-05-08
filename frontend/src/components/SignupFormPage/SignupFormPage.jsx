@@ -50,7 +50,7 @@ function SignupFormPage() {
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit} className="signup-form">
         <ul>
-          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+          {errors.map((error, idx) => <li key={`${error}-sfp`}>{error}</li>)}
         </ul>
         <label>
           Email

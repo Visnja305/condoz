@@ -76,25 +76,25 @@ function filterFunction(event){
 
 {props.location==="" && props.interest==="" &&
 <div> {events.map(event=>(
-   <div className="show-events-event" key={`${event.id}-${new Date().getTime()}`}>
-    <div className="show-event" key={`${event.id}-${new Date().getTime()} -inner`}>
+   <div className="show-events-event" key={`${event.id}-se`}>
+    <div className="show-event" >
    <p>{event.location_name},{event?.time.slice(0,22)}</p>
    <p>{event.details}</p>
    <p>{event.need_people_total ? <span>{`Available room for ${event.left_room_for}/out of ${event.need_people_total}`}</span> : "Everyone is invited!"}</p>
    <p>Interests: <ul>{Object.keys(event).map((a)=>(
- event[a]===true && <li key={`${a}-${new Date().getTime()}`}>{a}</li>
+ event[a]===true && <li key={`${a}-se`}>{a}</li>
 
 ))}
         </ul>
         </p>
    <p>Organized by: </p>
 
-   <UserProfileSmall key={`${event.id}-${new Date().getTime()}-theUserProfileSmall`}userId={event.organizer_id} />
+   <UserProfileSmall userId={event.organizer_id} />
    <p>Created/last updated:{event.time_created.slice(0,22)}</p>
    </div>
-   <div className="show-event-comments" key={`${event.id}-${new Date().getTime()}-inner2`}>
+   <div className="show-event-comments" >
 
-<CommentsSection key={`${event.id}-${new Date().getTime()}-theComSection`} eventId={event.id}/>
+<CommentsSection eventId={event.id}/>
 
    </div>
    </div>
@@ -107,25 +107,25 @@ function filterFunction(event){
 
 
 events.filter(filterFunction).map(event=>(
-   <div className="show-events-event" key={`${event.id}-${new Date().getTime()}`} >
-    <div className="show-event" key={`${event.id}-${new Date().getTime()}-inner`} >
+   <div className="show-events-event" key={`${event.id}-sef`} >
+    <div className="show-event" >
    <p>{event.location_name},{event.time.slice(0,22)}</p>
    <p>{event.details}</p>
    <p>{event.need_people_total ? <span>{`Available room for ${event.left_room_for}/out of ${event.need_people_total}`}</span> : "Everyone is invited!"}</p>
    <p>Interests: <ul>{Object.keys(event).map((a)=>(
- event[a]===true && <li key={`${a}-${new Date().getTime()}`}>{a}</li>
+ event[a]===true && <li key={`${a}-sef`}>{a}</li>
 
 ))}
         </ul>
         </p>
    <p>Organized by: </p>
 
-   <UserProfileSmall key={`${event.id}-${new Date().getTime()}-theUserProfileSmall2`} userId={event.organizer_id} />
+   <UserProfileSmall userId={event.organizer_id} />
    <p>Created/last updated:{event.time_created.slice(0,22)}</p>
    </div>
    <div className="show-event-comments">
 
-<CommentsSection key={`${event.id}-${new Date().getTime()}-theComSection2`} eventId={event.id}/>
+<CommentsSection eventId={event.id}/>
 
    </div>
    </div>

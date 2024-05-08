@@ -115,6 +115,7 @@ socket=io();
   };
   const sendChat = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
     if (newMsg) {
       const payload = {
         room: chatroom,
@@ -144,7 +145,7 @@ socket=io();
             <div
               ref={messageBox}
               className="message-container"
-              key={`${idx}-${new Date().getTime()}`}
+              key={`${message}-lc`}
             >
               <p>{message.msg}</p>
               <p>{message.user}</p>

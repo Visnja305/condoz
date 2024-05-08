@@ -122,7 +122,7 @@ setSendInterest(checkedInterest);
               <li>
                 Location:
                 {Object.values(condos).map((condo)=>(
-                <label key={`${condo.id}-${new Date().getTime()}`}>
+                <label key={`${condo.id}-upp`}>
                 {condo.name}
 
                 <input type="radio" value={condo.id} onChange = {(e)=>{handleChangeLocation(e)}} checked={Number(checkedLocation)===Number(condo.id)} />

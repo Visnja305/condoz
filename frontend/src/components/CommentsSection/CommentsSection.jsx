@@ -100,7 +100,7 @@ setError("")
           </form>
           <div className="view-all-comments-for-event">
           {fromMostRecentEventComments.map(comment=>(
-            <div id="comment" key={`${comment.id}-${new Date().getTime()}`}>
+            <div id="comment" key={`${comment.id}-cs`}>
 
 
             <div><img src={profiles[comment.author_id]?.profile_img} id="profile-img-from-comment-author"/></div>

@@ -25,7 +25,7 @@ function DeleteCommentModal({props}) {
         <p>Delete comment?</p>
         <div>
         <button onClick={handleOnClick}>Yes</button>
-        <button onClick={closeModal}>No</button>
+        <button onClick={()=>closeModal}>No</button>
         </div>
 </div>
     )

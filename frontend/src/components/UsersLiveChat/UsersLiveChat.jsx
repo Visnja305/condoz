@@ -165,7 +165,7 @@ removingExtraChats(chatRoomInitiated,"invitedUserProfileId")
         <p>Users</p>
         <ul>
           {onlineUsers?.map((user) => user.id!==sessionUser.id && (
-            <li key={`${user.id}-${new Date().getTime()}`}>
+            <li key={`${user.id}-ulc`}>
               {user.first_name} {user.last_name}{" "}
               <img src={onlineUser} id="online-offline-user-circle" />
               <button onClick={(e) => handleBeginChat(e, user.profile_id)}>
@@ -176,7 +176,7 @@ removingExtraChats(chatRoomInitiated,"invitedUserProfileId")
         </ul>
         <ul>
           {offlineUsers?.map((user) => (
-            <li key={`${user.id}-${new Date().getTime()}`}>
+            <li key={`${user.id}-ulco`}>
               {user.first_name} {user.last_name}{" "}
               <img src={offlineUser} id="online-offline-user-circle" />{" "}
             </li>
@@ -198,6 +198,3 @@ removingExtraChats(chatRoomInitiated,"invitedUserProfileId")
 };
 
 export default UsersLiveChat;
-
-
-

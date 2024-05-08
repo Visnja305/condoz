@@ -27,7 +27,7 @@ function DeleteUserProfileModal(props) {
     return(<>
         <p>Are you sure you want to delete your profile?</p>
         <button onClick={handleOnClick}>Yes</button>
-        <button onClick={closeModal}>No</button>
+        <button onClick={()=>closeModal}>No</button>
 </>
     )
 }

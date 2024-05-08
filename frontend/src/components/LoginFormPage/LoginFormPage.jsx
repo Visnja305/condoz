@@ -27,7 +27,7 @@ function LoginFormPage() {
       <form onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
+            <li key={`${error}-lfp`}>{error}</li>
           ))}
         </ul>
         <label>
