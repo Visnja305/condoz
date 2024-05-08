@@ -4,6 +4,7 @@ import "./ShowEvents.css";
 import { getEventsThunk } from "../../store/events";
 import UserProfileSmall from "../UserProfileSmall";
 import CommentsSection from "../CommentsSection";
+import { memo } from 'react';
 /* eslint-disable react/prop-types */
 
 function ShowEvents({props}){
@@ -18,6 +19,8 @@ function ShowEvents({props}){
 
     const events=Object.values(useSelector((state)=>state.events))
 
+    // const CommentsSectionMemo=memo(CommentsSection);
+    // const UserProfileSmallMemo=memo(UserProfileSmall)
     console.log("RENDER FROM SHOW EVENTS PAGE")
 
 
@@ -27,6 +30,7 @@ function ShowEvents({props}){
         const getData=async()=>{
             await dispatch(getEventsThunk());
             setIsLoaded(true);
+            console.log("from the show event useEffect")
 
         }
         getData();

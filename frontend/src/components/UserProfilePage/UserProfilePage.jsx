@@ -53,6 +53,7 @@ const handleChangeInterest=(e)=>{
 }
 const resetFilters=(e)=>{
     e.preventDefault();
+    e.stopPropagation();
     setCheckedLocation("");
     setCheckedInterest("");
     setSendLocation("")
@@ -101,15 +102,15 @@ setSendInterest(checkedInterest);
 
 </div>
     }{sessionUser.has_profile==="yes" &&<div className="links-when-user-has-profile">
-<NavLink activeClassName="user-profile-link-active"
+<NavLink
             className="user-profile-link"
             exact to={`/user-profile/${sessionUser.id}`}
              >Profile</NavLink>
-<NavLink activeClassName="user-profile-link-active"
+<NavLink
             className="create-event-link"
             exact to={`/my-profile/create-event`}
              >Create event</NavLink>
-<NavLink activeClassName="user-profile-link-active"
+<NavLink
             className=",manage-events-link"
             exact to={`/user-profile/manage-events`}
              >Manage events</NavLink>
