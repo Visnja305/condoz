@@ -26,7 +26,7 @@ function CommentsSection({eventId}) {
   const [comment, setComment] = useState("");
   const [error,setError]=useState("")
 
-  const [isLoaded,setIsLoaded]=useState(false)
+  // const [isLoaded,setIsLoaded]=useState(false)
 
   useEffect(() => {
 
@@ -41,7 +41,7 @@ function CommentsSection({eventId}) {
 
     }
     getInfo();
-},[eventId])
+},[])
 
 console.log("RENDER FROM COMMENTS SECTION")
 

@@ -14,7 +14,7 @@ function HomePage(){
     const [isHovering, setIsHovering] = useState(false);
     // const [isClicked,setIsClicked]=useState(false)
 
-
+console.log("home page");
  useEffect(() => {
       dispatch(getCondosThunk())
 

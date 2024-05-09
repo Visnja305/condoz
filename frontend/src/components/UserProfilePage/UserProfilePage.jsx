@@ -13,7 +13,7 @@ const UserProfilePage =()=>{
 
     const dispatch=useDispatch();
 
-    const [isLoaded,setIsLoaded]=useState(false);
+    // const [isLoaded,setIsLoaded]=useState(false);
     const [checkedLocation,setCheckedLocation]=useState("");
     const [checkedInterest,setCheckedInterest]=useState("");
     const [sendLocation,setSendLocation]=useState("");
@@ -23,31 +23,33 @@ const UserProfilePage =()=>{
     const [isReset,setIsReset]=useState(false)
     const sessionUser = useSelector((state) => state.session.user);
 
-    const condos=useSelector((state)=>state.condos);
+    // const condos=useSelector((state)=>state.condos);
 console.log("RENDER FROM USER PROFILE PAGE")
     useEffect(() => {
 
         const getData=async()=>{
 
             await dispatch(getCondosThunk())
-            await dispatch(getUsersThunk())
-            setIsLoaded(true);
-            console.log("from user profile page !!!!",isLoaded)
+            // await dispatch(getUsersThunk())
+            // setIsLoaded(true);
+            console.log("from user profile page !!!!")
 
         }
         getData();
-    },[isLoaded])
 
+    },[dispatch])
 
-    if(!sessionUser){return <Navigate to="/" />}
+    const condos=useSelector((state)=>state.condos);
+    // if(!sessionUser){return <Navigate to="/" />}
 const handleChangeLocation=(e)=>{
     setCheckedLocation(e.target.value);
     setIsReset(false);
 
 
 }
-const handleChangeInterest=(e)=>{
 
+const handleChangeInterest=(e)=>{
+    e.stopPropagation();
     setCheckedInterest(e.target.value);
     setIsReset(false);
 }
@@ -65,6 +67,7 @@ const resetFilters=(e)=>{
 
 const handleSubmit=async (e)=>{
     e.preventDefault();
+    e.stopPropagation();
 
 
 setSendLocation(checkedLocation);

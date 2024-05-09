@@ -14,8 +14,8 @@ function UserProfileSmall({userId}){
 
     const dispatch = useDispatch();
     const [isLoaded,setIsLoaded]=useState(false);
-    const userProfile=useSelector((state)=>state.userProfiles[userId])
-    const user=useSelector((state)=>state.users[userId])
+    const userProfile=useSelector((state)=>state.userProfiles[userId]);
+    const user=useSelector((state)=>state.users[userId]);
 
 
 
@@ -38,7 +38,7 @@ function UserProfileSmall({userId}){
 
 
 
-    },[userId])
+    },[])
 
  console.log("RENDER FROM USER PROFILE SMALL")
 

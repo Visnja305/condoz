@@ -14,7 +14,7 @@ function ShowEvents({props}){
 
 
     const dispatch = useDispatch();
-    const [isLoaded,setIsLoaded]=useState(false);
+    // const [isLoaded,setIsLoaded]=useState(false);
 
 
     const events=Object.values(useSelector((state)=>state.events))
@@ -29,7 +29,7 @@ function ShowEvents({props}){
 
         const getData=async()=>{
             await dispatch(getEventsThunk());
-            setIsLoaded(true);
+            // setIsLoaded(true);
             console.log("from the show event useEffect")
 
         }
@@ -40,7 +40,7 @@ function ShowEvents({props}){
 
 
 
-    },[isLoaded])
+    },[dispatch])
 
 function filterFunction(event){
     if(locationFilter==="other" && interestFilter===""){
