@@ -74,6 +74,9 @@ socket=io();
     //   socket.emit("leave", chatroom);
     //   socket.disconnect();
     // };
+    return (() => {
+      socket.disconnect()
+  })
   }, [chatroom]);
 
   const handleConnect = async () => {

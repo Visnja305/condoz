@@ -19,7 +19,7 @@ const UsersLiveChat = () => {
 
   const dispatch = useDispatch();
 
-  const [isLoaded, setIsLoaded] = useState(false);
+  // const [isLoaded, setIsLoaded] = useState(false);
 
   const [chatRoomInitiated, setChatRoomInitiated] = useState([]);
   const [chatRoomInvited, setChatRoomInvited] = useState([]);
@@ -38,13 +38,14 @@ const UsersLiveChat = () => {
       // await dispatch(getOfflineUsersThunk());
       await dispatch(getOnlineAndOfflineUsersThunk())
       console.log("from users live chat!!!!",isLoaded)
-      setIsLoaded(true);
+      // setIsLoaded(true);
     };
     getData();
-  }, [isLoaded]);
-  useEffect(() => {
-    console.log(chatRoomInitiated, chatRoomInvited);
-  }, [chatRoomInitiated, chatRoomInvited]);
+    return (() => {
+      socket.disconnect()
+  })
+  }, [dispatch]);
+
 
   function getRandomInt(min, max) {
     const minCeiled = Math.ceil(min);
