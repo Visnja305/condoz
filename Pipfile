@@ -28,6 +28,8 @@ flask = "*"
 pillow = "*"
 flask-socketio = "*"
 python-socketio = "*"
+gevent = "*"
+gevent-websocket = "*"
 
 [dev-packages]
 
