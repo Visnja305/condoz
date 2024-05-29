@@ -64,7 +64,7 @@ function LiveChat({ props }) {
 // socket=io()
 // }
 // socket=io(import.meta.env.PROD===true ? "https://condoz.onrender.com/socket.io" : "")
-socket=io();
+socket=io('https://condoz.onrender.com');
     // socket=io("ws://localhost:8000")
     socket.on("chat", (data) => {
       setMessages((prev) => [...prev, data]);

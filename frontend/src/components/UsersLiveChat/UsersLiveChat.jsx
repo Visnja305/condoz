@@ -37,7 +37,7 @@ const UsersLiveChat = () => {
       // await dispatch(getOnlineUsersThunk());
       // await dispatch(getOfflineUsersThunk());
       await dispatch(getOnlineAndOfflineUsersThunk())
-      console.log("from users live chat!!!!",isLoaded)
+      // console.log("from users live chat!!!!",isLoaded)
       // setIsLoaded(true);
     };
     getData();
@@ -82,7 +82,7 @@ const UsersLiveChat = () => {
 // socket=io()
 // }
 // socket=io(import.meta.env.PROD===true ? "https://condoz.onrender.com/socket.io" : "")
-socket=io()
+socket=io('https://condoz.onrender.com')
     socket.emit("notification", payload);
     payload.handleInvitedChatsArr= handleInvitedChatsArr;
     payload.handleInitiatedChatsArr=handleInitiatedChatsArr;
@@ -105,7 +105,7 @@ socket=io()
 // socket=io()
 // }
 // socket=io(import.meta.env.PROD===true ? "https://condoz.onrender.com/socket.io" : "");
-socket=io();
+socket=io('https://condoz.onrender.com');
     socket.on("notification", async (payload)=> {
 
       if (
@@ -121,6 +121,10 @@ socket=io();
 
       }
     });
+  //   return (() => {
+  //     socket.disconnect()
+  // })
+
   }, []);
 
 
