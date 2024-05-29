@@ -82,7 +82,7 @@ const UsersLiveChat = () => {
 // socket=io()
 // }
 // socket=io(import.meta.env.PROD===true ? "https://condoz.onrender.com/socket.io" : "")
-socket=io('https://condoz.onrender.com')
+socket=io('wss://condoz.onrender.com')
     socket.emit("notification", payload);
     payload.handleInvitedChatsArr= handleInvitedChatsArr;
     payload.handleInitiatedChatsArr=handleInitiatedChatsArr;
@@ -105,7 +105,7 @@ socket=io('https://condoz.onrender.com')
 // socket=io()
 // }
 // socket=io(import.meta.env.PROD===true ? "https://condoz.onrender.com/socket.io" : "");
-socket=io('https://condoz.onrender.com');
+socket=io('wss://condoz.onrender.com');
     socket.on("notification", async (payload)=> {
 
       if (
