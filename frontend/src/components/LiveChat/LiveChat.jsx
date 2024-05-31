@@ -42,6 +42,7 @@ function LiveChat({ props }) {
     }
   }, []);
   console.log(invitedUserOrInitiator);
+  console.log(messages,"!!!!!!!!!look here")
   useEffect(() => {
     if (connected && messageBox) {
       console.log(messageBox);
@@ -100,12 +101,14 @@ socket=io('wss://condoz.onrender.com');
       user,
       room: chatroom,
     };
+    socket=io('wss://condoz.onrender.com');
     socket.emit("leave", payload);
     socket.on("leave", async (data) => {
         console.log("socket leave 1")
       setMessages((prev) => [...prev, data]);
       console.log("socket leave 2")
     });
+    socket.disconnect()
     setConnected(false);
     console.log("handle disonnect 2")
     if (props.invited) {
@@ -115,6 +118,7 @@ socket=io('wss://condoz.onrender.com');
     }
 
     console.log("handle disonnect 3")
+
   };
   const sendChat = async (e) => {
     e.preventDefault();
@@ -148,7 +152,7 @@ socket=io('wss://condoz.onrender.com');
             <div
               ref={messageBox}
               className="message-container"
-              key={`${message}-lc`}
+              key={`${message.msg}-lc`}
             >
               <p>{message.msg}</p>
               <p>{message.user}</p>
