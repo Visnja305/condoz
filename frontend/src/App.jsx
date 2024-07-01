@@ -6,8 +6,9 @@ import BuildingProfile from "./components/BuildingProfile";
 import UserProfilePage from "./components/UserProfilePage";
 import SignupFormPage from "./components/SignupFormPage";
 import UserProfileDetailPage from "./components/UserProfileDetailPage"
-import CreateEvent from "./components/CreateEvent"
-import ManageEvents from "./components/ManageEvents"
+import CreateEvent from "./components/CreateEvent";
+import ManageEvents from "./components/ManageEvents";
+import Places from "./components/Places";
 import NavBar from "./components/NavBar";
 import UsersLiveChat from "./components/UsersLiveChat";
 
@@ -51,6 +52,7 @@ const router = createBrowserRouter([
       { path: "/:condoId/signup", element: <SignupFormPage /> },
       { path: "/live-chat/:id", element: <UsersLiveChat /> },
       { path: "/user-profile/manage-events", element: <ManageEvents /> },
+      { path: "/user-profile/places", element: <Places /> },
 
     ],
   },
