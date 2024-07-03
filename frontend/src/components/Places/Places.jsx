@@ -6,8 +6,30 @@ import { Loader } from "@googlemaps/js-api-loader"
 /* eslint-disable react/prop-types */
 
 function Places(){
+    const [googleMapAPI, setGoogleMapAPI] = useState();
+    useEffect(() => {
+        const fetchGoogleMapApiKey = async () => {
+          try {
+            const res = await fetch(`/api/places/googleMapKey`, {
+              method: "GET",
+            });
+
+            const data = await res.json();
+            // console.log(data.key);
+            if (data) {
+              setGoogleMapAPI(data.key);
+            }
+            // console.log(googleAPI);
+          } catch (e) {
+            return e
+          }
+        };
+
+        fetchGoogleMapApiKey();
+      }, []);
+      if (googleMapAPI){
     const loader = new Loader({
-        apiKey: "AIzaSyDT-2eTsngiC7PYb6IWkBmtnfi8giJ5-wg",
+        apiKey: googleMapAPI,
         version: "weekly",
         libraries:"places",
         callback:"initAutocomplete"
@@ -93,7 +115,7 @@ function Places(){
       loader.load().then(initAutocomplete());
     //   window.initAutocomplete = initAutocomplete;
 
-
+    }
     return(<>
 <div className="map-container">
     <div className="input-maps">
